@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 28.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Camada_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 48 48" style="enable-background:new 0 0 48 48;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);stroke:#120E08;stroke-miterlimit:10;}
+	.st1{fill:url(#SVGID_00000070813656089024915020000010236925819739073421_);stroke:#120E08;stroke-miterlimit:10;}
+	.st2{fill:url(#SVGID_00000086650059697272483750000015589869665427369871_);stroke:#120E08;stroke-miterlimit:10;}
+</style>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="12.066" y1="47.824" x2="34.891" y2="24.999" gradientTransform="matrix(1 0 0 -1 0 47.89)">
+	<stop  offset="0.237" style="stop-color:#FBDD12"/>
+	<stop  offset="0.85" style="stop-color:#F6A829"/>
+</linearGradient>
+<path class="st0" d="M43,15H5c-1.1,0-2-0.9-2-2v-2c0-1.1,0.9-2,2-2h38c1.1,0,2,0.9,2,2v2C45,14.1,44.1,15,43,15z"/>
+<linearGradient id="SVGID_00000151501781209905254660000007838477075711221403_" gradientUnits="userSpaceOnUse" x1="12.066" y1="35.824" x2="34.891" y2="12.999" gradientTransform="matrix(1 0 0 -1 0 47.89)">
+	<stop  offset="0.237" style="stop-color:#FBDD12"/>
+	<stop  offset="0.85" style="stop-color:#F6A829"/>
+</linearGradient>
+<path style="fill:url(#SVGID_00000151501781209905254660000007838477075711221403_);stroke:#120E08;stroke-miterlimit:10;" d="
+	M43,27H5c-1.1,0-2-0.9-2-2v-2c0-1.1,0.9-2,2-2h38c1.1,0,2,0.9,2,2v2C45,26.1,44.1,27,43,27z"/>
+<linearGradient id="SVGID_00000106834717861447959210000002581455831598464918_" gradientUnits="userSpaceOnUse" x1="12.066" y1="23.824" x2="34.891" y2="0.999" gradientTransform="matrix(1 0 0 -1 0 47.89)">
+	<stop  offset="0.237" style="stop-color:#FBDD12"/>
+	<stop  offset="0.85" style="stop-color:#F6A829"/>
+</linearGradient>
+<path style="fill:url(#SVGID_00000106834717861447959210000002581455831598464918_);stroke:#120E08;stroke-miterlimit:10;" d="
+	M43,39H5c-1.1,0-2-0.9-2-2v-2c0-1.1,0.9-2,2-2h38c1.1,0,2,0.9,2,2v2C45,38.1,44.1,39,43,39z"/>
+</svg>

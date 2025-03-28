@@ -1,0 +1,51 @@
+%!Adobe-FontList 1.24
+%Locale:0x416
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Bauhaus93
+FamilyName:Bauhaus 93
+StyleName:Regular
+FullName:Bauhaus 93
+MenuName:Bauhaus 93
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:C:\Users\gian.lvmendes\OneDrive\Px Lab´s (1)\Font\BAUHS93.ttf
+DataFormat:sfntData
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:49020
+FileModTime:1724765577
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Bauhaus 93
+NameArray:0,Win,1,Bauhaus 93
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Bauhaus93
+FamilyName:Bauhaus 93
+StyleName:Regular
+FullName:Bauhaus 93
+MenuName:Bauhaus 93
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:C:\Users\gian.lvmendes\OneDrive\Px Lab´s (1)\Font\Bauhaus 93 Regular.ttf
+DataFormat:sfntData
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:40344
+FileModTime:1724765577
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Bauhaus 93
+NameArray:0,Win,1,Bauhaus 93
+%EndFont
+

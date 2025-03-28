@@ -1,0 +1,2755 @@
+/* Estilo base para o header */
+@font-face {
+    font-family: "bauhau";
+    src: url('../font/BAUHS93.ttf') format('truetype'),
+         url('../font/Bauhaus\ 93\ Regular.ttf') format('woff'); 
+}
+@font-face {
+    font-family: "fonteMestre";
+    src: url('../font/impact.ttf') format('ttf'),
+         url('../font/impact.woff') format('woff'); 
+}
+
+body {
+    font-family: 'bauhau';
+    min-height: 100vh; /* Garante que o corpo ocupe toda a altura da tela */
+    display: flex;
+    flex-direction: column;
+
+}
+
+.dark{
+    background: rgb(27, 26, 26)
+}
+
+#enventos .dark{
+    background: rgb(27, 26, 26)
+}
+
+.img-light{
+    display: block;
+}
+.img-dark{
+    display: none;
+}
+
+.dark .img-light{
+    display: none;
+}
+.dark .img-dark{
+    display: block;
+}
+
+main {
+    flex: 1; /* Garante que o main ocupe o espaço disponível */
+    width: 100%;
+}
+.topoMenu .fecharMenu,
+.topoMenu .abrirMenu{
+    display: none;
+}
+
+#home header {
+    width: 100%;
+    height: 800px;
+    background: url("../img/Banner/Upbeat-Event-Opener_free.gif");
+    background-size: cover;
+    animation: switchBackground 30s forwards;
+}
+
+@keyframes switchBackground {
+    0%, 99% {
+        background: url("../img/Banner/Upbeat-Event-Opener_free.gif");
+        background-size: cover;
+    }
+    100% {
+        background: url("../img/Banner/Banneritq.png");
+        background-size: cover;
+    }
+}
+
+
+
+
+
+header .opcao img {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilo para a seção de redes sociais */
+.sociais {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    align-items: center;
+}
+
+.topoMenu .carrinho img {
+    width: 40px;
+    height: 40px;
+}
+
+.sociais img {
+    width: 35px;
+    height: 35px;
+    margin: 0 5px;
+}
+
+.redeSociais img.icone-dark {
+    width: 51px;
+}
+.dark .redeSociais img.icone-dark{
+    transform: rotate(180deg);
+    background: #fcea27;
+    border-radius: 20px;
+}
+
+/* Estilo para o menu no topo */
+.topoMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.topoMenu a {
+    text-decoration: none;
+    font-size: 22px;
+}
+
+.topoMenu h1 {
+    width: 100px;
+    height: 130px;
+    margin: 0 80px;
+    background: url('../img/Logos/LOGOMARISA.svg') no-repeat;
+    background-size: 100%;
+    text-indent: -9999px;
+}
+.menu .abrirMenu{
+    display: none;
+}
+.menu .fecharMenu{
+    display: none;
+}
+
+
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0 auto;
+}
+
+nav ul li a {
+    transition: color 0.3s, background-color 0.3s;
+    color: orange;
+}
+
+
+
+/* Estilo para a seção de eventos */
+main {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+.letra {
+    position: absolute;
+    font-size: 2rem;
+    color: #fe9001;
+    animation: cair 1s linear infinite;
+    width: 1200px;
+    z-index: -999px;
+
+}
+
+.p.letra{
+    z-index: -9999;
+}
+
+.letreiroEventos{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    overflow: hidden;
+    padding: 20px 0px;
+    max-width: 1200px;
+    margin: 0 auto; 
+    height: 40px;
+
+
+}
+
+.letreiroEventos p{
+    font-size: 26pt; 
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    color: #fe9001;;
+    z-index: 9999px;
+}
+
+.dark .letreiroEventos p{
+    font-size: 26pt; 
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    color:#27eefc;
+    z-index: 9999px;
+}
+
+.letreiroEventos p:hover{
+    font-size: 26pt; 
+    opacity: 1;
+    z-index: 9999px;
+
+
+}
+/* Mostrar 'Eventos' ao passar o mouse */
+
+
+@keyframes cair {
+    0% {
+        top: -200px; /* Começa acima da tela */
+        opacity: 1;
+    }
+    100% {
+        top: 200%; /* Cai para fora da tela */
+        opacity: 0;
+    }
+}
+
+.eventos{
+    background: url(../img/FundoEventos/back-eventos.png);
+    background-size: cover;
+    background-position: center 50%;
+
+}
+
+.eventos p{
+    margin-bottom: 120px; 
+}
+
+.eventos .topoMenu{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+
+
+}
+
+.eventos div {
+    flex: 1;
+    text-align: center;
+    display: grid;
+}
+
+.eventos button {
+    margin-top: auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    width: 100%;
+    border-radius: 10px;
+    align-items: center;
+    font-family: "bauhau";
+    font-size: 14pt;
+}
+
+.dark .eventos button{
+    background-color: #ffffff;
+    color: black;
+    width: 100%;
+
+    
+}
+
+.eventos img {
+    width: 100%;
+    height: 500px;
+    gap: 10px;
+    border-radius: 10px;
+
+}
+
+/*inicio contato*/
+
+.sobreContato .site{
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    justify-content: space-between;
+    
+}
+
+
+.localização{
+    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+
+
+}
+
+
+.localização a>img{
+    max-width: 100%;
+    height: 91px;
+    align-items: center;
+
+  
+}
+
+.localização>div{
+    margin-left: 5px;
+    align-self: center;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+    
+}
+
+.localização>div h2{
+    font-size: 30pt;
+    align-items: center;
+    
+}
+
+.dark .localização>div h2{
+    font-size: 30pt;
+    color: #fcea27;
+}
+
+.localização>div h3{
+    font-size: 16pt;
+    align-items: center;
+    justify-content: center;
+}
+
+.dark .localização>div h3{
+    font-size: 16pt;
+    align-items: center;
+    justify-content: center;
+    color: #fe9001;
+}
+
+.ingressos{
+    display: flex;
+    flex-direction: row-reverse;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+
+.ingressos a>img{
+    max-width: 100%;
+    height: 91px;
+    align-items: center;
+}
+
+
+
+
+.ingressos>div{
+    margin-right: 40px;
+    align-self: center;
+    text-align: end;
+}
+
+.ingressos>div h2{
+    font-size: 30pt;
+    align-items: center;
+}
+
+.dark .ingressos>div h2{
+    font-size: 30pt;
+    align-items: center;
+    color: #fcea27;
+
+}
+.ingressos>div h3{
+    font-size: 16pt;
+    align-items: center;
+
+}
+
+.dark .ingressos>div h3{
+    font-size: 16pt;
+    align-items: center;
+    color: #fe9001;
+
+}
+
+/*fim contato*/
+/*inicio atração*/
+
+.atracoes{
+        background: url("../img/ondasAtracao.svg") no-repeat; /* Remove as barras invertidas adicionais */
+        background-size: cover; /* Ajusta o tamanho para cobrir todo o elemento */
+        background-repeat: no-repeat; /* Garante que a imagem não se repita */
+}
+
+.atracoes .site{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.atracoes .brinquedosRadical{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.atracoes .brinquedosRadical div{
+    width: 370px;
+    height: 540px; 
+    position: relative;
+}
+
+.atracoes .brinquedosRadical img{
+    width: 100%;
+    height: 100%;
+}
+.atracoes .brinquedosRadical>div div{
+    max-width: 89%;
+    height: 100%;
+    background-color: rgb(0, 76, 152, 0.8);
+    padding: 0 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    justify-content: space-between;
+}
+
+.atracoes .brinquedosRadical>div:hover div{
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    width: 100%;
+    height: 100%;
+}
+
+.atracoes .brinquedosRadical h2{
+    font-size: 20pt;
+    text-align: center;
+    /*margin-top: 280px;
+    margin-bottom: 45px;*/
+    margin: 280px 20px 45px 20px;
+    color: #ffffff;
+}
+
+.atracoes .brinquedosRadical p{
+    color: #ffffff;
+    font-size: 10pt;
+    text-align: justify;
+}
+/*fim atracoes*/
+/*inicio letreiro*/
+
+.letreiro {
+    width: 100%;
+    height: 100px; /* Altura do letreiro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+
+}
+.letreiro p{
+    font-size: 20pt;
+    color: #fff; /* Cor inicial do texto */
+    padding: 10px;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease-in-out;
+  
+}
+
+/* Animação para o carrossel lateral */
+
+
+/*fim letreiro*/
+/*inicio promo*/
+.promo{
+    max-width: 1200px;
+    margin: 0 auto;
+
+}
+
+.promo img{
+    padding: 10px;
+}
+
+
+
+
+/*fim promo*/
+/*inicio blog*/
+
+.blog .site{
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.sobreMarisa{
+    display: flex;
+}
+
+.sobreMarisa p{
+    font-size: 28pt;
+    text-align: center;
+    padding-top: 150px;
+}
+
+.dark .sobreMarisa p{
+color: #ffffff;
+}
+
+
+.site .sobreMarisa p{
+    margin-left: 12px;
+}
+
+.brinquedo-info {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+
+    
+}
+.dark .brinquedo-info img {
+    box-shadow: 5px 5px 55px 5px rgba(5, 202, 236, 0.897);
+}
+
+.brinquedo-info img {
+    width: 100%; /* Defina a largura para ocupar todo o espaço disponível */
+    max-width: 450px; /* Limita a largura máxima */
+    height: 350px;
+    margin-right: 20px;
+    border-radius: 10px 10px 20px 30px;
+    box-shadow: 5px 5px 55px 5px #fe9001;
+    transition: transform 0.8s ease, box-shadow 0.3s ease;
+}
+
+.brinquedo-info p {
+    font-size: 20pt;
+    font-style: italic;
+    margin: 0;
+}
+
+.dark .brinquedo-info p {
+    font-size: 20pt;
+    font-style: italic;
+    margin: 0;
+    color: #ffffff;
+}
+
+.blog .site .botão{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blog .site button {
+    margin: 10px auto;
+    color: #fcea27;
+    background: #0628bc;
+    font-family: bauhau ;
+    border-radius: 30px;
+    font-size: 15pt;
+    width: 40%;
+    height: 40px;
+    
+}
+
+.blog .site button:hover {
+    margin: 10px auto;
+    color: orange;
+    background: #000000;
+    font-family: 'bauhau' ;
+    border-radius: 30px;
+    font-size: 15pt;
+    width: 40%;
+    height: 40px;
+}
+
+.dark .blog .site button:hover {
+    background: cyan;
+   
+}
+
+/* fim blog */
+/* inicio footer */
+
+footer{
+    background: #001d7e;
+}
+
+.rodape{
+    max-width: 1200px;
+    margin: 0 auto;
+
+}
+
+.rodape .site{
+    
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+.rodape .site .conteudoRodape{
+    display: flex;
+    align-items: center;
+
+}
+
+.rodape .site .conteudoRodape>div img{
+    width: 658px ;
+    height: 401px;
+
+}
+
+.rodape .site .conteudoRodape .blocoa>p{
+    max-width: 617px;
+    max-height: 178px;
+    color: #ffffff;
+    font-size: 12pt;
+}
+.rodape .site{
+    display: flex;
+    justify-content: space-between;
+
+    
+}
+
+.rodape .site .conteudoRodape{
+    margin-left: 70px;
+    align-items: center;
+    align-self: center;
+}
+
+.rodape .site .conteudoRodape .blocoa{
+    margin-left: 40px;
+}
+
+.rodapeSociais{
+    display: flex;
+    justify-content: center;
+    padding-right: 150px;
+
+}
+.rodape .conteudoRodape .mapa{
+    width: 520px;
+    height: 520px;
+}
+
+.rodapeSociais>a img{
+    max-width: 40px;
+    max-height: 40px;
+}
+
+
+
+
+/* ---------------------------------------PAGINA SOBRE--------------------------------------------------------------------------- */
+/* ---------------------------------------PAGINA SOBRE--------------------------------------------------------------------------- */
+/* ---------------------------------------PAGINA SOBRE--------------------------------------------------------------------------- */
+/* ---------------------------------------PAGINA SOBRE--------------------------------------------------------------------------- */
+
+#sobre header {
+    width: 100%;
+    height: 450px;
+    background: url("../img/Banner/Jornal.svg");
+    background-size: cover;
+    background-color: #fff6e3;
+
+}
+
+#sobre.dark header {
+    width: 100%;
+    height: 450px;
+    background: url("../img/Banner/Jornal.svg");
+    background-size: cover;
+    background-color:  #110d04;
+
+}
+
+#sobre.dark main {
+    background-color:  #110d04;
+}
+
+#sobre header .opcao img {
+    width: 100%;
+    height: auto;
+}
+/* Estilo para a seção de redes sociais */
+#sobre .sociais {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    align-items: center;
+}
+#sobre .topoMenu .carrinho img {
+    width: 40px;
+    height: 40px;
+}
+#sobre .sociais img {
+    width: 35px;
+    height: 35px;
+    margin: 0 5px;
+}
+#sobre .redeSociais img.icone-dark{
+    width: 55px;
+}
+#sobre .dark .redeSociais img.icone-dark{
+    transform: rotate(180deg);
+    background: #fcea27;
+    border-radius: 20px;
+}
+/* Estilo para o menu no topo */
+#sobre .topoMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+#sobre .topoMenu a {
+    text-decoration: none;
+    font-size: 22px;
+}
+#sobre .topoMenu h1 {
+    width: 100px;
+    height: 130px;
+    margin: 0 80px;
+    background: url('../img/Logos/LOGO\ MARISA-01.svg') no-repeat;
+    background-size: 100%;
+    text-indent: -9999px;
+}
+#sobre nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0 auto;
+}
+#sobre nav ul li a {
+    transition: color 0.3s, background-color 0.3s;
+    color: orange;
+}
+/* Estilo para o sobre */
+#sobre main{
+    max-width: 1920px;
+    margin: 0 auto;
+    background: #fff6e3;
+
+}
+#sobre .sobre{
+    font-family: "bauhau";
+}
+
+#sobre .sobre h2{
+    background: #ff7800;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    font-size: 48pt;
+    margin-top: 125px;
+    margin-bottom: 35px;
+    height: 140px;
+    align-items: center;
+    
+   
+
+}
+#sobre .sobre .site{
+    max-width: 1200px;
+    margin: 0 auto;
+    
+
+}
+
+#sobre .sobre .site>div img{
+    width: 50%;
+    height: 100%;   
+    border-radius: 10px 200px 22px 141px;
+}
+
+#sobre.dark .sobre .site>div p{
+    color: #ffffff;
+}
+#sobre .sobre .site>div p{
+    display: flex;
+    align-items: center;
+    font-size: 16pt;
+    text-align: justify;
+    white-space: normal; /* Permite quebras de linha */
+    padding: 10px;
+
+}
+
+#sobre .sobre .site .sobre1{
+    display: flex;
+
+}
+
+#sobre .sobre .site .sobre2{
+    display: flex;
+    flex-direction: row-reverse;
+    
+}
+/* Estilo para o blog*/
+
+#sobre .blogSobre .site{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#sobre .blogSobre .site .blogSobre1{
+    display: flex;
+}
+#sobre.dark .blogSobre .site>div p{
+    color: white;
+}
+#sobre .blogSobre .site>div p{
+    display: flex;
+    align-items: center;
+    font-size: 16pt;
+    text-align: justify;
+    white-space: normal; /* Permite quebras de linha */
+
+}
+
+
+
+#sobre .blogSobre h2{
+    background: #ff7800;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    height: 140px;
+    font-size: 36pt;
+    margin-top: 125px;
+    margin-bottom: 35px;
+    align-items: center;
+    
+}
+
+/* Estilo para o rodape*/
+#sobre footer{
+    background: url('../img/Banner/Jornal-footer.png') ;
+    width: 100%;
+    background-size: contain;
+    background-color: #fff6e3;
+
+    
+}
+
+#sobre.dark footer{
+    background: url('../img/Banner/Jornal-footer.png') ;
+    width: 100%;
+    background-size: contain;
+    background-color: #110d04;
+
+    
+}
+
+#sobre .rodape{
+    max-width: 1200px;
+    margin: 0 auto;
+
+}
+
+#sobre .rodape .site{
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+#sobre .rodape .site .conteudoRodape{
+    display: flex;
+    align-items: center;
+
+}
+
+#sobre .rodape .site .conteudoRodape>div img{
+    width: 658px ;
+    height: 401px;
+
+}
+
+#sobre .rodape .site .conteudoRodape .blocoa>p{
+    max-width: 617px;
+    max-height: 178px;
+    color: #ffffff;
+    font-size: 12pt;
+}
+#sobre .rodape .site{
+    display: flex;
+    justify-content: space-between;
+
+    
+}
+
+#sobre .rodape .site .conteudoRodape{
+    margin-left: 70px;
+    align-items: center;
+    align-self: center;
+}
+
+#sobre .rodape .site .conteudoRodape .blocoa{
+    margin-left: 40px;
+}
+
+#sobre .rodapeSociais{
+    display: flex;
+    justify-content: center;
+    padding-right: 150px;
+
+}
+
+#sobre .rodapeSociais>a img{
+    max-width: 40px;
+    max-height: 40px;
+}
+
+#sobre .formContato h2 {
+    font-size: 40pt;
+    color: #000000;
+    border-radius: 5px;
+
+}
+#sobre.dark .formContato h2 {
+    font-size: 40pt;
+    color: #ffffff;
+    border-radius: 5px;
+
+}
+
+#sobre .formContato form {
+    width: 100%;
+    display: flex;
+    margin: 10px 0;
+    background: #3f4b7050;
+    border-radius: 50px 0 0 50px;
+}
+
+#sobre .formContato .site {
+    margin: 50px auto;
+    max-width: 1200px;
+}
+#sobre .formContato form {
+    width: 100%;
+    display: flex;
+    margin: 10px 0;
+    background: #3f4b7050;
+    border-radius: 50px 0 0 50px;
+}
+
+#sobre .formContato .site {
+    margin: 50px auto;
+}
+
+#sobre .formContato form>div:nth-child(1) {
+    margin: 20px;
+    z-index: 2  ;
+}
+
+#sobre .formContato form div label {
+    width: 95%;
+    margin: 0 5% 0 0;
+    font-size: 18pt;
+}
+
+#sobre .formContato form div input {
+    width: 95%;
+    padding: 5px;
+    margin: 10px 5% 10px 0;
+    font-size: 18pt;
+    font-family: 'fonteMestre';
+    border-radius: 5px;
+    border: 0;
+}
+
+#sobre .formContato form div textarea {
+    width: 95%;
+    margin: 10px 5% 10px 0;
+    font-size: 18pt;
+    font-family: 'fonteMestre';
+    resize: none;
+    border-radius: 5px;
+    border: 0;
+}
+
+#sobre .formContato form>div{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+#sobre .formContato form>div div {
+    display: flex;
+    justify-content: space-around;
+}
+
+#sobre .formContato form div:nth-child(2) {
+    margin-left: -20%;
+    background: url(../img/Banner/parque-marisa.jpg) no-repeat;
+    background-size: 150% 100%;
+    background-position: 40%;
+    width: 70%;
+    z-index: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
+}
+
+#sobre .formContato form {
+    width: 100%;
+    display: flex;
+    margin: 10px 0;
+    background: #b3b46228;
+    border-radius: 50px 0 0 50px;
+}
+
+#sobre .formContato form>div div input {
+    margin: 10px 0;
+    width: 40%;
+    background: #fe9001;
+    color: #FFFFFF;
+    border-radius: 10px 0;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+#sobre .formContato form>div div input:hover {
+    background: #ffffff;
+    color: #0511f2;
+}
+#sobre .dark .formContato form>div div input:hover {
+    background: #ffffff;
+    color: #fe9001;
+}
+#sobre .dark.formContato h2 {
+    font-size: 40pt;
+    color: #e9e9e9;
+}
+
+#sobre .dark .formContato form div label {
+    color: #ffffff;
+
+
+}
+
+.titulo{
+    background: #ff7800;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    height: 140px;
+    font-size: 36pt;
+    margin-top: 125px;
+    margin-bottom: 35px;
+    align-items: center;
+}
+
+.grafico-uso-parque h2{
+    background: #ff7800;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    height: 140px;
+    font-size: 36pt;
+    margin-top: 125px;
+    margin-bottom: 35px;
+    align-items: center;
+}
+
+.grafico-uso-parque div{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* --------------------------------FIM SOBRE------------------------------------------------ */
+/* --------------------------------FIM SOBRE------------------------------------------------ */
+/* --------------------------------FIM SOBRE------------------------------------------------ */
+
+
+
+/* --------------------------------INICIO ATRACAO------------------------------------------------ */
+/* --------------------------------INICIO ATRACAO------------------------------------------------ */
+/* --------------------------------INICIO ATRACAO------------------------------------------------ */
+/* --------------------------------INICIO ATRACAO------------------------------------------------ */
+/* Estilo base para o header */
+@font-face {
+    font-family: "bauhau";
+    src: url('../font/BAUHS93.ttf') format('truetype'),
+         url('../font/Bauhaus\ 93\ Regular.ttf') format('woff'); 
+}
+
+#atracao{
+    display: flex;
+    flex-direction: column;
+    background: #141259;
+}
+
+#atracao.dark {
+    font-family: 'bauhau';
+    display: flex;
+    flex-direction: column;
+    background: #000000;
+}
+
+#atracao.dark header {
+    width: 100%;
+    height: 200px;
+    background: #000000
+}
+#atracao header {
+    width: 100%;
+    height: 200px;
+    background: #001d7e
+}
+
+
+#atracao header .opcao img {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilo para a seção de redes sociais */
+#atracao .sociais {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    align-items: center;
+}
+
+#atracao .topoMenu .carrinho img {
+    width: 40px;
+    height: 40px;
+}
+
+#atracao .sociais img {
+    width: 35px;
+    height: 35px;
+    margin: 0 5px;
+}
+
+#atracao .redeSociais img.icone-dark{
+    width: 55px;
+}
+
+#atracao .dark .redeSociais img.icone-dark{
+    transform: rotate(180deg);
+    background: #fcea27;
+    border-radius: 20px;
+}
+#atracao .dark .redeSociais img.icone-dark{
+    transform: rotate(180deg);
+    background: #fcea27;
+    border-radius: 20px;
+}
+/* Estilo para o menu no topo */
+#atracao .topoMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#atracao .topoMenu a {
+    text-decoration: none;
+    font-size: 22px;
+}
+
+#atracao .topoMenu h1 {
+    width: 100px;
+    height: 130px;
+    margin: 0 80px;
+    background: url('../img/Logos/LOGO\ MARISA-01.svg') no-repeat;
+    background-size: 100%;
+    text-indent: -9999px;
+}
+
+#atracao nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0 auto;
+}
+
+nav ul li a {
+    transition: color 0.3s, background-color 0.3s;
+    color: orange;
+}
+
+#atracao .banner1{
+    width: 100%;
+    height: 300px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    background: url(../img/Camada\ 0.png);
+    background-size: cover; /*ajusta a medida da imagem */
+    background-position: center 50%; /*ajusta a posição da imagem de fundo*/
+    font-family: 'bauhau';
+}
+#atracao .banner1 h2{
+    width: 100%;
+    font-size: 50pt;
+    margin-left: 50px;
+    color: yellow;
+    text-shadow: 
+    -1px -1px 0 #000, /* Sombra superior esquerda */
+    1px -1px 0 #000,  /* Sombra superior direita */
+    -1px 1px 0 #000,  /* Sombra inferior esquerda */
+    1px 1px 0 #000;   /* Sombra inferior direita */
+}
+#atracao .banner1 h3{
+    width: 1200px;
+    font-size: 20pt;
+    margin-left: 50px;
+    color: red;
+    text-shadow: 
+    -1px -1px 0 #000, /* Sombra superior esquerda */
+    1px -1px 0 #000,  /* Sombra superior direita */
+    -1px 1px 0 #000,  /* Sombra inferior esquerda */
+    1px 1px 0 #000;   /* Sombra inferior direita */
+    
+}
+#atracao .brinquedos{
+    font-family: 'fonteMestre';
+}
+#atracao .brinquedos .site{
+    margin: 0 auto;
+    width: 1200px;
+}
+#atracao .brinquedos h6{
+    width: 100%;
+    font-size: 40pt;
+    color: red;
+    margin-top: 60px;
+    margin: 40px;
+}
+#atracao .brinquedos .radicais{
+    margin-top: 61px;
+    font-family: 'fonteMestre';
+}
+#atracao .brinquedos .radicais{
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: #0511f2;
+    width: 1200px;
+    margin: 30 auto;
+    margin-bottom: 40px;
+}
+#atracao .brinquedos .radicais>img{
+    width: 350px;
+    height: 250px;
+    max-width: 100%;
+}
+#atracao .brinquedos .conteudoBrinquedo h4{
+    font-size: 30pt;
+    color: white;
+    margin: 20px;
+
+}
+#atracao .brinquedos .conteudoBrinquedo p{
+    font-size: 15pt;
+    color: yellow;
+    margin-top: 30px;
+    margin: 20px;
+}
+#atracao .brinquedos .conteudoBrinquedo h5{
+    font-size: 33pt;
+    color: red;
+    margin: 40px 0;
+}
+
+/* inicio do footer */
+
+
+#atracao .rodape{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#atracao .rodape .site{
+    max-width: 1920px;
+    margin: 0 auto;
+
+    
+}
+
+#atracao .rodape .site .conteudoRodape{
+    display: flex;
+    align-items: center;
+
+}
+
+#atracao .rodape .site .conteudoRodape>div img{
+    width: 658px ;
+    height: 401px;
+
+}
+
+#atracao .rodape .site .conteudoRodape .blocoa>p{
+    max-width: 617px;
+    max-height: 178px;
+    color: #ffffff;
+    font-size: 12pt;
+}
+#atracao .rodape .site{
+    display: flex;
+    justify-content: space-between;
+
+    
+}
+
+#atracao .rodape .site .conteudoRodape{
+    margin-left: 70px;
+    align-items: center;
+    align-self: center;
+}
+
+#atracao .rodape .site .conteudoRodape .blocoa{
+    margin-left: 40px;
+}
+
+#atracao .rodapeSociais{
+    display: flex;
+    justify-content: center;
+    padding-right: 150px;
+
+}
+
+#atracao .rodapeSociais>a img{
+    max-width: 40px;
+    max-height: 40px;
+}
+/* --------------------------------FIM ATRACAO------------------------------------------------ */
+/* --------------------------------FIM ATRACAO------------------------------------------------ */
+/* --------------------------------FIM ATRACAO------------------------------------------------ */
+/* --------------------------------FIM ATRACAO------------------------------------------------ */
+
+
+
+/**************************************PAGINA CONTATO*************************************************/
+/**************************************PAGINA CONTATO*************************************************/
+/**************************************PAGINA CONTATO*************************************************/
+
+/* styles.css */
+#ingresso .dark header {
+    background: #000000; /* Cor para header com a classe .dark */
+}
+  
+#ingresso header {
+    background: #38888A; /* Cor do topo */
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    font-family: "bauhau"; /* Definição da fonte */
+}
+  
+#ingresso main {
+    display: flex;
+    width: 1200px;
+    justify-content: space-around;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+#ingresso .calendario, 
+#ingresso .ingressos, 
+#ingresso .carrinho {
+    padding: 20px;
+    border-radius: 8px;
+    width: 30%;
+}
+
+#ingresso button {
+    background: #38888A; /* Cor do botão */
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+#ingresso button:hover {
+    background: #2b6b6d; /* Cor do botão ao passar o mouse */
+}
+
+#ingresso footer {
+    background: #38888A; /* Cor do rodapé */
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    font-family: "bauhau"; /* Definição da fonte */
+}
+
+
+
+
+
+
+#brinquedos {
+    width: 712px;
+    /* padding: 10px; */
+    font-size: 16px;
+    font-family: "bauhau";
+    border: 2px solid #22CAAB;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #001d7e;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    font-size: 20px;
+}
+
+
+/* Estilo ao passar o mouse */
+#brinquedos:hover {
+    background-color: #e0f7fa; /* Fundo azul claro */
+    border-color: #009688; /* Borda azul */
+}
+
+/* Estilo das opções do <select> */
+#brinquedos option {
+    background-color: #fff; /* Fundo branco */
+    color: #333; /* Cor do texto */
+    padding: 10px;
+}
+
+/* Alterar a cor ao selecionar */
+#brinquedos:focus {
+    border-color: #673ab7; /* Borda roxa */
+    box-shadow: 0 0 5px rgba(103, 58, 183, 0.5); /* Efeito de sombra */
+}
+
+
+#eventos header {
+    background: #000;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    font-family: "bauhau";
+  }
+  
+#eventos .eventos {
+    background: #db0000;
+    background-size: cover;
+    background-position: center 50%;
+}
+
+#eventos footer {
+    background: #000;
+}
+
+
+
+
+
+
+/* Estilos específicos para a página de usuário */
+#usuario {
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.usuario-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.usuario-dashboard h2 {
+    font-size: 2rem;
+    color: #0066cc;
+    margin-bottom: 20px;
+}
+
+.informacoes-usuario,
+.historico-compras {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.informacoes-usuario h3,
+.historico-compras h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.informacoes-usuario ul {
+    list-style: none;
+    padding: 0;
+}
+
+.informacoes-usuario li {
+    margin: 5px 0;
+}
+
+.informacoes-usuario strong {
+    color: #0066cc;
+}
+
+.historico-compras table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.historico-compras table th,
+.historico-compras table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.historico-compras table th {
+    background-color: #0066cc;
+    color: white;
+}
+
+.historico-compras table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.historico-compras table tr:hover {
+    background-color: #e0e0e0;
+}
+
+/*******************login*************************/
+#login header{
+    font-family: 'bauhau';
+    background-color: #0066cc;
+    
+}
+
+#login body {
+    font-family: 'bauhau';
+    min-height: 100vh; /* Garante que o corpo ocupe toda a altura da tela */
+    display: flex;
+    color: #023047;
+    background-color: #480ca8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+}
+
+#login .pagina {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 40px auto ;
+}
+
+#login .formularioLogin {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    margin: 0 auto;
+    border-radius: 7px;
+    padding: 40px;
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+    gap: 5px;
+    max-width: 400px;
+    width: 100%;
+}
+
+#login .formularioLogin h1 {
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+    font-size: 2.3em;
+    text-align: center;
+}
+
+#login .formularioLogin p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#login .formularioLogin label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#login .formularioLogin input {
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    border-radius: 4px;
+    transition: all linear 160ms;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#login .formularioLogin input:focus {
+    border: 1px solid #007bff;
+}
+
+#login .formularioLogin a {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #555;
+    transition: all linear 160ms;
+    text-align: center;
+}
+
+#login .formularioLogin a:hover {
+    color: #25f7ed;
+}
+
+#login .btn {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    transition: all linear 160ms;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+    width: 100%;
+}
+#login .btn:hover {
+    transform: scale(1.05);
+    background-color: #00ccff;
+}
+
+#login .btn-cadastrar {
+    background-color: #fa7b04ce;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    transition: all linear 160ms;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+    width: 100%;
+}
+
+
+
+#login .btn-cadastrar:hover {
+    transform: scale(1.05);
+    background-color: #fab804c7;
+}
+/*************************************************Usuario*****************************/
+#usuario {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+}
+
+#usuario header {
+background: #480ca8;
+
+}
+
+.perfil-usuario {
+    padding: 80px 0;
+}
+
+.perfil-usuario .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.perfil-usuario h2 {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    text-align: center;
+    color: var(--cor-destaque);
+}
+
+.dados-usuario {
+    background: var(--cor-card);
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dados-usuario h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: var(--cor-destaque);
+}
+
+.dados-usuario p {
+    font-size: 1.2em;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.dados-usuario span {
+    font-weight: bold;
+    color: var(--cor-destaque);
+}
+
+.carrinho-compras {
+    background: var(--cor-card);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.carrinho-compras h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: var(--cor-destaque);
+}
+
+.carrinho-compras table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.carrinho-compras th,
+.carrinho-compras td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.carrinho-compras th {
+    background-color: var(--cor-destaque);
+    color: white;
+}
+
+#usuario footer {
+    background-color: #480ca8;
+    padding: 20px 0;
+    text-align: center;
+}
+
+
+
+
+
+
+/* Responsividade para tablets */
+@media (max-width: 1024px) {
+    #home header {
+        width: 100%;
+        height: 400px;
+        animation: switchBackgroundTablet 30s forwards;
+    }
+
+    @keyframes switchBackgroundTablet {
+        0%, 99% {
+            background: url("../img/Banner/Upbeat-Event-Opener_free.gif");
+            background-size: cover;
+        }
+        100% {
+            background: url("../img/Banner/Banneritq.png");
+            background-size: cover;
+        }
+    }
+
+    .topoMenu {
+        
+        align-items: center;
+        gap: 20px;
+    }
+
+
+    .topoMenu h1 {
+        width: 80px;
+        height: 100px;
+        margin: 0;
+    }
+
+    .topoMenu a {
+        font-size: 18px; /* Reduz o tamanho da fonte do menu */
+    }
+
+    .sociais img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .letreiro p {
+        font-size: 16pt; /* Reduz o tamanho do texto do letreiro */
+    }
+    .eventos .topoMenu {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px;
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .eventos img {
+        width: 260px;
+        height: 500px;
+        gap: 10px;
+        border-radius: 10px;
+    }
+    .eventos button {
+        margin-top: auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        width: 304px;
+        border-radius: 10px;
+        align-items: center;
+        font-family: "bauhau";
+        font-size: 14pt;
+        align-self: center;
+    }
+
+    .atracoes .brinquedosRadical {
+        justify-content: space-around;
+        margin: 0 auto;
+        display: flex;
+    }
+
+    .atracoes .brinquedosRadical div {
+        width: 100%;
+        height: auto;
+    }
+    .atracoes .brinquedosRadical {
+        justify-content: space-around;
+        margin: 0 auto;
+        display: flex;
+    }
+    .atracoes .brinquedosRadical img {
+        justify-content: center;
+        display: flex;
+        width: 200px;
+        height: 300px;
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+    .atracoes .brinquedosRadical h2 {
+        font-size: 14pt;
+    }
+    .atracoes .brinquedosRadical p {
+        color: #ffffff;
+        font-size: 8pt;
+        text-align: justify;
+    }
+    .atracoes .brinquedosRadical img {
+        width: 200px;
+        height: 300px;
+    }
+    .atracoes .brinquedosRadical>div div {
+        width: 200px;
+        height: 300px;
+    }
+    .atracoes .brinquedosRadical p {
+        color: #ffffff;
+        font-size: 8pt;
+        text-align: justify;
+    }
+    .atracoes .brinquedosRadical h2 {
+        font-size: 12pt;
+        margin-top: 100px;
+    }
+    .atracoes .brinquedosRadical>div div {
+        width: 200px;
+        height: 300px;
+    }
+
+    #atracao .topoMenu .carrinho img {
+        width: 40px;
+        height: 40px;
+    }   
+
+    #atracao .sociais img {
+        width: 27px;
+        height: 27px;
+        margin: 0 5px;
+    }
+    #atracao .redeSociais img.icone-dark {
+        width: 40px;
+    }
+
+    #atracao .topoMenu h1 {
+        width: 87px;
+        height: 113px;
+        margin: 0px 48px;
+    }
+    #atracao .banner1 {
+        width: 1200px;
+    }
+    #atracao .brinquedos .radicais {
+        display: flex;
+        flex-direction: row-reverse;
+        background-color: #0511f2;
+        width: 1023px;
+        margin-bottom: 40px;
+    }
+
+    #atracao .topoMenu {
+        gap: 10px;
+    }
+
+    #atracao .topoMenu h1 {
+        width: 60px;
+        height: 80px;
+        margin: 0;
+    }
+
+    #atracao .topoMenu a {
+        font-size: 16px;
+    }
+
+    #atracao .topoMenu .carrinho img {
+        width: 34px;
+        height: 34px;
+    }
+
+    #atracao .sociais img {
+        width: 28px;
+        height: 28px;
+        margin: 0 5px;
+    }
+
+    #atracao .brinquedos .radicais {
+        display: flex;
+        flex-direction: row-reverse;
+        background-color: #0511f2;
+        width: 767px;
+        margin-bottom: 40px;
+    }
+
+    #atracao .mapa{
+        display: flex;
+    }
+
+    footer {
+        padding: 4px;
+    }
+
+
+
+    
+ 
+}
+
+/*Cadastro de usuário*/
+/* Estilo para a página de cadastro */
+/* #cadastro header{
+background: #380096;
+}
+
+
+.cadastro-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#cadastro .cadastro-container h1 {
+    text-align: center;
+    color: #19e9de;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    font-family: 'Arial', sans-serif;
+}
+
+#cadastro .form-cadastro {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 50px;
+    border-radius: 34px;
+    box-shadow: 0px 40px 100px 5px rgba(12, 0, 8, 0.7);
+    background: linear-gradient(50deg, #380096, orange);
+
+}
+
+
+#cadastro .form-cadastro input {
+    width: 91%;
+    padding: 5px;
+    margin: 4px auto;
+    border: 1px solid #ddd;
+    border-radius: 11px;
+    font-size: 21px;
+    transition: border-color 0.3s linear;
+    font-family: sans-serif;
+}
+
+#cadastro .form-cadastro input:focus {
+    border-color: #FF4081;
+    outline: none;
+}
+
+#cadastro .form-cadastro input::placeholder {
+    color: #999;
+}
+
+#cadastro .btn-cadastrar {
+    grid-column: 1 / -1;
+    background-color: #FF4081;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#cadastro .btn-cadastrar:hover {
+    background-color: #f50057;
+}
+
+#cadastro footer{
+    background: #380096;
+}
+
+#cadastro .txtcad{
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 20px;
+    border-bottom: 3px dashed #fffb0b;
+}
+
+#cadastro .txtcadSobre{
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 20px;   
+    border-bottom: 3px dashed #fffb0b;
+}
+
+/* .mensagem {
+    position: fixed; /* Fixa no meio da tela 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centraliza perfeitamente 
+    width: 400px;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;  
+/*} /*
+
+.sucesso {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.erro {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+} 
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .cadastro-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .form-cadastro {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mensagem de sucesso */
+.mensagem-sucesso {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Validação visual */
+.form-cadastro input:invalid {
+    border-color: #ff6b6b;
+}
+
+.form-cadastro input:valid {
+    border-color: #51cf66;
+}
+/*Estilo para Cadastro*/
+.form-cadastro {
+    max-width: 500px;
+    margin: -8px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-cadastro input {
+    width: 100%;
+    padding: 4px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 11px;
+    transition: border-color 0.3sease;
+}
+
+.form-cadastro input:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+.form-cadastro button {
+    width: 97%;
+    padding: 9px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3sease;
+}
+
+.form-cadastro button:hover {
+    background-color: #357abd;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .form-cadastro {
+        margin: 20px;
+        padding: 15px;
+    }
+}
+
+/* Mensagens de feedback */
+.mensagem-sucesso {
+    background-color: #dff0d8;
+    color: #3c763d;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.mensagem-erro {
+    background-color: #f2dede;
+    color: #a94442;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+ 
+
+
+/* Responsividade para smartphones */
+@media (max-width: 768px) {
+    header {
+        height: 400px;
+        background-size: contain;
+    }
+
+
+    #home header:hover:active{
+        width: 100%;
+        height: 400px;
+        background: url("../img/Banner/Upbeat-Event-Opener_free.gif");
+        background-size: cover;
+    }
+
+    .topoMenu {
+        gap: 10px;
+    }
+
+
+
+    .topoMenu .carrinho img {
+        width: 23px;
+        height: 23px;
+    }
+
+
+    .redeSociais img.icone-dark {
+        width: 29px;
+        height: 25px;
+    }
+
+  
+
+    .topoMenu h1 {
+        width: 60px;
+        height: 80px;
+        margin: 0;
+    }
+
+
+
+    .topoMenu a {
+        font-size: 16px;
+    }
+
+ 
+
+    .sociais {
+        justify-content: center;
+    }
+
+ 
+
+
+    .sociais img {
+        width: 25px;
+        height: 25px;
+    }
+
+   
+
+    .atracoes .brinquedosRadical {
+        align-items: center;
+    }
+
+    .atracoes .brinquedosRadical div {
+        width: 100%;
+        height: auto;
+    }
+
+    .atracoes .brinquedosRadical h2 {
+        font-size: 16pt;
+    }
+
+    .sobreMarisa p {
+        font-size: 18pt;
+        padding-top: 50px;
+    }
+
+    .sobreMarisa img {
+        width: 100%;
+        height: auto;
+    }
+
+  
+
+    @keyframes carrossel {
+        0% { opacity: 0; transform: translateX(350%); }  /* Começa fora da tela à direita */
+        10% { opacity: 1; transform: translateX(0); }     /* Entra no centro */
+        25% { opacity: 1; }  /* Mantém visível */
+        35% { opacity: 0; transform: translateX(-350%); } /* Sai da tela à esquerda */
+        
+    }
+    
+    .letreiro p:nth-child(1) { animation: carrossel 20s infinite; animation-delay: 0s; }
+    .letreiro p:nth-child(2) { animation: carrossel 20s infinite; animation-delay: 2s; }
+    .letreiro p:nth-child(3) { animation: carrossel 20s infinite; animation-delay: 4s; }
+    .letreiro p:nth-child(4) { animation: carrossel 20s infinite; animation-delay: 6s; }
+    .letreiro p:nth-child(5) { animation: carrossel 20s infinite; animation-delay: 8s; }
+    .letreiro p:nth-child(6) { animation: carrossel 20s infinite; animation-delay: 10s; }
+    .letreiro p:nth-child(7) { animation: carrossel 20s infinite; animation-delay: 12s; }
+    .letreiro p:nth-child(8) { animation: carrossel 20s infinite; animation-delay: 14s;}
+    
+
+    .letreiro p {
+        font-size: 14pt;
+    }
+    .letreiro {
+        width: 100%;
+        height: 58px;
+    }
+    .eventos .topoMenu {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .eventos img {
+        width: 236px;
+        height: 309px;
+        gap: 10px;
+        border-radius: 10px;
+    }
+    .eventos button {
+        margin-top: auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        width: auto;
+        border-radius: 10px;
+        align-items: center;
+        font-family: "bauhau";
+        font-size: 14pt;
+        align-self: center;
+    }
+
+    .promo img {
+        width: 100%;
+        height: auto;
+    }
+
+
+
+    footer {
+        padding: 20px;
+    }
+    .atracoes .brinquedosRadical>div div {
+        width: 200px;
+        height: 300px;
+    }
+    .perfil-usuario {
+        padding: 40px 0;
+    }
+
+    .dados-usuario,
+    .carrinho-compras {
+        padding: 20px;
+    }
+
+    .carrinho-compras table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* Responsividade para dispositivos pequenos (smartphones antigos) */
+@media (max-width: 480px) {
+    #home header {
+        width: 100%;
+        height: 247px;
+        animation: switchBackgroundMobile 30s forwards;
+    }
+
+    @keyframes switchBackgroundMobile {
+        0%, 99% {
+            background: url("../img/Banner/Upbeat-Event-Opener_free.gif");
+            background-size: cover;
+        }
+        100% {
+            background: url("../img/Banner/Banneritq.png");
+            background-size: cover;
+        }
+    }
+
+    #atracao header {
+        width: 100%;
+        height: 247px;
+    }
+
+    #atracao .topoMenu .abrirMenu {
+        width: 33px;
+        height: 33px;
+        position: fixed;
+        right: 21px;
+        z-index: 999;
+    }
+
+    #home header:hover:active{
+        width: 100%;
+        height: 247px;
+        background: url("../img/Banner/Upbeat-Event-Opener_free.gif");
+        background-size: cover;
+    }
+
+    #atracao header:hover:active{
+        width: 100%;
+        height: 247px;
+        background: url("../img/Banner/Upbeat-Event-Opener_free.gif");
+        background-size: cover;
+    }
+
+    .topoMenu {
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    #atracao .topoMenu {
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .topoMenu a {
+        font-size: 14px;
+    }
+
+    #atracao .topoMenu a {
+        font-size: 14px;
+    }
+
+    .topoMenu h1 {
+        width: 50px;
+        height: 70px;
+    }
+
+    #atracao .topoMenu h1 {
+        width: 50px;
+        height: 70px;
+    }
+
+    .topoMenu .abrirMenu{
+        display: block;
+    }
+
+
+
+    .topoMenu .fecharMenu{
+        display: block;
+    }
+
+
+
+    .topoMenu .abrirMenu{
+        width: 33px;
+        height: 33px;
+        position: fixed;
+        right: 21px;
+        z-index: 999;
+    }
+
+
+
+    .topoMenu .abrirMenu:hover{
+    background: white;
+    border-radius: 5px;
+    }
+
+
+
+    .topoMenu .fecharMenu {
+        width: 24px;
+        height: 43px;
+    }
+
+
+
+    
+
+    .topoMenu nav{
+        position: fixed;
+        flex-direction: column;
+        width: 100%;
+        z-index: 9999;
+        right: -480px;
+        top: 0;
+        background: #001d7e;
+        text-align: center;
+        height: 29%;
+        align-items: flex-start;
+        transition: right 0.5s ease;
+        opacity: 94%;
+        border-radius: 20px 36px 60px 20px;
+    }
+
+
+
+    .redeSociais img.icone-dark {
+        width: 30px;
+        height: 18px;
+    }
+
+
+    .menuAtivo .topoMenu nav {
+        right: -253px;
+    }
+
+ 
+
+    .topoMenu nav ul {
+        flex-direction: column;
+        margin-top: 4px;
+    }
+
+
+    .topoMenu nav ul li {
+        margin: -4px 0;
+        margin-right: 242px;
+    }
+
+
+    .menu h1{
+        width: 200px;
+        height: 50px;
+    }
+
+    #atracao .menu h1{
+        width: 200px;
+        height: 50px;
+    }
+
+    .sociais img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .letreiro p {
+        font-size: 12pt;
+    }
+    
+    .eventos img {
+        width: 136px;
+        height: 218px;
+        gap: 10px;
+        border-radius: 10px;
+    }
+    .eventos button {
+        margin-top: auto;
+        padding: 7px 13px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        width: auto;
+        border-radius: 10px;
+        align-items: center;
+        font-family: "bauhau";
+        font-size: 11pt;
+        align-self: center;
+    }
+    .eventos .topoMenu {
+        padding: unset;
+        gap: unset;
+        height: 280px;
+    }
+    .ingressos>div h2 {
+        font-size: 16pt;
+        align-items: center;
+    }
+    .ingressos>div h3 {
+        font-size: 11pt;
+        align-items: center;
+    }
+    .ingressos>div h2 {
+        font-size: 16pt;
+        align-items: center;
+    }
+
+    .dark .localização>div h2 {
+        font-size: 16pt;
+        align-items: center;
+    }
+    .localização>div h2 {
+        font-size: 16pt;
+        align-items: center;
+    }
+    .dark .localização>div h2 {
+        font-size: 20pt;
+   
+    }
+    .dark .localização a>img {
+        max-width: 100%;
+        height: 91px;
+        align-items: center;
+    }
+    .localização>div h3 {
+        font-size: 10pt;
+        align-items: center;
+        justify-content: center;
+    }
+    .dark .localização>div h3 {
+        font-size: 11pt;
+    }
+    .dark .ingressos a>img {
+        max-width: 100%;
+        height: 91px;
+        align-items: center;
+    }
+    .ingressos>div {
+        margin-right: 7px;
+        align-self: center;
+        text-align: end;
+    }
+    .dark .dark .ingressos>div h3 {
+        font-size: 11pt;
+    }
+    .dark .ingressos>div h3 {
+        font-size: 11pt;
+
+    }
+    .atracoes .brinquedosRadical p {
+        display: none;
+    }
+    .atracoes .brinquedosRadical>div div {
+        width: 100%;
+        height: 100%;
+        padding: 0px 0px;
+    }
+    .ingressos>div h2 {
+        font-size: 23pt;
+        align-items: center;
+    }
+    .dark .ingressos>div h2 {
+        font-size: 20pt;
+
+    }
+    .sobreMarisa p {
+        font-size: 16pt;
+    }
+    .atracoes .brinquedosRadical img {
+        width: 110px;
+        height: 149px;
+    }
+    .blog .site button:hover {
+        font-size: 10pt;
+    }
+    .brinquedo-info img {
+        width: 100%;
+        max-width: 225px;
+        height: 188px;
+    }
+    .brinquedo-info p {
+        font-size: 12pt;
+    }
+
+    .blog .site button {
+        font-size: 10pt;
+    }
+    .conteudoRodape img {
+        width: 84px;
+        height: auto;
+    }
+    .rodape .site .conteudoRodape {
+        flex-direction: column;
+        margin-left: 8px;
+        align-items: center;
+    }
+    .rodape .site .conteudoRodape .mapa{
+        width: 400px;
+        height: 60px;
+    }
+    
+    .rodape .site {
+        display: block; 
+        justify-content: space-between;
+    }
+    .rodapeSociais {
+        display: flex;
+        justify-content: center;
+        padding-right: unset;
+    }
+
+    #atracao .banner1 {
+        width: 100%;
+    }
+
+    #atracao .brinquedos .radicais {
+        display: flex;
+        flex-direction: row-reverse;
+        background-color: #0511f2;
+        width: 37%;
+        margin-bottom: 40px;
+    }
+    #atracao .brinquedos .conteudoBrinquedo p {
+        display: none;
+    }
+
+    #atracao .brinquedos .radicais>img {
+        width: 43%;
+        height: 150px;
+        max-width: 100%;
+    }
+
+
+
+    #atracao .brinquedos .radicais h4 {
+        font-size: 26pt;
+        color: #fcea27;
+        text-align: center;
+        width: 100%;
+        margin: 57px 0px;
+        margin-right: 100px;
+        
+    }
+
+    #atracao .brinquedos h6 {
+        width: 100%;
+        font-size: 32pt;
+        color: red;
+        margin-top: 60px;
+        margin: 27px 0px;
+    }
+
+
+
+    footer {
+        padding: 10px;
+    }
+    .slick-prev, .slick-next {
+        right: 10px;
+    }
+
+    #atracao .rodape .site{
+     display: grid;
+
+    }
+
+    #atracao .rodape .site .conteudoRodape{
+        margin-left: 0px;
+    }
+       
+}
+
+
+@media (max-width: 768px) {
+    .usuario-dashboard h2 {
+        font-size: 1.5rem;
+    }
+
+    .informacoes-usuario,
+    .historico-compras {
+        padding: 15px;
+    }
+
+    .historico-compras table {
+        font-size: 0.9rem;
+    }
+}
+
+
+/*************************************************  LOGIN    ***************************************************/
+
