@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 class LoginController extends Controller {
     protected $clienteModel;
