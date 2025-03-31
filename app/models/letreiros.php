@@ -36,4 +36,48 @@ class Letreiros extends Model {
         
         return $stmt->execute();
     }
+    public function editarLetreiro($id, $dados) {
+        try {
+            $sql = "UPDATE tbl_letreiro 
+                    SET texto_letreiro = :texto_letreiro, 
+                        status_letreiro = :status_letreiro 
+                    WHERE id_letreiro = :id";
+            
+            $stmt = $this->db->prepare($sql);
+            
+            $stmt->bindValue(':texto_letreiro', $dados['texto_letreiro']);
+            $stmt->bindValue(':status_letreiro', $dados['status_letreiro']);
+            $stmt->bindValue(':id', $id);
+            
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            error_log("Erro ao editar letreiro: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    // Método para excluir um letreiro
+    public function excluirLetreiro($id) {
+        try {
+            $sql = "DELETE FROM tbl_letreiro WHERE id_letreiro = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':id', $id);
+            return $stmt->execute();
+        } catch (\PDOException $e) {
+            error_log("Erro ao excluir letreiro: " . $e->getMessage());
+            return false;
+        }
+    }
+    public function getLetreiroPorId($id) {
+        try {
+            $sql = "SELECT * FROM tbl_letreiro WHERE id_letreiro = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Erro ao buscar letreiro por ID: " . $e->getMessage());
+            return false;
+        }
+    }
 }
