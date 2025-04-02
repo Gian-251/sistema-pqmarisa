@@ -32,8 +32,6 @@ class LetreiroController extends Controller {
 
     public function adicionarLetreiro(){
         $dados = array();
-        
-    
         // Verifica se a requisição é do tipo POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Filtra e sanitiza os dados dos campos de input
@@ -80,12 +78,11 @@ class LetreiroController extends Controller {
     public function editarLetreiro($id = null) {
         $dados = array();
         
-        
         // Verifica se o ID foi fornecido
         if (!$id) {
             $_SESSION['mensagem'] = 'ID do letreiro não especificado';
             $_SESSION['tipo-msg'] = 'erro';
-            header('Location: http://localhost/sistema-pqmarisa/public/editarLetreiro');
+            header('Location: http://localhost/sistema-pqmarisa/public/letreiro');
             exit;
         }
         
@@ -95,7 +92,7 @@ class LetreiroController extends Controller {
         if (!$letreiro) {
             $_SESSION['mensagem'] = 'Letreiro não encontrado';
             $_SESSION['tipo-msg'] = 'erro';
-            header('Location: http://localhost/sistema-pqmarisa/public/editarLetreiro');
+            header('Location: http://localhost/sistema-pqmarisa/public/letreiro');
             exit;
         }
         
@@ -111,9 +108,7 @@ class LetreiroController extends Controller {
                 $dadosLetreiro = array(
                     'texto_letreiro' => $texto_letreiro,
                     'status_letreiro' => $status_letreiro
-                    
                 );
-                var_dump($dadosLetreiro);
                 
                 // Chama o método do modelo para editar o letreiro
                 $resultado = $this->letreiroListar->editarLetreiro($id, $dadosLetreiro);
@@ -122,7 +117,7 @@ class LetreiroController extends Controller {
                 if ($resultado) {
                     $_SESSION['mensagem'] = 'Letreiro atualizado com sucesso';
                     $_SESSION['tipo-msg'] = 'sucesso';
-                    header('Location: http://localhost/sistema-pqmarisa/public/editarLetreiro');
+                    header('Location: http://localhost/sistema-pqmarisa/public/letreiro');
                     exit;
                 } else {
                     $dados['erro'] = 'Erro ao atualizar letreiro';
@@ -136,10 +131,12 @@ class LetreiroController extends Controller {
         }
         
         // Passa os dados do letreiro para a view
-        $dados['letreiro'] = $letreiro;
-        $dados['conteudo'] = 'admin/letreiro/editarLetreiro'; // O caminho da view
+        $dados['dadosLetreiro'] = $letreiro; // Aqui estamos definindo a variável para a view
+        $dados['conteudo'] = 'admin/letreiro/editarLetreiro';
         $this->carregarViews('admin/index', $dados);
     }
+    
+
     
     // Método para excluir um letreiro
     public function excluirLetreiro($id = null) {

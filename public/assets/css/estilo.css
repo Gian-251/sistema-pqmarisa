@@ -1377,13 +1377,6 @@ nav ul li a {
     margin: 0 auto;
 }
 
-#ingresso .calendario, 
-#ingresso .ingressos, 
-#ingresso .carrinho {
-    padding: 20px;
-    border-radius: 8px;
-    width: 30%;
-}
 
 #ingresso button {
     background: #38888A; /* Cor do botão */

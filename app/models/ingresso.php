@@ -17,4 +17,12 @@ class Ingresso extends Model {
             return [];
         }
     }
+
+    public function getServicosAtivos() {
+        $sql = "SELECT * FROM tbl_servico WHERE status_servico = 'ATIVO'";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
+
