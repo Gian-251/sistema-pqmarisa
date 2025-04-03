@@ -1,3 +1,5 @@
+<a href="http://localhost/sistema-pqmarisa/public/agente/adicionar" class="btn btn-primary">Cadastrar Agente </a>
+
 <table class="table table-dark table-striped">
   <thead>
     <tr>
@@ -13,7 +15,6 @@
       <th scope="col">Turno</th>
       <th scope="col">Status</th>
       <th>Editar</th>
-      <th>Desativar</th>
     </tr>
   </thead>
   <tbody>
@@ -36,11 +37,11 @@
     
    
     <td>
-      <a href="editar_agente.php?id=<?php echo $linha['id_agente']; ?>" class="btn btn-warning">Editar</a>
-    </td>
+        <a href="http://localhost/sistema-pqmarisa/public/agente/editar/<?php echo $linha['id_agente']; ?>"
+          type="button" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+      </td>
     <td>
-      <a href="desativar_agente.php?id=<?php echo $linha['id_agente']; ?>" class="btn btn-danger">Desativar</a>
-    </td>
+
   </tr>
 <?php endforeach; ?>
   </tbody>

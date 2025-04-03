@@ -14,7 +14,7 @@
                     <label for="status_letreiro" class="form-label">Status</label>
                     <select id="status_letreiro" name="status_letreiro" class="form-select" required>
                         <option value="ATIVO" <?php echo $dadosLetreiro['status_letreiro'] == 'ATIVO' ? 'selected' : ''; ?>>Ativo</option>
-                        <option value="INATIVO" <?php echo $dadosLetreiro['status_letreiro'] == 'INATIVO' ? 'selected' : ''; ?>>Inativo</option>
+                        <option value="INATIVO" <?php echo $dadosLetreiro['status_letreiro'] == 'INATIVO' ? 'selected' : ''; ?>>Desativado</option>
                     </select>
                 </div>
 
