@@ -78,6 +78,61 @@ class Cliente extends Model {
         return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
     }
 
+    public function editarCliente($dadosCliente) {
+        try {
+            $sql = "UPDATE tbl_cliente 
+                    SET nome_cliente = :nome, cpf_cliente = :cpf, bairro_cliente = :bairro, 
+                        cidade_cliente = :cidade, estado_cliente = :estado, 
+                        data_nasc_cliente = :data_nasc, telefone_cliente = :telefone, 
+                        email_cliente = :email";
+
+            // Adiciona a senha à query apenas se ela for alterada
+            if (!empty($dadosCliente['senha_cliente'])) {
+                $sql .= ", senha_cliente = :senha";
+            }
+
+            $sql .= " WHERE id_cliente = :id";
+
+            $stmt = $this->db->prepare($sql);
+
+            // Bind dos parâmetros
+            $stmt->bindValue(':id', $dadosCliente['id_cliente'], PDO::PARAM_INT);
+            $stmt->bindValue(':nome', $dadosCliente['nome_cliente'], PDO::PARAM_STR);
+            $stmt->bindValue(':cpf', $dadosCliente['cpf_cliente'], PDO::PARAM_STR);
+            $stmt->bindValue(':bairro', $dadosCliente['bairro_cliente'], PDO::PARAM_STR);
+            $stmt->bindValue(':cidade', $dadosCliente['cidade_cliente'], PDO::PARAM_STR);
+            $stmt->bindValue(':estado', $dadosCliente['estado_cliente'], PDO::PARAM_STR);
+            $stmt->bindValue(':data_nasc', $dadosCliente['data_nasc_cliente'], PDO::PARAM_STR);
+            $stmt->bindValue(':telefone', $dadosCliente['telefone_cliente'], PDO::PARAM_STR);
+            $stmt->bindValue(':email', $dadosCliente['email_cliente'], PDO::PARAM_STR);
+
+            // Apenas vincula a senha se houver uma nova senha
+            if (!empty($dadosCliente['senha_cliente'])) {
+                $stmt->bindValue(':senha', $dadosCliente['senha_cliente'], PDO::PARAM_STR);
+            }
+
+            return $stmt->execute(); // Retorna true se a edição for bem-sucedida
+        } catch (PDOException $e) {
+            echo "Erro ao editar cliente: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getDadosCliente($id_cliente) {
+        try {
+            $sql = "SELECT * FROM tbl_cliente WHERE id_cliente = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':id', $id_cliente, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erro ao buscar cliente: " . $e->getMessage();
+            return false;
+        }
+    }
+    
+        
+    }
     
     
-}
+    

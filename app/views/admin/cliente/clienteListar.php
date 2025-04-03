@@ -31,8 +31,9 @@
     <td scope="col"><?php echo $linha['telefone_cliente']; ?></td>
     <td scope="col"><?php echo $linha['email_cliente']; ?></td>
     <td>
-      <a href="editar_cliente.php?id=<?php echo $linha['id_cliente']; ?>" class="btn btn-warning">Editar</a>
-    </td>
+        <a href="http://localhost/sistema-pqmarisa/public/cliente/editar/<?php echo $linha['id_cliente']; ?>"
+          type="button" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+      </td>
     <td>
       <a href="desativar_cliente.php?id=<?php echo $linha['id_cliente']; ?>" class="btn btn-danger">Desativar</a>
     </td>

@@ -64,14 +64,6 @@
     </footer>
 
     <style>
-        .calendario, .ingresso, .combos, .carrinho {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
 
         .calendario h2, .ingresso h2, .combos h2, .carrinho h2 {
             text-align: center;
@@ -245,6 +237,8 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
+        
     </style>
 
     <script>

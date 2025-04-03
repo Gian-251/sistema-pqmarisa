@@ -117,7 +117,7 @@ class LetreiroController extends Controller {
                 if ($resultado) {
                     $_SESSION['mensagem'] = 'Letreiro atualizado com sucesso';
                     $_SESSION['tipo-msg'] = 'sucesso';
-                    header('Location: http://localhost/sistema-pqmarisa/public/letreiro');
+                    header('Location: http://localhost/sistema-pqmarisa/public/letreiro/letreiroListar');
                     exit;
                 } else {
                     $dados['erro'] = 'Erro ao atualizar letreiro';

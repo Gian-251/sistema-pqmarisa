@@ -91,4 +91,83 @@ class ClienteController extends Controller{
        $this->carregarViews('admin/index', $dados);
     }
 
+    public function editar($id = null) {
+        $dados = array();
+        
+        // Se o formulário foi submetido
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+    
+            // Filtrando e sanitizando os inputs
+            $nome_cliente = filter_input(INPUT_POST, 'nome_cliente', FILTER_SANITIZE_SPECIAL_CHARS);
+            $cpf_cliente = filter_input(INPUT_POST, 'cpf_cliente', FILTER_SANITIZE_SPECIAL_CHARS);
+            $bairro_cliente = filter_input(INPUT_POST, 'bairro_cliente', FILTER_SANITIZE_SPECIAL_CHARS);
+            $cidade_cliente = filter_input(INPUT_POST, 'cidade_cliente', FILTER_SANITIZE_SPECIAL_CHARS);
+            $estado_cliente = filter_input(INPUT_POST, 'estado_cliente', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data_nasc_cliente = filter_input(INPUT_POST, 'data_nasc_cliente', FILTER_SANITIZE_SPECIAL_CHARS);
+            $telefone_cliente = filter_input(INPUT_POST, 'telefone_cliente', FILTER_SANITIZE_SPECIAL_CHARS);
+            $email_cliente = filter_input(INPUT_POST, 'email_cliente', FILTER_SANITIZE_EMAIL);
+            $senha_cliente = filter_input(INPUT_POST, 'senha_cliente', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+            // Se os campos obrigatórios foram preenchidos
+            if ($nome_cliente && $cpf_cliente && $email_cliente) {
+    
+                // Se a senha foi preenchida, criptografamos antes de salvar
+                if (!empty($senha_cliente)) {
+                    $senha_cliente = password_hash($senha_cliente, PASSWORD_DEFAULT);
+                } else {
+                    // Mantém a senha atual se não for alterada
+                    $senha_cliente = null;
+                }
+    
+                $dadosCliente = array(
+                    'id_cliente'        => $id,
+                    'nome_cliente'      => $nome_cliente,
+                    'cpf_cliente'       => $cpf_cliente,
+                    'bairro_cliente'    => $bairro_cliente,
+                    'cidade_cliente'    => $cidade_cliente,
+                    'estado_cliente'    => $estado_cliente,
+                    'data_nasc_cliente' => $data_nasc_cliente,
+                    'telefone_cliente'  => $telefone_cliente,
+                    'email_cliente'     => $email_cliente,
+                    'senha_cliente'     => $senha_cliente
+                );
+    
+                // Editar na base de dados
+                $clienteModel = new Cliente();
+                $idCliente = $clienteModel->editarCliente($dadosCliente);
+    
+                if ($idCliente) {
+                    $_SESSION['mensagem'] = 'Cliente editado com sucesso';
+                    $_SESSION['tipo-msg'] = 'sucesso';
+                    header('Location: http://localhost/sistema-pqmarisa/public/cliente/clienteListar');
+                    exit;
+                } else {
+                    $dados['mensagem'] = 'Erro ao editar o cliente - Falha ao atualizar no banco';
+                    $dados['tipo-msg'] = 'erro';
+                }
+    
+            } else {
+                $dados['mensagem'] = 'Erro ao editar o cliente - Preencha todos os campos obrigatórios';
+                $dados['tipo-msg'] = 'erro';
+            }
+        }
+    
+        // Obtendo os dados do cliente pelo ID
+        $clienteModel = new Cliente();
+        $dadosCliente = $clienteModel->getDadosCliente($id);
+        $dados['dadosCliente'] = $dadosCliente;
+    
+        if (!$dadosCliente) { 
+            $_SESSION['mensagem'] = 'Cliente não encontrado.';
+            $_SESSION['tipo-msg'] = 'erro';
+            header('Location: ' . BASE_URL . 'cliente/listar');
+            exit;
+        }
+    
+        $dados['conteudo'] = 'admin/cliente/editar';
+        $this->carregarViews('admin/index', $dados);
+    }
+    
+
 }
