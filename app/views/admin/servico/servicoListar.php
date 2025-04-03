@@ -1,3 +1,5 @@
+<a href="http://localhost/sistema-pqmarisa/public/servico/adicionar" class="btn btn-primary">Cadastrar Servico</a>
+
 <table class="table table-dark table-striped">
   <thead>
     <tr>
@@ -7,7 +9,6 @@
       <th scope="col">Valor</th>
       <th scope="col">Foto</th>
       <th scope="col">Texto Alternativo</th>
-      <th scope="col">Brinquedo Relacionado</th>
       <th scope="col">Status</th>
       <th>Editar</th>
       <th>Desativar</th>
@@ -25,7 +26,6 @@
           <img src="<?php echo $linha['foto_servico']; ?>" alt="<?php echo $linha['alt_servico']; ?>" style="width: 50px; height: 50px;">
         </td>
         <td scope="col"><?php echo $linha['alt_servico']; ?></td>
-        <td scope="col"><?php echo $linha['nome_brinquedo']; ?></td>
         <td scope="col"><?php echo $linha['status_servico']; ?></td>
         <td>
           <a href="editar_servico.php?id=<?php echo $linha['id_servico']; ?>" class="btn btn-warning">Editar</a>
