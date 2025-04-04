@@ -3,10 +3,9 @@
 <table class="table table-dark table-striped">
   <thead>
     <tr>
-      <th scope="col">ID</th>
+
       <th scope="col">Nome</th>
       <th scope="col">CPF</th>
-      <th scope="col">Rua</th>
       <th scope="col">Cidade</th>
       <th scope="col">Bairro</th>
       <th scope="col">Data de Nascimento</th>
@@ -21,10 +20,9 @@
     <?php 
   foreach ($agentes as $linha): ?>
   <tr>
-    <td scope="col"><?php echo $linha['id_agente']; ?></td>
+
     <td scope="col"><?php echo $linha['nome_agente']; ?></td>
     <td scope="col"><?php echo $linha['cpf_agente']; ?></td>
-    <td scope="col"><?php echo $linha['rua_agente']; ?></td>
     <td scope="col"><?php echo $linha['cidade_agente']; ?></td>
     <td scope="col"><?php echo $linha['bairro_agente']; ?></td>
     <td scope="col"><?php echo date("d/m/Y", strtotime($linha['data_nasc_agente'])); ?></td>
@@ -41,6 +39,8 @@
           type="button" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
       </td>
     <td>
+
+    
 
   </tr>
 <?php endforeach; ?>
