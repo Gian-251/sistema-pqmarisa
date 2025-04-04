@@ -11,7 +11,6 @@ class Banner extends Model {
             return [];
         }
     }
-<<<<<<< HEAD
     public function adicionarBanner($dados) {
         $sql = "INSERT INTO tbl_banner 
                 (nome_banner, foto_banner, video_banner, alt_banner, status_banner) 
@@ -65,6 +64,4 @@ class Banner extends Model {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-=======
->>>>>>> aee1b6cfbdb45a40d627b4b6f474c4106c84f650
 }
