@@ -87,4 +87,27 @@ class ServicoController extends Controller{
         $this->carregarViews('admin/index', $dados);
     }
 
+    public function uploadFoto($file, $nome){
+
+        $dir = '../public/uploads/servicos/';
+
+        if(!file_exists($dir)){
+            mkdir($dir, 0755, true);
+        }
+
+        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $novoNome = strtolower(trim(preg_replace('/[^a-zA-z0-9]/', '-', $nome)));
+
+        $nome_foto = uniqid() . $novoNome . '.' . $ext;
+        
+
+        if(move_uploaded_file($file['tmp_name'], $dir . $nome_foto)){
+            return 'servico/' . $nome_foto; //servico/16165135165nomeDoServico.png
+
+        }
+
+
+        return false;
+    }
+
 }

@@ -25,4 +25,6 @@ class BrinquedoController extends Controller{
         $this->carregarViews('admin/index', $dados);
     }
 
+    
+
 }

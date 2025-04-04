@@ -12,7 +12,6 @@
       <th scope="col">Valor Unitário</th>
       <th scope="col">Valor Total</th>
       <th scope="col">Status</th>
-      <th>Editar</th>
       <th>Desativar</th>
     </tr>
   </thead>
@@ -31,9 +30,7 @@
         <td scope="col"><?php echo 'R$ ' . number_format($linha['valor_unit_ingresso'], 2, ',', '.'); ?></td>
         <td scope="col"><?php echo 'R$ ' . number_format($linha['valor_total_ingresso'], 2, ',', '.'); ?></td>
         <td scope="col"><?php echo $linha['status_ingresso']; ?></td>
-        <td>
-          <a href="editar_ingresso.php?id=<?php echo $linha['id_ingresso']; ?>" class="btn btn-warning">Editar</a>
-        </td>
+
         <td>
           <a href="desativar_ingresso.php?id=<?php echo $linha['id_ingresso']; ?>" class="btn btn-danger">Desativar</a>
         </td>
