@@ -5,7 +5,7 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Nome</th>
-      <th scope="col">Imagem</th>
+      <th scope="col">Imagem</th>''
       <th scope="col">GIF / Vídeo</th>
       <th scope="col">Texto Alternativo</th>
       <th scope="col">Status</th>
