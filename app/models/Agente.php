@@ -57,6 +57,7 @@ class Agente extends Model {
         return $stmt->execute();
     }
 
+<<<<<<< HEAD
     public function getAgenteById($id) {
         try {
             $sql = "SELECT * FROM tbl_agente WHERE id_agente = :id_agente";
@@ -107,3 +108,6 @@ class Agente extends Model {
 
 }
 }
+=======
+}
+>>>>>>> aee1b6cfbdb45a40d627b4b6f474c4106c84f650

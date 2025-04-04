@@ -4,6 +4,7 @@ class BannerController extends Controller{
 
     private $bannerListar;
 
+<<<<<<< HEAD
     private $bannerModel;
     private $db;
 
@@ -11,6 +12,11 @@ class BannerController extends Controller{
     {
         $this->bannerListar = new Banner();
         $this->bannerModel = new Banner();
+=======
+    public function __construct()
+    {
+        $this->bannerListar = new Banner();
+>>>>>>> aee1b6cfbdb45a40d627b4b6f474c4106c84f650
     }
 
     public function index(){
@@ -26,6 +32,7 @@ class BannerController extends Controller{
 
         $this->carregarViews('admin/index', $dados);
     }
+<<<<<<< HEAD
 
     public function adicionar() {
         $dados = [];
@@ -99,4 +106,6 @@ class BannerController extends Controller{
 
 
     
+=======
+>>>>>>> aee1b6cfbdb45a40d627b4b6f474c4106c84f650
 }
