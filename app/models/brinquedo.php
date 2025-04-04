@@ -11,10 +11,7 @@ class Brinquedo extends Model {
             return [];
         }
     }
-<<<<<<< HEAD
 
 
     
-=======
->>>>>>> aee1b6cfbdb45a40d627b4b6f474c4106c84f650
 }

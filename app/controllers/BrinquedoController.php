@@ -25,9 +25,5 @@ class BrinquedoController extends Controller{
         $this->carregarViews('admin/index', $dados);
     }
 
-<<<<<<< HEAD
-    
-
-=======
->>>>>>> aee1b6cfbdb45a40d627b4b6f474c4106c84f650
 }
+

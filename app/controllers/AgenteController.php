@@ -7,10 +7,7 @@ class AgenteController extends Controller{
 
     private $agenteListar;
     private $agenteModel;
-<<<<<<< HEAD
     private $db;
-=======
->>>>>>> aee1b6cfbdb45a40d627b4b6f474c4106c84f650
     public function __construct()
     {
         $this->agenteListar = new Agente();
@@ -94,7 +91,6 @@ class AgenteController extends Controller{
         $this->carregarViews('admin/index', $dados);
     }
 
-<<<<<<< HEAD
     public function editar($id_agente) {
         $dados = [];
     
@@ -164,6 +160,4 @@ class AgenteController extends Controller{
     }
     
 
-=======
->>>>>>> aee1b6cfbdb45a40d627b4b6f474c4106c84f650
 }
