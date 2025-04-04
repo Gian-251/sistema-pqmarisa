@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_1" data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 82.69 112.34">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Gradiente_sem_nome_15);
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: url(#Gradiente_sem_nome_19);
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: url(#Gradiente_sem_nome_28);
+      }
+    </style>
+    <linearGradient id="Gradiente_sem_nome_28" data-name="Gradiente sem nome 28" x1="0" y1="56.17" x2="82.69" y2="56.17" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00e1ff"/>
+      <stop offset=".14" stop-color="#03c9ed"/>
+      <stop offset=".45" stop-color="#0a8ec0"/>
+      <stop offset=".88" stop-color="#172f78"/>
+      <stop offset="1" stop-color="#1b1464"/>
+    </linearGradient>
+    <linearGradient id="Gradiente_sem_nome_15" data-name="Gradiente sem nome 15" x1="6.02" y1="54.76" x2="76.67" y2="54.76" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00e1ff"/>
+      <stop offset="1" stop-color="#1b1464"/>
+    </linearGradient>
+    <linearGradient id="Gradiente_sem_nome_19" data-name="Gradiente sem nome 19" x1="17.75" y1="40.13" x2="64.94" y2="40.13" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00e1ff"/>
+      <stop offset="1" stop-color="#1b1464"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-4" d="M41.43,112.34l-2.23-2.26c-.4-.4-9.85-10.04-19.46-23.26-5.67-7.81-10.2-15.24-13.46-22.08C2.11,55.99,0,48.12,0,41.35c0-11.04,4.3-21.43,12.11-29.24C19.92,4.3,30.3,0,41.35,0s21.43,4.3,29.24,12.11c7.81,7.81,12.11,18.19,12.11,29.24s-6.63,25.71-19.72,44.26c-9.58,13.58-19.01,23.96-19.4,24.39l-2.14,2.35Z"/>
+  <path class="cls-1" d="M41.35,6.02C21.87,6.02,6.02,21.87,6.02,41.35c0,22.4,27.19,53.45,35.25,62.16,3.35-3.86,10.12-11.92,16.82-21.42,12.16-17.24,18.58-31.33,18.58-40.73,0-19.48-15.85-35.33-35.33-35.33Z"/>
+  <path class="cls-2" d="M41.35,63.72c-13.01,0-23.59-10.58-23.59-23.59s10.58-23.59,23.59-23.59,23.59,10.58,23.59,23.59-10.58,23.59-23.59,23.59Z"/>
+  <path class="cls-3" d="M41.35,22.56c-9.69,0-17.57,7.88-17.57,17.57s7.88,17.57,17.57,17.57,17.57-7.88,17.57-17.57-7.88-17.57-17.57-17.57Z"/>
+</svg>
