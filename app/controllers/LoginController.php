@@ -52,16 +52,20 @@ class LoginController extends Controller {
         $email = $_POST['email'] ?? '';
         $senha = $_POST['senha'] ?? '';
 
+        // var_dump($email, $senha);
+
 
 
         $loginModel = new Login();
 
-        //verrificar funcionario 
-        $func = $loginModel->verificarAgente($email, $senha);
-        if($func){
-            $_SESSION['usuario'] = $func;
-            $_SESSION['tipo'] = 'funcionario';
-            header('Location: '. BASE_URL .'perfil');
+        // verrificar funcionario 
+        $agente = $loginModel->verificarAgente($email, $senha);
+        var_dump($agente);
+        
+        if($agente){
+            $_SESSION['usuario'] = $agente;
+            $_SESSION['tipo'] = 'agente';
+            header('Location: '. BASE_URL .'admin/perfil');
             exit;
         }
 
@@ -69,7 +73,7 @@ class LoginController extends Controller {
         if($cliente){
             $_SESSION['usuario'] = $cliente;
             $_SESSION['tipo'] = 'cliente';
-            header('Location: '. BASE_URL .'perfil');
+            header('Location: '. BASE_URL .'admin/perfil');
             exit;
         }
 
@@ -83,6 +87,36 @@ class LoginController extends Controller {
         session_destroy();
         header('Location: '. BASE_URL);
         exit;
+
+    }
+
+    public function perfil(): void
+    {
+        if (!isset($_SESSION['usuario']) || !isset($_SESSION['tipo'])) {
+            header('Location: ' . BASE_URL);
+            exit;
+        }
+
+        $usuario = $_SESSION['usuario'];
+        $tipo = $_SESSION['tipo'];
+
+        $dados = array();
+        $dados = [
+            'usuario' => $usuario,
+            'tipo' => $tipo
+        ];
+
+        if($tipo == 'agente'){
+            $dados['conteudo'] = 'admin/perfil/agente';
+            $this->carregarViews('admin/index', $dados);
+        }else{
+            $dados['conteudo'] = 'admin/perfil/cliente';
+            $this->carregarViews('admin/index', $dados);
+        }
+
+     
+            
+        
 
     }
 }
