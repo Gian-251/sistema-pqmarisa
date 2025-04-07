@@ -11,7 +11,7 @@ class Banner extends Model {
             return [];
         }
     }
-    public function adicionarBanner($dados) {
+    public function addBanner($dados) {
         $sql = "INSERT INTO tbl_banner 
                 (nome_banner, foto_banner, video_banner, alt_banner, status_banner) 
                 VALUES 

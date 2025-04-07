@@ -45,5 +45,44 @@ class LoginController extends Controller {
             }
             
         }
+
+
+    }
+    public function autenticar(){
+        $email = $_POST['email'] ?? '';
+        $senha = $_POST['senha'] ?? '';
+
+
+
+        $loginModel = new Login();
+
+        //verrificar funcionario 
+        $func = $loginModel->verificarAgente($email, $senha);
+        if($func){
+            $_SESSION['usuario'] = $func;
+            $_SESSION['tipo'] = 'funcionario';
+            header('Location: '. BASE_URL .'perfil');
+            exit;
+        }
+
+        $cliente = $loginModel->verificarCliente($email, $senha);
+        if($cliente){
+            $_SESSION['usuario'] = $cliente;
+            $_SESSION['tipo'] = 'cliente';
+            header('Location: '. BASE_URL .'perfil');
+            exit;
+        }
+
+        //se não for autenticado 
+
+        $_SESSION['erro_login'] = 'email ou senha inválidos';
+        header('Location: '. BASE_URL);
+        exit;
+    }
+    public function sair(){
+        session_destroy();
+        header('Location: '. BASE_URL);
+        exit;
+
     }
 }

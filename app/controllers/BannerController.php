@@ -28,51 +28,74 @@ class BannerController extends Controller{
     }
 
     public function adicionar() {
-        $dados = [];
+        $dados = array();
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Valida os campos obrigatórios
-            if (
-                !empty($_POST['nome_banner']) &&
-                !empty($_POST['alt_banner']) &&
-                !empty($_POST['status_banner']) &&
-                isset($_FILES['foto_banner']) &&
-                isset($_FILES['video_banner'])
-            ) {
-                // Faz o upload da imagem e do gif
-                $foto = $this->uploadBannerImagem($_FILES['foto_banner'], $_POST['nome_banner'], 'foto');
-                $gif = $this->uploadBannerImagem($_FILES['video_banner'], $_POST['nome_banner'], 'gif');
+            $nome_banner = filter_input(INPUT_POST, 'nome_banner', FILTER_SANITIZE_SPECIAL_CHARS);
+            $alt_banner = filter_input(INPUT_POST, 'alt_banner', FILTER_SANITIZE_SPECIAL_CHARS);
+            $status_banner = filter_input(INPUT_POST, 'status_banner', FILTER_SANITIZE_SPECIAL_CHARS);
     
-                if ($foto && $gif) {
-                    // Dados prontos para inserção
-                    $bannerData = [
-                        'nome_banner' => $_POST['nome_banner'],
-                        'foto_banner' => $foto, // exemplo: banner/foto_nome.png
-                        'video_banner' => $gif, // exemplo: banner/gif_nome.gif
-                        'alt_banner' => $_POST['alt_banner'],
-                        'status_banner' => $_POST['status_banner']
-                    ];
+            $fotoPath = '';
+            $gifPath = '';
     
-                    // Chama o model para inserir no banco
-                    if ($this->bannerModel->adicionarBanner($bannerData)) {
-                        header('Location: ' . BASE_URL . 'banner/bannerListar');
-                        exit;
-                    } else {
-                        $dados['erro'] = 'Erro ao salvar o banner no banco de dados.';
-                    }
+            // Upload da imagem fixa
+            if (isset($_FILES['foto_banner']) && $_FILES['foto_banner']['error'] === 0) {
+                $fotoPath = $this->uploadBannerFile($_FILES['foto_banner'], $nome_banner, 'img');
+            }
+    
+            // Upload do GIF/vídeo
+            if (isset($_FILES['video_banner']) && $_FILES['video_banner']['error'] === 0) {
+                $gifPath = $this->uploadBannerFile($_FILES['video_banner'], $nome_banner, 'gif');
+            }
+    
+            if ($nome_banner && $fotoPath && $gifPath) {
+                $dadosBanner = array(
+                    'nome_banner' => $nome_banner,
+                    'foto_banner' => $fotoPath,
+                    'video_banner' => $gifPath,
+                    'alt_banner'  => $alt_banner,
+                    'status_banner' => $status_banner
+                );
+    
+                $id = $this->bannerModel->addBanner($dadosBanner);
+    
+                if ($id) {
+                    $_SESSION['mensagem'] = 'Banner adicionado com sucesso';
+                    $_SESSION['tipo-msg'] = 'sucesso';
+                    header('Location: http://localhost/sistema-pqmarisa/public/banner/bannerListar');
+                    exit;
                 } else {
-                    $dados['erro'] = 'Erro ao fazer upload da imagem ou do GIF.';
+                    $dados['erro'] = 'Erro ao salvar banner no banco de dados.';
+                    $dados['tipo-msg'] = 'erro';
                 }
             } else {
-                $dados['erro'] = 'Preencha todos os campos obrigatórios.';
+                $dados['erro'] = 'Todos os campos devem ser preenchidos.';
+                $dados['tipo-msg'] = 'erro';
             }
         }
     
-        // Carrega a view
         $dados['conteudo'] = 'admin/banner/adicionar';
-        $dados['titulo'] = 'Adicionar Banner - Parque Marisa';
         $this->carregarViews('admin/index', $dados);
     }
+    
+    // Função para salvar arquivos
+    public function uploadBannerFile($file, $nome, $tipo) {
+        $dir = '../public/uploads/banners/';
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
+    
+        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $nome_sanitizado = strtolower(trim(preg_replace('/[^a-zA-Z0-9]/', '-', $nome)));
+        $novoNome = uniqid() . '-' . $tipo . '-' . $nome_sanitizado . '.' . $ext;
+    
+        if (move_uploaded_file($file['tmp_name'], $dir . $novoNome)) {
+            return 'uploads/banners/' . $novoNome;
+        }
+    
+        return false;
+    }
+    
     
     public function uploadBannerImagem($file, $nome, $tipo = 'foto') {
         $dir = '/public/assets/img/banner/';

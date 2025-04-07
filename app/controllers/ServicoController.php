@@ -87,7 +87,6 @@ class ServicoController extends Controller{
         $this->carregarViews('admin/index', $dados);
     }
 
-<<<<<<< HEAD
     public function uploadFoto($file, $nome){
 
         $dir = '../public/uploads/servicos/';
@@ -111,6 +110,4 @@ class ServicoController extends Controller{
         return false;
     }
 
-=======
->>>>>>> aee1b6cfbdb45a40d627b4b6f474c4106c84f650
 }
