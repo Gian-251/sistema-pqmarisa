@@ -1,7 +1,5 @@
 <?php   
-
 class EventosController extends Controller {
-
     private $eventosModel;
 
     public function __construct() {
@@ -14,67 +12,82 @@ class EventosController extends Controller {
         $this->carregarViews('eventos', $dados);
     }
 
-    public function listar() {
+    public function eventosListar() {
         $dados = array();
-        $dados['conteudo'] = 'admin/eventos/eventosListar'; // Use 'eventos' com S se sua pasta for com S
+        $dados['conteudo'] = 'admin/eventos/eventosListar';
         $dados['eventos'] = $this->eventosModel->getTodosEventos();
+        $this->carregarViews('admin/index', $dados);
+    }
+
+    public function adicionar() {
+        $dados = [];
+        $dados['titulo'] = 'Adicionar Evento';
+        $dados['conteudo'] = 'admin/eventos/adicionar';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nome_eventos = filter_input(INPUT_POST, 'nome_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data_inicio_eventos = filter_input(INPUT_POST, 'data_inicio_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data_fim_eventos = filter_input(INPUT_POST, 'data_fim_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
+            $status_eventos = filter_input(INPUT_POST, 'status_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
+            $alt_eventos = $nome_eventos;
+
+            if (isset($_FILES['foto_eventos']) && $_FILES['foto_eventos']['error'] === 0) {
+                $arquivo = $this->uploadFoto($_FILES['foto_eventos'], $nome_eventos);
+                
+                $dadosEvento = [
+                    'nome_eventos' => $nome_eventos,
+                    'data_inicio_eventos' => $data_inicio_eventos,
+                    'data_fim_eventos' => $data_fim_eventos,
+                    'alt_eventos' => $alt_eventos,
+                    'status_eventos' => $status_eventos,
+                    'foto_eventos' => $arquivo
+                ];
+
+                if ($this->eventosModel->adicionarEvento($dadosEvento)) {
+                    $_SESSION['mensagem'] = 'Evento cadastrado com sucesso!';
+                    $_SESSION['tipo-msg'] = 'sucesso';
+                    header('Location: ' . BASE_URL . 'eventos/eventosListar');
+                    exit;
+                }
+            }
+        }
 
         $this->carregarViews('admin/index', $dados);
     }
 
-    public function adicionar(): void {
-        $dados = [];
+    public function editar($id) {
+        $dados = array();
+        $dados['titulo'] = 'Editar Evento';
+        $dados['conteudo'] = 'admin/eventos/editar';
+        $dados['evento'] = $this->eventosModel->getEventoPorId($id);
+        $this->carregarViews('admin/index', $dados);
+    }
 
+    public function atualizarEvento() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nome_eventos        = filter_input(INPUT_POST, 'nome_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
-            $data_inicio_eventos = filter_input(INPUT_POST, 'data_inicio_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
-            $data_fim_eventos    = filter_input(INPUT_POST, 'data_fim_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
-            $status_eventos      = filter_input(INPUT_POST, 'status_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
-            $alt_eventos         = $nome_eventos;
+            $dadosEvento = [
+                'id_eventos' => filter_input(INPUT_POST, 'id_eventos', FILTER_SANITIZE_NUMBER_INT),
+                'nome_eventos' => filter_input(INPUT_POST, 'nome_eventos', FILTER_SANITIZE_SPECIAL_CHARS),
+                'data_inicio_eventos' => filter_input(INPUT_POST, 'data_inicio_eventos', FILTER_SANITIZE_SPECIAL_CHARS),
+                'data_fim_eventos' => filter_input(INPUT_POST, 'data_fim_eventos', FILTER_SANITIZE_SPECIAL_CHARS),
+                'status_eventos' => filter_input(INPUT_POST, 'status_eventos', FILTER_SANITIZE_SPECIAL_CHARS),
+                'alt_eventos' => filter_input(INPUT_POST, 'alt_eventos', FILTER_SANITIZE_SPECIAL_CHARS)
+            ];
 
-            $arquivo = '';
+            if (isset($_FILES['foto_eventos']) && $_FILES['foto_eventos']['error'] === 0) {
+                $arquivo = $this->uploadFoto($_FILES['foto_eventos'], $dadosEvento['nome_eventos']);
+                $dadosEvento['foto_eventos'] = $arquivo;
+            }
 
-            if ($nome_eventos && $data_inicio_eventos && $data_fim_eventos && $status_eventos) {
-                if (isset($_FILES['foto_eventos']) && $_FILES['foto_eventos']['error'] === 0) {
-                    $arquivo = $this->uploadFoto($_FILES['foto_eventos'], $nome_eventos);
-                } else {
-                    $dados['erro'] = 'Imagem do evento é obrigatória';
-                    $dados['tipo-msg'] = 'erro';
-                }
-
-                $dadosEvento = [
-                    'nome_eventos'        => $nome_eventos,
-                    'data_inicio_eventos' => $data_inicio_eventos,
-                    'data_fim_eventos'    => $data_fim_eventos,
-                    'alt_eventos'         => $alt_eventos,
-                    'status_eventos'      => $status_eventos,
-                    'foto_eventos'        => $arquivo
-                ];
-
-                try {
-                    $idEvento = $this->eventosModel->cadastrar($dadosEvento);
-
-                    if ($idEvento) {
-                        $_SESSION['mensagem'] = 'Evento cadastrado com sucesso!';
-                        $_SESSION['tipo-msg'] = 'sucesso';
-                        header('Location: ' . BASE_URL . 'eventos/listar');
-                        exit;
-                    } else {
-                        $dados['erro'] = 'Erro ao adicionar evento no banco de dados.';
-                        $dados['tipo-msg'] = 'erro';
-                    }
-                } catch (Exception $e) {
-                    $dados['erro'] = $e->getMessage();
-                    $dados['tipo-msg'] = 'erro';
-                }
-            } else {
-                $dados['erro'] = 'Todos os campos devem ser preenchidos.';
-                $dados['tipo-msg'] = 'erro';
+            if ($this->eventosModel->atualizarEvento($dadosEvento)) {
+                $_SESSION['mensagem'] = 'Evento atualizado com sucesso!';
+                $_SESSION['tipo-msg'] = 'sucesso';
+                header('Location: ' . BASE_URL . 'eventos/eventosListar');
+                exit;
             }
         }
-
-        $dados['conteudo'] = 'admin/eventos/adicionar'; // Certifique-se de que o caminho existe
-        $this->carregarViews('admin/index', $dados);
+        
+        header('Location: ' . BASE_URL . 'eventos/eventosListar');
     }
 
     private function uploadFoto($arquivo, $nome): string {
