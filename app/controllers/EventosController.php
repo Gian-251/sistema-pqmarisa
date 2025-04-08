@@ -43,7 +43,7 @@ class EventosController extends Controller {
                     'foto_eventos' => $arquivo
                 ];
 
-                if ($this->eventosModel->adicionarEvento($dadosEvento)) {
+                if ($this->eventosModel->cadastrar($dadosEvento)) {
                     $_SESSION['mensagem'] = 'Evento cadastrado com sucesso!';
                     $_SESSION['tipo-msg'] = 'sucesso';
                     header('Location: ' . BASE_URL . 'eventos/eventosListar');
