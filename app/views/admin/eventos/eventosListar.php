@@ -1,3 +1,5 @@
+<a href="http://localhost/sistema-pqmarisa/public/eventos/adicionar" class="btn btn-primary">Cadastrar eventos </a>
+
 <table class="table table-dark table-striped">
   <thead>
     <tr>

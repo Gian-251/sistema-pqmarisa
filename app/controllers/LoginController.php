@@ -54,18 +54,16 @@ class LoginController extends Controller {
 
         // var_dump($email, $senha);
 
-
-
         $loginModel = new Login();
 
         // verrificar funcionario 
         $agente = $loginModel->verificarAgente($email, $senha);
-        var_dump($agente);
+        // var_dump($agente);
         
-        if($agente){
+        if ($agente) {
             $_SESSION['usuario'] = $agente;
             $_SESSION['tipo'] = 'agente';
-            header('Location: '. BASE_URL .'admin/perfil');
+            header('Location: ' . BASE_URL . 'perfil');
             exit;
         }
 
@@ -73,50 +71,20 @@ class LoginController extends Controller {
         if($cliente){
             $_SESSION['usuario'] = $cliente;
             $_SESSION['tipo'] = 'cliente';
-            header('Location: '. BASE_URL .'admin/perfil');
+            header('Location: '. BASE_URL .'perfil');
             exit;
         }
 
-        //se não for autenticado 
-
+        // se não for autenticado 
         $_SESSION['erro_login'] = 'email ou senha inválidos';
         header('Location: '. BASE_URL);
         exit;
-    }
-    public function sair(){
+    }    public function sair(){
         session_destroy();
         header('Location: '. BASE_URL);
         exit;
 
     }
 
-    public function perfil(): void
-    {
-        if (!isset($_SESSION['usuario']) || !isset($_SESSION['tipo'])) {
-            header('Location: ' . BASE_URL);
-            exit;
-        }
 
-        $usuario = $_SESSION['usuario'];
-        $tipo = $_SESSION['tipo'];
-
-        $dados = array();
-        $dados = [
-            'usuario' => $usuario,
-            'tipo' => $tipo
-        ];
-
-        if($tipo == 'agente'){
-            $dados['conteudo'] = 'admin/perfil/agente';
-            $this->carregarViews('admin/index', $dados);
-        }else{
-            $dados['conteudo'] = 'admin/perfil/cliente';
-            $this->carregarViews('admin/index', $dados);
-        }
-
-     
-            
-        
-
-    }
 }

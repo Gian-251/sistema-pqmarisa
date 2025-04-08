@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 //carregamento das classes
 require_once('../config/config.php');
 

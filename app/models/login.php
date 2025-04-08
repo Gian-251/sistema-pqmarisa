@@ -14,7 +14,7 @@ class Login extends Model{
     
         public function verificarCliente($email, $senha): mixed
         {
-            $sql = "SELECT * FROM tbl_cliente WHERE email_cliente = :email AND senha_cliente = :senha AND status_cliente = 'ATIVO'";
+            $sql = "SELECT * FROM tbl_cliente WHERE email_cliente = :email AND senha_cliente = :senha";
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(param: ':email', value: $email);
             $stmt->bindValue(param: ':senha', value: $senha);
