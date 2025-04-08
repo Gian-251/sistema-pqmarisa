@@ -1,89 +1,92 @@
 <?php   
 
-class EventosController extends Controller{
-    public function index(){
+class EventosController extends Controller {
+
+    private $eventosModel;
+
+    public function __construct() {
+        $this->eventosModel = new Eventos();
+    }
+
+    public function index() {
         $dados = array();
-        $dados['titulo'] = 'eventos - Marisa Parque Itaquera';
+        $dados['titulo'] = 'Eventos - Marisa Parque Itaquera';
         $this->carregarViews('eventos', $dados);
-
-        //var_dump("chegeui a controller");
     }
-    private $eventosListar;
-    public function __construct()
-    {
-        $this->eventosListar = new Eventos();
-    }
-    public function eventosListar(){
 
+    public function listar() {
         $dados = array();
-        $dados['conteudo'] = 'admin/eventos/eventosListar';
-        $dados['eventos'] = $this->eventosListar->getTodosEventos();
-        // var_dump($dados['servicos']);
+        $dados['conteudo'] = 'admin/eventos/eventosListar'; // Use 'eventos' com S se sua pasta for com S
+        $dados['eventos'] = $this->eventosModel->getTodosEventos();
 
-
-        
         $this->carregarViews('admin/index', $dados);
     }
-    private $db;
-    public function adicionar() {
-        
-        $dados = array();
-    
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Captura e sanitiza os dados do formulário
-            $nome_eventos = filter_input(INPUT_POST, 'nome_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
-            $data_inicio_eventos = filter_input(INPUT_POST, 'data_inicio_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
-            $data_fim_eventos = filter_input(INPUT_POST, 'data_fim_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
-            $alt_eventos = filter_input(INPUT_POST, 'alt_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
-            $status_eventos = filter_input(INPUT_POST, 'status_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
-    
-            // Upload de imagem (foto_eventos)
-            $foto_eventos = '';
-            if (isset($_FILES['foto_eventos']) && $_FILES['foto_eventos']['error'] == 0) {
-                $ext = pathinfo($_FILES['foto_eventos']['name'], PATHINFO_EXTENSION);
-                $nome_arquivo = md5(time() . rand(0, 9999)) . '.' . $ext;
-                $caminho = 'assets/imagens/eventos/' . $nome_arquivo;
-    
-                if (move_uploaded_file($_FILES['foto_eventos']['tmp_name'], $caminho)) {
-                    $foto_eventos = $nome_arquivo;
-                } else {
-                    $_SESSION['erro'] = "Erro ao fazer upload da imagem.";
-                    header("Location: /eventos/adicionar");
-                    exit;
-                }
-            }
 
-            
-    
-            // Inserção no banco
-            try {
-                $sql = "INSERT INTO tbl_eventos (nome_eventos, foto_eventos, data_inicio_eventos, data_fim_eventos, alt_eventos, status_eventos)
-                        VALUES (:nome, :foto, :inicio, :fim, :alt, :status)";
-                $stmt = $this->db->prepare($sql);
-                $stmt->bindValue(':nome', $nome_eventos);
-                $stmt->bindValue(':foto', $foto_eventos);
-                $stmt->bindValue(':inicio', $data_inicio_eventos);
-                $stmt->bindValue(':fim', $data_fim_eventos);
-                $stmt->bindValue(':alt', $alt_eventos);
-                $stmt->bindValue(':status', $status_eventos);
-    
-                if ($stmt->execute()) {
-                    $_SESSION['sucesso'] = "Evento cadastrado com sucesso!";
-                    header("Location: /eventos/listar");
-                    exit;
+    public function adicionar(): void {
+        $dados = [];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nome_eventos        = filter_input(INPUT_POST, 'nome_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data_inicio_eventos = filter_input(INPUT_POST, 'data_inicio_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data_fim_eventos    = filter_input(INPUT_POST, 'data_fim_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
+            $status_eventos      = filter_input(INPUT_POST, 'status_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
+            $alt_eventos         = $nome_eventos;
+
+            $arquivo = '';
+
+            if ($nome_eventos && $data_inicio_eventos && $data_fim_eventos && $status_eventos) {
+                if (isset($_FILES['foto_eventos']) && $_FILES['foto_eventos']['error'] === 0) {
+                    $arquivo = $this->uploadFoto($_FILES['foto_eventos'], $nome_eventos);
                 } else {
-                    $_SESSION['erro'] = "Erro ao cadastrar evento!";
+                    $dados['erro'] = 'Imagem do evento é obrigatória';
+                    $dados['tipo-msg'] = 'erro';
                 }
-            } catch (\PDOException $e) {
-                error_log("Erro ao inserir evento: " . $e->getMessage());
-                $_SESSION['erro'] = "Erro ao processar a requisição!";
+
+                $dadosEvento = [
+                    'nome_eventos'        => $nome_eventos,
+                    'data_inicio_eventos' => $data_inicio_eventos,
+                    'data_fim_eventos'    => $data_fim_eventos,
+                    'alt_eventos'         => $alt_eventos,
+                    'status_eventos'      => $status_eventos,
+                    'foto_eventos'        => $arquivo
+                ];
+
+                try {
+                    $idEvento = $this->eventosModel->cadastrar($dadosEvento);
+
+                    if ($idEvento) {
+                        $_SESSION['mensagem'] = 'Evento cadastrado com sucesso!';
+                        $_SESSION['tipo-msg'] = 'sucesso';
+                        header('Location: ' . BASE_URL . 'eventos/listar');
+                        exit;
+                    } else {
+                        $dados['erro'] = 'Erro ao adicionar evento no banco de dados.';
+                        $dados['tipo-msg'] = 'erro';
+                    }
+                } catch (Exception $e) {
+                    $dados['erro'] = $e->getMessage();
+                    $dados['tipo-msg'] = 'erro';
+                }
+            } else {
+                $dados['erro'] = 'Todos os campos devem ser preenchidos.';
+                $dados['tipo-msg'] = 'erro';
             }
         }
-    
-        $dados['conteudo'] = 'admin/eventos/adicionar';
+
+        $dados['conteudo'] = 'admin/eventos/adicionar'; // Certifique-se de que o caminho existe
         $this->carregarViews('admin/index', $dados);
     }
-    
 
+    private function uploadFoto($arquivo, $nome): string {
+        $diretorio = 'assets/img/Eventos/';
+        $extensao = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
+        $nomeArquivo = 'evento_' . md5($nome . time()) . '.' . $extensao;
+        $caminhoCompleto = $diretorio . $nomeArquivo;
+
+        if (move_uploaded_file($arquivo['tmp_name'], $caminhoCompleto)) {
+            return $nomeArquivo;
+        }
+
+        return '';
+    }
 }
-    

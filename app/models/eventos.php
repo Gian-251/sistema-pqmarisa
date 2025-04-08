@@ -12,24 +12,43 @@ class Eventos extends Model {
         }
     }
 
-    public function adicionarEvento($dados) {
+    public function cadastrar($dados)
+    {
         try {
-            $sql = "INSERT INTO tbl_eventos (nome_eventos, foto_eventos, data_inicio_eventos, 
-                    data_fim_eventos, alt_eventos, status_eventos) 
+            // Validação básica
+            if (
+                empty($dados['nome_eventos']) ||
+                empty($dados['data_inicio_eventos']) ||
+                empty($dados['data_fim_eventos']) ||
+                empty($dados['alt_eventos']) ||
+                empty($dados['status_eventos']) ||
+                empty($dados['foto_eventos']) // Certifique-se de enviar o nome do arquivo
+            ) {
+                throw new Exception("Todos os campos obrigatórios devem ser preenchidos.");
+            }
+
+            // Inserção no banco de dados
+            $sql = "INSERT INTO tbl_eventos 
+                    (nome_eventos, foto_eventos, data_inicio_eventos, data_fim_eventos, alt_eventos, status_eventos)
                     VALUES (:nome, :foto, :data_inicio, :data_fim, :alt, :status)";
             
             $stmt = $this->db->prepare($sql);
-            $stmt->bindValue(':nome', $dados['nome_eventos']);
-            $stmt->bindValue(':foto', $dados['foto_eventos']);
-            $stmt->bindValue(':data_inicio', $dados['data_inicio_eventos']);
-            $stmt->bindValue(':data_fim', $dados['data_fim_eventos']);
-            $stmt->bindValue(':alt', $dados['alt_eventos']);
-            $stmt->bindValue(':status', $dados['status_eventos']);
-            
-            return $stmt->execute();
+
+            $stmt->execute([
+                ':nome' => $dados['nome_eventos'],
+                ':foto' => $dados['foto_eventos'],
+                ':data_inicio' => $dados['data_inicio_eventos'],
+                ':data_fim' => $dados['data_fim_eventos'],
+                ':alt' => $dados['alt_eventos'],
+                ':status' => $dados['status_eventos']
+            ]);
+
+            // Retorna o ID do evento cadastrado
+            return $this->db->lastInsertId();
+
         } catch (\PDOException $e) {
-            error_log("Erro ao adicionar evento: " . $e->getMessage());
-            return false;
+            error_log("Erro ao cadastrar evento: " . $e->getMessage());
+            throw new Exception("Erro ao cadastrar evento. Tente novamente.");
         }
     }
 

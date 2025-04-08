@@ -12,45 +12,28 @@
     </tr>
   </thead>
   <tbody>
-    <?php 
-    foreach ($eventos as $linha): ?>
-    <tr>
-    <td scope="col">
-            <?php
+  <?php foreach ($eventos as $linha): ?>
+<tr>
+  <td scope="col">
+    <?php
+      $caminhoBase = "http://localhost/sistema-pqmarisa/public/assets/img/Eventos";
+      $urlFoto = (!empty($linha['foto_eventos'])) 
+        ? $caminhoBase . '/' . $linha['foto_eventos'] 
+        : $caminhoBase . '/semfoto.png';
+    ?>
+    <img src="<?php echo $urlFoto; ?>" class="img-thumbnail" alt="<?php echo $linha['nome_eventos']; ?>" style="max-width: 120px;">
+  </td>
+  <td scope="col"><?php echo $linha['id_eventos']; ?></td>
+  <td scope="col"><?php echo $linha['nome_eventos']; ?></td>
+  <td scope="col"><?php echo $linha['status_eventos']; ?></td>
+  <td>
+    <a href="editar_evento.php?id=<?php echo $linha['id_eventos']; ?>" class="btn btn-warning">Editar</a>
+  </td>
+  <td>
+    <a href="desativar_evento.php?id=<?php echo $linha['id_eventos']; ?>" class="btn btn-danger">Desativar</a>
+  </td>
+</tr>
+<?php endforeach; ?>
 
-            $caminhoBase = "http://localhost/sistema-ti26/public/uploads/";
-            $caminhoFoto = $caminhoBase . $linha['foto_eventos'];
-
-            if($linha['foto_eventos'] != '' ){
-                $urlFoto = $caminhoFoto;
-            }else{
-                $urlFoto = $caminhoBase . 'semfoto.png';
-            }
-                /*
-                $urlFoto = $linha['foto_eventos'] != '' && file_exists($caminhoFoto)
-                ? $caminhoFoto : $caminhoBase . 'semfoto.png';
-                */
-
-
-
-
-
-
-        ?>
-        <img src="<?php echo $caminhoFoto;['foto_eventos']; ?>" class="img-thumbnail" alt="<?php echo $linha['nome_eventos']; ?>">
-
-        </td>
-      <td scope="col"><?php echo $linha['id_eventos']; ?></td>
-      <td scope="col"><?php echo $linha['nome_eventos']; ?></td>
-      <td scope="col"><?php echo $linha['status_eventos']; ?></td>
-      
-      <td>
-        <a href="editar_evento.php?id=<?php echo $linha['id_eventos']; ?>" class="btn btn-warning">Editar</a>
-      </td>
-      <td>
-        <a href="desativar_evento.php?id=<?php echo $linha['id_eventos']; ?>" class="btn btn-danger">Desativar</a>
-      </td>
-    </tr>
-    <?php endforeach; ?>
   </tbody>
 </table>

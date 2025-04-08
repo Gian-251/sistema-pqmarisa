@@ -3,7 +3,7 @@
 <div class="container">
     <h2 class="mt-4 mb-4">Adicionar Novo Evento</h2>
     
-    <form method="post" action="<?php echo BASE_URL?>admin/eventos/salvar" enctype="multipart/form-data">
+    
         <div class="mb-3">
             <label for="nome_eventos" class="form-label">Nome do Evento</label>
             <input type="text" class="form-control" id="nome_eventos" name="nome_eventos" required>
