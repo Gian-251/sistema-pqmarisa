@@ -1,12 +1,9 @@
-<a href="http://localhost/sistema-pqmarisa/public/banner/adicionar" class="btn btn-primary">Cadastrar banner</a>
-
 <table class="table table-dark table-striped">
   <thead>
     <tr>
+      <th scope="col">Nome do Banner</th>
       <th scope="col">Imagem</th>
-      <th scope="col">Vídeo / GIF</th>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
+      <th scope="col">GIF / Vídeo</th>
       <th scope="col">Alt</th>
       <th scope="col">Status</th>
       <th scope="col">Editar</th>
@@ -16,12 +13,15 @@
   <tbody>
     <?php foreach ($banners as $linha): ?>
       <tr>
+        <!-- Nome -->
+        <td><?php echo htmlspecialchars($linha['nome_banner']); ?></td>
+
         <!-- Imagem -->
         <td>
           <?php
-            $caminhoBase = "http://localhost/sistema-pqmarisa/public/img/banner/";
-            $foto = $linha['foto_banner'] ?? 'semfoto.png';
-            $urlFoto = $caminhoBase . $foto . '?v=' . time();
+            $caminhoBase = "http://localhost/sistema-pqmarisa/public/";
+            $foto = $linha['foto_banner'] ?? 'assets/img/Banner/semfoto.png';
+            $urlFoto = $caminhoBase . $foto;
           ?>
           <img src="<?php echo $urlFoto; ?>"
                class="img-thumbnail"
@@ -29,36 +29,31 @@
                style="max-width: 120px;">
         </td>
 
-        <!-- Vídeo ou GIF -->
+        <!-- GIF / Vídeo -->
         <td>
-          <?php if (!empty($linha['video_banner'])): ?>
-            <?php
-              $ext = strtolower(pathinfo($linha['video_banner'], PATHINFO_EXTENSION));
-              $urlVideo = $caminhoBase . $linha['video_banner'] . '?v=' . time();
-            ?>
-            <?php if ($ext === 'gif'): ?>
-              <img src="<?php echo $urlVideo; ?>"
-                   class="img-thumbnail"
-                   alt="<?php echo htmlspecialchars($linha['alt_banner']); ?>"
-                   style="max-width: 120px;">
-            <?php else: ?>
-              <video width="150" autoplay muted loop>
-                <source src="<?php echo $urlVideo; ?>" type="video/mp4">
-                Seu navegador não suporta vídeos.
-              </video>
-            <?php endif; ?>
-          <?php else: ?>
-            <span>Sem vídeo</span>
-          <?php endif; ?>
+          <?php
+            if (!empty($linha['video_banner'])) {
+              $videoPath = $linha['video_banner'];
+              $ext = strtolower(pathinfo($videoPath, PATHINFO_EXTENSION));
+              $urlVideo = $caminhoBase . $videoPath;
+
+              if ($ext === 'gif') {
+                echo '<img src="' . $urlVideo . '" class="img-thumbnail" style="max-width: 120px;" alt="GIF">';
+              } elseif ($ext === 'mp4') {
+                echo '<video width="150" autoplay muted loop>
+                        <source src="' . $urlVideo . '" type="video/mp4">
+                        Seu navegador não suporta vídeos.
+                      </video>';
+              } else {
+                echo '<span>Formato inválido</span>';
+              }
+            } else {
+              echo '<span>Sem vídeo</span>';
+            }
+          ?>
         </td>
 
-        <!-- ID -->
-        <td><?php echo $linha['id_banner']; ?></td>
-
-        <!-- Nome -->
-        <td><?php echo htmlspecialchars($linha['nome_banner']); ?></td>
-
-        <!-- Texto Alternativo -->
+        <!-- Alt -->
         <td><?php echo htmlspecialchars($linha['alt_banner']); ?></td>
 
         <!-- Status -->
@@ -67,13 +62,13 @@
         <!-- Editar -->
         <td>
           <a href="http://localhost/sistema-pqmarisa/public/banner/editar/<?php echo $linha['id_banner']; ?>"
-             class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+             class="btn btn-primary btn-sm">Editar</a>
         </td>
 
         <!-- Desativar -->
         <td>
           <a href="http://localhost/sistema-pqmarisa/public/banner/desativar/<?php echo $linha['id_banner']; ?>"
-             class="btn btn-danger"
+             class="btn btn-danger btn-sm"
              onclick="return confirm('Deseja desativar este banner?');">Desativar</a>
         </td>
       </tr>

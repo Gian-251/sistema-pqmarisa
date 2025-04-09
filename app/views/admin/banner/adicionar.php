@@ -14,14 +14,20 @@
         </div>
 
         <!-- Coluna do GIF -->
-        <div class="col-md-6 text-center">
-            <label class="form-label">Imagem Animada (GIF)</label>
-            <img id="previewGif" src="http://localhost/sistema-pqmarisa/public/img/banner/semgif.gif"
-                alt="GIF do Banner"
+                <div class="col-md-6 text-center">
+            <label class="form-label">Imagem Animada (GIF ou Vídeo MP4)</label>
+
+            <!-- Imagem padrão (clique para trocar) -->
+            <img id="previewGif" 
+                src="http://localhost/sistema-pqmarisa/public/img/banner/semgif.gif"
+                alt="GIF ou vídeo do Banner"
                 class="img-fluid rounded shadow"
                 style="width: 100%; cursor: pointer;"
-                title="Clique para escolher o GIF">
-            <input type="file" name="video_banner" id="video_banner" style="display: none;" accept="image/gif">
+                title="Clique para escolher um GIF ou vídeo">
+
+            <!-- Campo de upload escondido -->
+            <input type="file" name="video_banner" id="video_banner" 
+                style="display: none;" accept="image/gif,video/mp4">
         </div>
 
         <!-- Informações -->
@@ -87,4 +93,46 @@
             }
         });
     });
+</script>
+
+<script>
+// Clique na imagem abre seletor de arquivo
+document.addEventListener('DOMContentLoaded', function () {
+    const fileInput = document.getElementById('video_banner');
+    let preview = document.getElementById('previewGif');
+
+    preview.addEventListener('click', function () {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            const ext = file.name.split('.').pop().toLowerCase();
+
+            // Substitui imagem por vídeo se for mp4
+            if (ext === 'mp4') {
+                preview.outerHTML = `
+                    <video id="previewGif" class="img-fluid rounded shadow" 
+                        style="width: 100%; cursor: pointer;" autoplay muted loop>
+                        <source src="${url}" type="video/mp4">
+                        Seu navegador não suporta vídeo.
+                    </video>`;
+            } else if (ext === 'gif') {
+                preview.outerHTML = `
+                    <img id="previewGif" src="${url}" 
+                         class="img-fluid rounded shadow"
+                         style="width: 100%; cursor: pointer;" 
+                         alt="Prévia GIF">`;
+            }
+
+            // Atualiza a referência do preview após substituição
+            preview = document.getElementById('previewGif');
+            preview.addEventListener('click', function () {
+                fileInput.click();
+            });
+        }
+    });
+});
 </script>
