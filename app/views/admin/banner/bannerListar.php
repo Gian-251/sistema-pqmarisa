@@ -61,8 +61,8 @@
 
         <!-- Editar -->
         <td>
-          <a href="http://localhost/sistema-pqmarisa/public/banner/editar/<?php echo $linha['id_banner']; ?>"
-             class="btn btn-primary btn-sm">Editar</a>
+        <a href="http://localhost/sistema-pqmarisa/public/banner/editar/<?php echo $linha['id_banner']; ?>"
+          type="button" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
         </td>
 
         <!-- Desativar -->

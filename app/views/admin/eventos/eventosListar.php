@@ -30,11 +30,13 @@
   <td scope="col"><?php echo $linha['id_eventos']; ?></td>
   <td scope="col"><?php echo $linha['nome_eventos']; ?></td>
   <td scope="col"><?php echo $linha['status_eventos']; ?></td>
+
   <td>
         <a href="http://localhost/sistema-pqmarisa/public/eventos/editar/<?php echo $linha['id_eventos']; ?>"
           type="button" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
-      </td>
+  </td>
   <td>
+
     <a href="desativar_evento.php?id=<?php echo $linha['id_eventos']; ?>" class="btn btn-danger">Desativar</a>
   </td>
 </tr>

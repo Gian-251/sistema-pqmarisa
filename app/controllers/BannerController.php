@@ -119,6 +119,75 @@ class BannerController extends Controller{
         return false;
     }    
 
+    public function editar($id)
+{
+    $bannerModel = new Banner();
+    $dadosBanner = $bannerModel->buscarPorId($id);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nome = $_POST['nome_banner'] ?? '';
+        $alt = $_POST['alt_banner'] ?? '';
+        $status = $_POST['status_banner'] ?? 'Inativo';
+
+        // Caminhos de destino
+        $pasta = 'assets/img/Banner/';
+        $fotoAntiga = $dadosBanner['foto_banner'];
+        $videoAntigo = $dadosBanner['video_banner'];
+
+        // Upload da imagem fixa
+        $fotoBanner = $fotoAntiga;
+        if (isset($_FILES['foto_banner']) && $_FILES['foto_banner']['error'] === UPLOAD_ERR_OK) {
+            $ext = pathinfo($_FILES['foto_banner']['name'], PATHINFO_EXTENSION);
+            $novoNomeFoto = uniqid() . '.' . $ext;
+            $destinoFoto = $pasta . $novoNomeFoto;
+
+            if (move_uploaded_file($_FILES['foto_banner']['tmp_name'], __DIR__ . "/../../public/" . $destinoFoto)) {
+                // Deleta imagem antiga se necessário
+                if ($fotoAntiga && file_exists(__DIR__ . "/../../public/" . $fotoAntiga)) {
+                    unlink(__DIR__ . "/../../public/" . $fotoAntiga);
+                }
+                $fotoBanner = $destinoFoto;
+            }
+        }
+
+        // Upload do GIF ou vídeo
+        $videoBanner = $videoAntigo;
+        if (isset($_FILES['video_banner']) && $_FILES['video_banner']['error'] === UPLOAD_ERR_OK) {
+            $ext = pathinfo($_FILES['video_banner']['name'], PATHINFO_EXTENSION);
+            $novoNomeVideo = uniqid() . '.' . $ext;
+            $destinoVideo = $pasta . $novoNomeVideo;
+
+            if (move_uploaded_file($_FILES['video_banner']['tmp_name'], __DIR__ . "/../../public/" . $destinoVideo)) {
+                // Deleta vídeo antigo se necessário
+                if ($videoAntigo && file_exists(__DIR__ . "/../../public/" . $videoAntigo)) {
+                    unlink(__DIR__ . "/../../public/" . $videoAntigo);
+                }
+                $videoBanner = $destinoVideo;
+            }
+        }
+
+        // Dados atualizados
+        $dadosAtualizados = [
+            'nome_banner' => $nome,
+            'alt_banner' => $alt,
+            'status_banner' => $status,
+            'foto_banner' => $fotoBanner,
+            'video_banner' => $videoBanner,
+        ];
+
+        if ($bannerModel->editarBanner($id, $dadosAtualizados)) {
+            header("Location: http://localhost/sistema-pqmarisa/public/banner/bannerlistar");
+            exit;
+        } else {
+            echo "Erro ao atualizar o banner.";
+        }
+    }
+
+
+
+}
+
+
 
     
 }
