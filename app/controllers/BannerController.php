@@ -45,7 +45,7 @@ class BannerController extends Controller{
     
             // Upload do GIF/vídeo
             if (isset($_FILES['video_banner']) && $_FILES['video_banner']['error'] === 0) {
-                $gifPath = $this->uploadBannerFile($_FILES['video_banner'], $nome_banner, 'gif');
+                $gifPath = $this->uploadBannerFile($_FILES['video_banner'], $nome_banner, 'gif, mp4');
             }
     
             if ($nome_banner && $fotoPath && $gifPath) {
@@ -80,7 +80,7 @@ class BannerController extends Controller{
     
     // Função para salvar arquivos
     public function uploadBannerFile($file, $nome, $tipo) {
-        $dir = '../public/uploads/banners/';
+        $dir = 'assets/img/Banner/';
         if (!file_exists($dir)) {
             mkdir($dir, 0755, true);
         }
@@ -90,7 +90,7 @@ class BannerController extends Controller{
         $novoNome = uniqid() . '-' . $tipo . '-' . $nome_sanitizado . '.' . $ext;
     
         if (move_uploaded_file($file['tmp_name'], $dir . $novoNome)) {
-            return 'uploads/banners/' . $novoNome;
+            return 'assets/img/Banner/' . $novoNome;
         }
     
         return false;
@@ -98,7 +98,7 @@ class BannerController extends Controller{
     
     
     public function uploadBannerImagem($file, $nome, $tipo = 'foto') {
-        $dir = '/public/assets/img/banner/';
+        $dir = 'assets/img/Banner/';
     
         if (!file_exists($dir)) {
             mkdir($dir, 0755, true);
@@ -108,7 +108,7 @@ class BannerController extends Controller{
         $novoNome = strtolower(trim(preg_replace('/[^a-zA-Z0-9]/', '-', $nome)));
     
         // Prefixo para diferenciar os arquivos
-        $prefixo = ($tipo === 'gif') ? 'gif_' : 'foto_';
+        $prefixo = ($tipo === 'gif') ? 'gif_' : ($tipo === 'foto' ? 'foto_' : 'mp4_');
     
         $nomeFinal = uniqid($prefixo) . '-' . $novoNome . '.' . $ext;
     
@@ -117,8 +117,7 @@ class BannerController extends Controller{
         }
     
         return false;
-    }
-    
+    }    
 
 
     
