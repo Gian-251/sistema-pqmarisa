@@ -1453,6 +1453,8 @@ nav ul li a {
     background: #db0000;
     background-size: cover;
     background-position: center 50%;
+    grid-template-columns: repeat(3, 1fr);
+    
 }
 
 #eventos footer {

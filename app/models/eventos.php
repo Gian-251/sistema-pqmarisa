@@ -65,7 +65,7 @@ class Eventos extends Model {
         }
     }
 
-    public function atualizarEvento($dados) {
+    public function editarEventos($dados) {
         try {
             $sql = "UPDATE tbl_eventos SET 
                     nome_eventos = :nome,
@@ -103,6 +103,26 @@ class Eventos extends Model {
             return false;
         }
     }
+    public function getEventosGifAleatorios($limite = 3) {
+        $sql = "SELECT * FROM tbl_eventos WHERE status_eventos = 'ativo' ORDER BY RAND() LIMIT :limite";
+    
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function todosEventos() {
+        $sql = "SELECT * FROM tbl_eventos 
+                WHERE status_eventos = 'ativo' 
+                ORDER BY RAND()";
+    
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }   
 
 
 

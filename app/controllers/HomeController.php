@@ -4,7 +4,12 @@ class HomeController extends Controller{
     public function index(){
         $dados = array();
         $dados['titulo'] = 'Site Mestre dos Motores';
+        
         $dados['letreiro'] = $this->letreirosModel->pegarLetreiro();
+
+        $eventoModel = new Eventos();
+        $dados['eventosGif'] = $eventoModel->getEventosGifAleatorios(); // Adicione essa linha
+
         $this->carregarViews('index', $dados);
 
 

@@ -9,13 +9,23 @@ class EventosController extends Controller {
     public function index() {
         $dados = array();
         $dados['titulo'] = 'Eventos - Marisa Parque Itaquera';
+
+        $eventoModel = new Eventos();
+        $dados['eventosGif'] = $eventoModel->todosEventos(); // Adicione essa linha
+
+        
         $this->carregarViews('eventos', $dados);
+
+
     }
+    
 
     public function eventosListar() {
         $dados = array();
         $dados['conteudo'] = 'admin/eventos/eventosListar';
         $dados['eventos'] = $this->eventosModel->getTodosEventos();
+        
+
         $this->carregarViews('admin/index', $dados);
     }
 
@@ -55,40 +65,69 @@ class EventosController extends Controller {
         $this->carregarViews('admin/index', $dados);
     }
 
-    public function editar($id) {
+ 
+    public function editar($id = null){
         $dados = array();
-        $dados['titulo'] = 'Editar Evento';
-        $dados['conteudo'] = 'admin/eventos/editar';
-        $dados['evento'] = $this->eventosModel->getEventoPorId($id);
-        $this->carregarViews('admin/index', $dados);
-    }
-
-    public function atualizarEvento() {
+    
+        $eventoModel = new Eventos();
+        $eventoAtual = $eventoModel->getEventoPorId($id);
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $dadosEvento = [
-                'id_eventos' => filter_input(INPUT_POST, 'id_eventos', FILTER_SANITIZE_NUMBER_INT),
-                'nome_eventos' => filter_input(INPUT_POST, 'nome_eventos', FILTER_SANITIZE_SPECIAL_CHARS),
-                'data_inicio_eventos' => filter_input(INPUT_POST, 'data_inicio_eventos', FILTER_SANITIZE_SPECIAL_CHARS),
-                'data_fim_eventos' => filter_input(INPUT_POST, 'data_fim_eventos', FILTER_SANITIZE_SPECIAL_CHARS),
-                'status_eventos' => filter_input(INPUT_POST, 'status_eventos', FILTER_SANITIZE_SPECIAL_CHARS),
-                'alt_eventos' => filter_input(INPUT_POST, 'alt_eventos', FILTER_SANITIZE_SPECIAL_CHARS)
-            ];
-
-            if (isset($_FILES['foto_eventos']) && $_FILES['foto_eventos']['error'] === 0) {
-                $arquivo = $this->uploadFoto($_FILES['foto_eventos'], $dadosEvento['nome_eventos']);
-                $dadosEvento['foto_eventos'] = $arquivo;
+            $nome_eventos = filter_input(INPUT_POST, 'nome_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
+            $data_inicio_eventos = filter_input(INPUT_POST, 'data_inicio_eventos');
+            $data_fim_eventos = filter_input(INPUT_POST, 'data_fim_eventos');
+            $status_eventos = filter_input(INPUT_POST, 'status_eventos', FILTER_SANITIZE_SPECIAL_CHARS);
+            $alt_eventos = $nome_eventos;
+    
+            // Mantém a imagem antiga como padrão
+            $arquivo = $eventoAtual['foto_eventos'];
+    
+            if (isset($_FILES['foto_eventos']) && $_FILES['foto_eventos']['error'] == 0) {
+                $arquivo = $this->uploadFoto($_FILES['foto_eventos'], $nome_eventos);
             }
-
-            if ($this->eventosModel->atualizarEvento($dadosEvento)) {
-                $_SESSION['mensagem'] = 'Evento atualizado com sucesso!';
-                $_SESSION['tipo-msg'] = 'sucesso';
-                header('Location: ' . BASE_URL . 'eventos/eventosListar');
-                exit;
+    
+            if ($nome_eventos && $data_inicio_eventos && $data_fim_eventos) {
+                $dadosEvento = array(
+                    'id_eventos'         => $id,
+                    'nome_eventos'       => $nome_eventos,
+                    'data_inicio_eventos'=> $data_inicio_eventos,
+                    'data_fim_eventos'   => $data_fim_eventos,
+                    'status_eventos'     => $status_eventos,
+                    'alt_eventos'        => $alt_eventos,
+                    'foto_eventos'       => $arquivo
+                );
+    
+                $idEditado = $eventoModel->editarEventos($dadosEvento);
+    
+                if ($idEditado) {
+                    $_SESSION['mensagem'] = 'Evento editado com sucesso';
+                    $_SESSION['tipo-msg'] = 'sucesso';
+                    header('Location: ' . BASE_URL . 'eventos/eventosListar');
+                    exit;
+                } else {
+                    $dados['mensagem'] = 'Erro ao editar o evento na base de dados.';
+                    $dados['tipo-msg'] = 'erro';
+                }
+            } else {
+                $dados['mensagem'] = 'Informe todos os dados obrigatórios.';
+                $dados['tipo-msg'] = 'erro';
             }
         }
-        
-        header('Location: ' . BASE_URL . 'eventos/eventosListar');
+    
+        if (!$eventoAtual) {
+            $_SESSION['mensagem'] = 'Evento não encontrado.';
+            $_SESSION['tipo-msg'] = 'erro';
+            header('Location: ' . BASE_URL . 'eventos/eventosListar');
+            exit;
+        }
+    
+        $dados['dadosEvento'] = $eventoAtual;
+        $dados['conteudo'] = 'admin/eventos/editar';
+    
+        $this->carregarViews('admin/index', $dados);
     }
+    
+
 
     private function uploadFoto($arquivo, $nome): string {
         $diretorio = 'assets/img/Eventos/';
