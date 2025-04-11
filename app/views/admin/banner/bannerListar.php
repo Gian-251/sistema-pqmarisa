@@ -1,3 +1,5 @@
+<a href="http://localhost/sistema-pqmarisa/public/banner/adicionar" class="btn btn-primary">Cadastrar novo banner </a>
+
 <table class="table table-dark table-striped">
   <thead>
     <tr>

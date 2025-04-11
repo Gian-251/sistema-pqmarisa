@@ -175,12 +175,12 @@ class BannerController extends Controller{
             'video_banner' => $videoBanner,
         ];
 
-        if ($bannerModel->editarBanner($id, $dadosAtualizados)) {
-            header("Location: http://localhost/sistema-pqmarisa/public/banner/bannerlistar");
-            exit;
-        } else {
-            echo "Erro ao atualizar o banner.";
-        }
+        // if ($bannerModel->editarBanner($id, $dadosAtualizados)) {
+        //     header("Location: http://localhost/sistema-pqmarisa/public/banner/bannerlistar");
+        //     exit;
+        // } else {
+        //     echo "Erro ao atualizar o banner.";
+        // }
     }
 
 
