@@ -10,7 +10,7 @@ class BannerController extends Controller{
     public function __construct()
     {
         $this->bannerListar = new Banner();
-        $this->bannerModel = new Banner();
+        
     }
 
     public function index(){
@@ -121,8 +121,8 @@ class BannerController extends Controller{
 
     public function editar($id)
 {
-    $bannerModel = new Banner();
-    $dadosBanner = $bannerModel->buscarPorId($id);
+    $bannerListar = new Banner();
+    $dadosBanner = $bannerListar->buscarPorId($id);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome = $_POST['nome_banner'] ?? '';
@@ -175,12 +175,12 @@ class BannerController extends Controller{
             'video_banner' => $videoBanner,
         ];
 
-        // if ($bannerModel->editarBanner($id, $dadosAtualizados)) {
-        //     header("Location: http://localhost/sistema-pqmarisa/public/banner/bannerlistar");
-        //     exit;
-        // } else {
-        //     echo "Erro ao atualizar o banner.";
-        // }
+        if ($bannerListar->editarBanner($id, $dadosAtualizados)) {
+            header("Location: http://localhost/sistema-pqmarisa/public/banner/bannerlistar");
+            exit;
+        } else {
+            echo "Erro ao atualizar o banner.";
+        }
     }
 
 

@@ -5,7 +5,7 @@ class Controller{
     {
         extract($dados);
         require_once '../app/views/'.$views.'.php';
-                    //app/views/template/cadastro.php Está puxando a view
+                    //app/views/admin/index Está puxando a view
         
         
  
