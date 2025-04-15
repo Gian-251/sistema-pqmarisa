@@ -1,11 +1,11 @@
-<form class="form-banner container" method="POST" action="http://localhost/sistema-pqmarisa/public/banner/editar/<?php echo $dadosBanner['id_banner'] ?>" enctype="multipart/form-data">
+<form class="form-banner container" method="POST" action="http://localhost/sistema-pqmarisa/public/banner/editar/<?php echo $banner['id_banner'] ?>" enctype="multipart/form-data">
     <div class="row">
         <!-- Coluna da Imagem Fixa -->
         <div class="col-md-6 text-center">
             <label class="form-label">Imagem Fixa</label>
             <img id="previewFoto" 
-                src="http://localhost/sistema-pqmarisa/public/<?php echo $dadosBanner['foto_banner'] ?>" 
-                alt="<?php echo $dadosBanner['alt_banner'] ?>" 
+                src="http://localhost/sistema-pqmarisa/public/<?php echo $banner['foto_banner'] ?>" 
+                alt="<?php echo $banner['alt_banner'] ?>" 
                 class="img-fluid rounded shadow" 
                 style="width: 100%; cursor: pointer;" 
                 title="Clique na imagem para alterar">
@@ -16,13 +16,13 @@
         <div class="col-md-6 text-center">
             <label class="form-label">GIF ou Vídeo (MP4)</label>
             <?php
-                $videoPath = "http://localhost/sistema-pqmarisa/public/" . $dadosBanner['video_banner'];
+                $videoPath = "http://localhost/sistema-pqmarisa/public/" . $banner['video_banner'];
                 $ext = pathinfo($videoPath, PATHINFO_EXTENSION);
             ?>
             <?php if (strtolower($ext) === 'gif'): ?>
                 <img id="previewGif" 
                     src="<?php echo $videoPath ?>" 
-                    alt="<?php echo $dadosBanner['alt_banner'] ?>" 
+                    alt="<?php echo $banner['alt_banner'] ?>" 
                     class="img-fluid rounded shadow" 
                     style="width: 100%; cursor: pointer;" 
                     title="Clique para alterar o GIF">
@@ -41,20 +41,20 @@
                 <div class="col-md-6">
                     <label for="nome_banner" class="form-label">Nome do Banner</label>
                     <input type="text" class="form-control" id="nome_banner" name="nome_banner" required 
-                        value="<?php echo $dadosBanner['nome_banner'] ?>">
+                        value="<?php echo $banner['nome_banner'] ?>">
                 </div>
 
                 <div class="col-md-6">
                     <label for="alt_banner" class="form-label">Texto Alternativo</label>
                     <input type="text" class="form-control" id="alt_banner" name="alt_banner" 
-                        value="<?php echo $dadosBanner['alt_banner'] ?>">
+                        value="<?php echo $banner['alt_banner'] ?>">
                 </div>
 
                 <div class="col-md-6">
                     <label for="status_banner" class="form-label">Status</label>
                     <select id="status_banner" name="status_banner" class="form-select" required>
-                        <option value="Ativo" <?php echo ($dadosBanner['status_banner'] == 'Ativo') ? 'selected' : '' ?>>Ativo</option>
-                        <option value="Inativo" <?php echo ($dadosBanner['status_banner'] == 'Inativo') ? 'selected' : '' ?>>Inativo</option>
+                        <option value="Ativo" <?php echo ($banner['status_banner'] == 'Ativo') ? 'selected' : '' ?>>Ativo</option>
+                        <option value="Inativo" <?php echo ($banner['status_banner'] == 'Inativo') ? 'selected' : '' ?>>Inativo</option>
                     </select>
                 </div>
 

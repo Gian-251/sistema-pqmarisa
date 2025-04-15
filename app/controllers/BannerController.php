@@ -95,94 +95,61 @@ class BannerController extends Controller{
     
         return false;
     }
-    
-    
-    public function uploadBannerImagem($file, $nome, $tipo = 'foto') {
-        $dir = 'assets/img/Banner/';
-    
-        if (!file_exists($dir)) {
-            mkdir($dir, 0755, true);
-        }
-    
-        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $novoNome = strtolower(trim(preg_replace('/[^a-zA-Z0-9]/', '-', $nome)));
-    
-        // Prefixo para diferenciar os arquivos
-        $prefixo = ($tipo === 'gif') ? 'gif_' : ($tipo === 'foto' ? 'foto_' : 'mp4_');
-    
-        $nomeFinal = uniqid($prefixo) . '-' . $novoNome . '.' . $ext;
-    
-        if (move_uploaded_file($file['tmp_name'], $dir . $nomeFinal)) {
-            return 'banner/' . $nomeFinal; // Ex: banner/gif_nome.gif
-        }
-    
-        return false;
-    }    
 
-    public function editar($id)
-{
-    $bannerListar = new Banner();
-    $dadosBanner = $bannerListar->buscarPorId($id);
+    public function editar($id_banner) {
+    $dados = array();
+    $dados['banner'] = $this->bannerListar->buscarPorId($id_banner);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nome = $_POST['nome_banner'] ?? '';
-        $alt = $_POST['alt_banner'] ?? '';
-        $status = $_POST['status_banner'] ?? 'Inativo';
+        $nome_banner = filter_input(INPUT_POST, 'nome_banner', FILTER_SANITIZE_SPECIAL_CHARS);
+        $alt_banner = filter_input(INPUT_POST, 'alt_banner', FILTER_SANITIZE_SPECIAL_CHARS);
+        $status_banner = filter_input(INPUT_POST, 'status_banner', FILTER_SANITIZE_SPECIAL_CHARS);
 
-        // Caminhos de destino
-        $pasta = 'assets/img/Banner/';
-        $fotoAntiga = $dadosBanner['foto_banner'];
-        $videoAntigo = $dadosBanner['video_banner'];
+        $fotoPath = $dados['banner']['foto_banner'];
+        $gifPath = $dados['banner']['video_banner'];
 
         // Upload da imagem fixa
-        $fotoBanner = $fotoAntiga;
-        if (isset($_FILES['foto_banner']) && $_FILES['foto_banner']['error'] === UPLOAD_ERR_OK) {
-            $ext = pathinfo($_FILES['foto_banner']['name'], PATHINFO_EXTENSION);
-            $novoNomeFoto = uniqid() . '.' . $ext;
-            $destinoFoto = $pasta . $novoNomeFoto;
-
-            if (move_uploaded_file($_FILES['foto_banner']['tmp_name'], __DIR__ . "/../../public/" . $destinoFoto)) {
-                // Deleta imagem antiga se necessário
-                if ($fotoAntiga && file_exists(__DIR__ . "/../../public/" . $fotoAntiga)) {
-                    unlink(__DIR__ . "/../../public/" . $fotoAntiga);
-                }
-                $fotoBanner = $destinoFoto;
-            }
+        if (isset($_FILES['foto_banner']) && $_FILES['foto_banner']['error'] === 0) {
+            $fotoPath = $this->uploadBannerFile($_FILES['foto_banner'], $nome_banner, 'img');
         }
 
-        // Upload do GIF ou vídeo
-        $videoBanner = $videoAntigo;
-        if (isset($_FILES['video_banner']) && $_FILES['video_banner']['error'] === UPLOAD_ERR_OK) {
-            $ext = pathinfo($_FILES['video_banner']['name'], PATHINFO_EXTENSION);
-            $novoNomeVideo = uniqid() . '.' . $ext;
-            $destinoVideo = $pasta . $novoNomeVideo;
-
-            if (move_uploaded_file($_FILES['video_banner']['tmp_name'], __DIR__ . "/../../public/" . $destinoVideo)) {
-                // Deleta vídeo antigo se necessário
-                if ($videoAntigo && file_exists(__DIR__ . "/../../public/" . $videoAntigo)) {
-                    unlink(__DIR__ . "/../../public/" . $videoAntigo);
-                }
-                $videoBanner = $destinoVideo;
-            }
+        // Upload do GIF/vídeo
+        if (isset($_FILES['video_banner']) && $_FILES['video_banner']['error'] === 0) {
+            $gifPath = $this->uploadBannerFile($_FILES['video_banner'], $nome_banner, 'gif, mp4');
         }
 
-        // Dados atualizados
-        $dadosAtualizados = [
-            'nome_banner' => $nome,
-            'alt_banner' => $alt,
-            'status_banner' => $status,
-            'foto_banner' => $fotoBanner,
-            'video_banner' => $videoBanner,
-        ];
+        if ($nome_banner && $fotoPath && $gifPath) {
+            $dadosBanner = array(
+                'id_banner' => $id_banner,
+                'nome_banner' => $nome_banner,
+                'foto_banner' => $fotoPath,
+                'video_banner' => $gifPath,
+                'alt_banner'  => $alt_banner,
+                'status_banner' => $status_banner
+            );
 
-        if ($bannerListar->editarBanner($id, $dadosAtualizados)) {
-            header("Location: http://localhost/sistema-pqmarisa/public/banner/bannerlistar");
-            exit;
+            if ($this->bannerListar->editarBanner($dadosBanner)) {
+                $_SESSION['mensagem'] = 'Banner editado com sucesso';
+                $_SESSION['tipo-msg'] = 'sucesso';
+                header('Location: http://localhost/sistema-pqmarisa/public/banner/bannerListar');
+                exit;
+            } else {
+                $dados['erro'] = 'Erro ao atualizar banner no banco de dados.';
+                $dados['tipo-msg'] = 'erro';
+            }
         } else {
-            echo "Erro ao atualizar o banner.";
+            $dados['erro'] = 'Todos os campos devem ser preenchidos.';
+            $dados['tipo-msg'] = 'erro';
         }
     }
 
+    $dados['conteudo'] = 'admin/banner/editar';
+    $this->carregarViews('admin/index', $dados);
+}
+    
+    
+    
+
 
 
 }
@@ -190,4 +157,3 @@ class BannerController extends Controller{
 
 
     
-}
