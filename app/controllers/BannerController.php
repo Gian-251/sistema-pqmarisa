@@ -49,7 +49,7 @@ class BannerController extends Controller{
             }
     
             if ($nome_banner && $fotoPath && $gifPath) {
-                $dadosBanner = array(
+                $dados = array(
                     'nome_banner' => $nome_banner,
                     'foto_banner' => $fotoPath,
                     'video_banner' => $gifPath,
@@ -57,7 +57,7 @@ class BannerController extends Controller{
                     'status_banner' => $status_banner
                 );
     
-                $id = $this->bannerModel->addBanner($dadosBanner);
+                $id = $this->bannerModel->addBanner($dados);
     
                 if ($id) {
                     $_SESSION['mensagem'] = 'Banner adicionado com sucesso';
