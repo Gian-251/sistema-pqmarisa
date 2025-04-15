@@ -10,6 +10,7 @@ class BannerController extends Controller{
     public function __construct()
     {
         $this->bannerListar = new Banner();
+        $this->bannerModel = new Banner();
         
     }
 
