@@ -74,6 +74,16 @@ class Info extends Model {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function buscarInfoAleatoria() {
+        $sql = "SELECT nome_info, informacao_texto_info 
+                FROM tbl_info 
+                ORDER BY RAND() 
+                LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     
 
 

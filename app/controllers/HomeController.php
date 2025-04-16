@@ -13,6 +13,8 @@ class HomeController extends Controller{
         $bannerAleatorio = $bannerModel->buscarBannerAtivo();
         $dados['bannerAleatorio'] = $bannerAleatorio;
 
+        $infoModel = new Info();
+        $dados['informacao'] = $infoModel->buscarInfoAleatoria();
 
         $eventoModel = new Eventos();
         $dados['eventosGif'] = $eventoModel->getEventosGifAleatorios(); // Adicione essa linha
