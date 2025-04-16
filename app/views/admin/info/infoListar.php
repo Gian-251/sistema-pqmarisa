@@ -1,3 +1,5 @@
+<a href="http://localhost/sistema-pqmarisa/public/info/adicionar" class="btn btn-primary">Cadastrar informação </a>
+
 <table class="table table-dark table-striped">
   <thead>
     <tr>
@@ -18,7 +20,8 @@
       <td scope="col"><?php echo $linha['informacao_texto_info']; ?></td>
       <td scope="col"><?php echo $linha['status_info']; ?></td>
       <td>
-        <a href="editar_info.php?id=<?php echo $linha['id_info']; ?>" class="btn btn-warning">Editar</a>
+        <a href="http://localhost/sistema-pqmarisa/public/info/editar/<?php echo $linha['id_info']; ?>"
+          type="button" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
       </td>
       <td>
         <a href="desativar_info.php?id=<?php echo $linha['id_info']; ?>" class="btn btn-danger">Desativar</a>
