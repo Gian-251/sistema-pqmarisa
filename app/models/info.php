@@ -79,11 +79,13 @@ class Info extends Model {
         $sql = "SELECT nome_info, informacao_texto_info 
                 FROM tbl_info 
                 ORDER BY RAND() 
-                LIMIT 1";
+                LIMIT 3";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    
     
 
 
