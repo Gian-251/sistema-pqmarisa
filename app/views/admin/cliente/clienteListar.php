@@ -3,8 +3,7 @@
 
 <table class="table table-dark table-striped">
   <thead>
-    <tr>
-      <th scope="col">ID</th>
+    <tr>  
       <th scope="col">Nome</th>
       <th scope="col">CPF</th>
       <th scope="col">Bairro</th>
@@ -21,7 +20,6 @@
     <?php 
   foreach ($cliente as $linha): ?>
   <tr>
-    <td scope="col"><?php echo $linha['id_cliente']; ?></td>
     <td scope="col"><?php echo $linha['nome_cliente']; ?></td>
     <td scope="col"><?php echo $linha['cpf_cliente']; ?></td>
     <td scope="col"><?php echo $linha['bairro_cliente']; ?></td>

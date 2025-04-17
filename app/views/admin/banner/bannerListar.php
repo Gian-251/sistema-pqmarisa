@@ -59,7 +59,13 @@
         <td><?php echo htmlspecialchars($linha['alt_banner']); ?></td>
 
         <!-- Status -->
-        <td><?php echo htmlspecialchars($linha['status_banner']); ?></td>
+        <td>
+            <?php if ($linha['status_banner'] == 'Ativo'): ?>
+              <span class="badge bg-success">Ativo</span>
+            <?php else: ?>
+              <span class="badge bg-secondary">Inativo</span>
+            <?php endif; ?>
+          </td>
 
         <!-- Editar -->
         <td>
