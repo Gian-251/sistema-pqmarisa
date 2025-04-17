@@ -78,6 +78,7 @@ class Info extends Model {
     public function buscarInfoAleatoria() {
         $sql = "SELECT nome_info, informacao_texto_info 
                 FROM tbl_info 
+                WHERE status_info = 'Ativo'
                 ORDER BY RAND() 
                 LIMIT 3";
         $stmt = $this->db->prepare($sql);

@@ -1,3 +1,4 @@
+<a href="http://localhost/sistema-pqmarisa/public/brinquedo/adicionar" class="btn btn-primary">Cadastrar Brinquedo </a>
 <table class="table table-dark table-striped">
   <thead>
     <tr>
@@ -22,7 +23,8 @@
       <td scope="col"><?php echo $linha['duracao_brinquedo']; ?></td>
       <td scope="col"><?php echo $linha['status_brinquedo']; ?></td>
       <td>
-        <a href="editar_brinquedo.php?id=<?php echo $linha['id_brinquedo']; ?>" class="btn btn-warning">Editar</a>
+        <a href="http://localhost/sistema-pqmarisa/public/brinquedo/editar/<?php echo $linha['id_brinquedo']; ?>"
+          type="button" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
       </td>
       <td>
         <a href="desativar_brinquedo.php?id=<?php echo $linha['id_brinquedo']; ?>" class="btn btn-danger">Desativar</a>
