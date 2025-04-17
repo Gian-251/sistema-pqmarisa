@@ -50,16 +50,37 @@
             <input type="time" class="form-control" id="duracao_brinquedo" name="duracao_brinquedo" required value="<?php echo $brinquedo['duracao_brinquedo']; ?>">
         </div>
 
+        <!-- genero -->
+        <div class="col-md-6">
+            <label for="genero_brinquedo" class="form-label">Genero</label>
+            <select id="genero_brinquedo" name="genero_brinquedo" class="form-select" required>
+                <option value="Familiar">Familiar</option>
+                <option value="Radical">Radical</option>
+                <option value="Desativado">Desativado</option>
+                <option value="Manutenção">Manutenção</option>
+                <option value="Evento">Evento</option>
+            </select>
+        </div>
+        <!-- descrição -->
+        <div class="mb-6">
+            <label for="informacao_brinquedo" class="form-label">Descrição / Texto</label>
+            <textarea class="form-control" id="informacao_brinquedo" name="informacao_brinquedo" rows="5" required></textarea>
+        </div>
+
         <!-- Status -->
         <div class="col-md-6">
             <label for="status_brinquedo" class="form-label">Status</label>
-            <input type="text" class="form-control" id="status_brinquedo" name="status_brinquedo" required value="<?php echo $brinquedo['status_brinquedo']; ?>">
+            <select id="status_brinquedo" name="status_brinquedo" class="form-select" required>
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+                <option value="Destaque">Desativado</option>
+            </select>
         </div>
 
         <!-- Botões -->
         <div class="col-12 text-end">
             <button type="submit" class="btn btn-primary">Salvar Brinquedo</button>
-            <button type="reset" class="btn btn-secondary">Cancelar</button>
+            <a href="http://localhost/sistema-pqmarisa/public/brinquedo/brinquedoListar" class="btn btn-secondary">Cancelar</a>
         </div>
     </div>
 </form>

@@ -1,7 +1,7 @@
-<form class="form-brinquedo container" method="POST" action="">
+<form class="form-brinquedo container" method="POST" action="" enctype="multipart/form-data">
     <div class="row">
         <h2 class="text-center">Adicionar Brinquedo</h2>
-        
+
         <!-- Nome do Brinquedo -->
         <div class="col-md-6">
             <label for="nome_brinquedo" class="form-label">Nome do Brinquedo</label>
@@ -29,7 +29,7 @@
         <!-- Foto -->
         <div class="col-md-6">
             <label for="foto_brinquedo" class="form-label">Foto</label>
-            <input type="text" class="form-control" id="foto_brinquedo" name="foto_brinquedo" required>
+            <input type="file" class="form-control" id="foto_brinquedo" name="foto_brinquedo" required>
         </div>
 
         <!-- Duração -->
@@ -41,7 +41,28 @@
         <!-- Status -->
         <div class="col-md-6">
             <label for="status_brinquedo" class="form-label">Status</label>
-            <input type="text" class="form-control" id="status_brinquedo" name="status_brinquedo" required>
+            <select id="status_brinquedo" name="status_brinquedo" class="form-select" required>
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+                <option value="Destaque">Destaque</option>
+            </select>
+        </div>
+
+        <!-- genero -->
+        <div class="col-md-6">
+            <label for="genero_brinquedo" class="form-label">Genero</label>
+            <select id="genero_brinquedo" name="genero_brinquedo" class="form-select" required>
+                <option value="Familiar">Familiar</option>
+                <option value="Radical">Radical</option>
+                <option value="Desativado">Desativado</option>
+                <option value="Manutenção">Manutenção</option>
+                <option value="Evento">Evento</option>
+            </select>
+        </div>
+
+        <div class="mb-6">
+            <label for="informacao_brinquedo" class="form-label">Descrição / Texto</label>
+            <textarea class="form-control" id="informacao_brinquedo" name="informacao_brinquedo" rows="5" required></textarea>
         </div>
 
         <!-- Botões -->
@@ -51,3 +72,24 @@
         </div>
     </div>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const visualizarImg = document.getElementById('preview');
+        const arquivo = document.getElementById('foto_servico');
+
+        visualizarImg.addEventListener('click', function() {
+            arquivo.click();
+        });
+
+        arquivo.addEventListener('change', function() {
+            if (arquivo.files && arquivo.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    visualizarImg.src = e.target.result;
+                }
+                reader.readAsDataURL(arquivo.files[0]);
+            }
+        });
+    });
+</script>
