@@ -1,10 +1,14 @@
-<form class="form-brinquedo container" method="POST" action="">
+<form class="form-brinquedo container" method="POST" action="" enctype="multipart/form-data">
     <div class="row">
         <h2 class="text-center">Editar Brinquedo</h2>
 
         <!-- Foto Atual -->
         <div class="col-md-6">
             <label class="form-label d-block">Foto Atual:</label>
+
+            <!-- Campo oculto com o nome da imagem atual -->
+            <input type="hidden" name="foto_atual" value="<?php echo $brinquedo['foto_brinquedo']; ?>">
+
             <?php if (!empty($brinquedo['foto_brinquedo'])): ?>
                 <img src="<?php echo BASE_URL . 'assets/img/atraçõesPag/' . $brinquedo['foto_brinquedo']; ?>" class="img-thumbnail" width="200">
             <?php else: ?>
@@ -73,6 +77,8 @@
             <select id="status_brinquedo" name="status_brinquedo" class="form-select" required>
                 <option value="Ativo">Ativo</option>
                 <option value="Inativo">Inativo</option>
+                <option value="Manutenção">Manutenção</option>
+                <option value="Desativado">Desativado</option>
                 <option value="Destaque">Desativado</option>
             </select>
         </div>

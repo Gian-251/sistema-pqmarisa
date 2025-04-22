@@ -12,6 +12,18 @@ class Brinquedo extends Model {
         }
     }
 
+    public function brinquedosAtivo() {
+        try {
+            $sql = "SELECT * FROM tbl_brinquedo WHERE status_brinquedo IN ('Ativo', 'Manutenção')  ORDER BY nome_brinquedo ASC"; 
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Erro ao buscar brinquedos: " . $e->getMessage());
+            return [];
+        }
+    }
+
 
 
     public function getBrinquedoPorId($id) {

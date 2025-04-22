@@ -28,7 +28,7 @@
         <td><?php echo $linha['capacidade_brinquedo']; ?></td>
         <td><?php echo $linha['duracao_brinquedo']; ?></td>
         <td>
-          <?php if ($linha['status_brinquedo'] == 'ATIVO'): ?>
+          <?php if ($linha['status_brinquedo'] == 'ATIVO' || $linha['status_brinquedo'] == 'ativo' || $linha['status_brinquedo'] == 'Ativo'): ?>
             <span class="badge bg-success">Ativo</span>
           <?php else: ?>
             <span class="badge bg-secondary">Inativo</span>

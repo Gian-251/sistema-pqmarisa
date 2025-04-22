@@ -72,22 +72,26 @@ class BrinquedoController extends Controller{
 
     public function editar($id) {
         $dados = array();
-
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nome = filter_input(INPUT_POST, 'nome_brinquedo', FILTER_SANITIZE_SPECIAL_CHARS);
             $hora = $_POST['hora_parque_brinquedo'];
             $capacidade = filter_input(INPUT_POST, 'capacidade_brinquedo', FILTER_SANITIZE_NUMBER_INT);
-            $alt = $nome;
+            $alt = filter_input(INPUT_POST, 'alt_brinquedo', FILTER_SANITIZE_SPECIAL_CHARS);
             $duracao = $_POST['duracao_brinquedo'];
             $status = filter_input(INPUT_POST, 'status_brinquedo', FILTER_SANITIZE_SPECIAL_CHARS);
             $genero = filter_input(INPUT_POST, 'genero_brinquedo', FILTER_SANITIZE_SPECIAL_CHARS);
             $informacao = filter_input(INPUT_POST, 'informacao_brinquedo', FILTER_SANITIZE_SPECIAL_CHARS);
-
+    
+            // Pega a foto atual enviada pelo campo oculto
             $foto = $_POST['foto_atual'] ?? '';
+    
+            // Se foi enviada uma nova imagem, faz o upload
             if (isset($_FILES['foto_brinquedo']) && $_FILES['foto_brinquedo']['error'] == 0) {
                 $foto = $this->uploadFoto($_FILES['foto_brinquedo'], $nome);
             }
-
+    
+            // Monta array com os dados
             $dadosBrinquedo = [
                 'nome_brinquedo' => $nome,
                 'hora_parque_brinquedo' => $hora,
@@ -99,29 +103,33 @@ class BrinquedoController extends Controller{
                 'genero_brinquedo' => $genero,
                 'informacao_brinquedo' => $informacao
             ];
-
+    
+            // Atualiza no banco
             $this->brinquedoListar->updateBrinquedo($id, $dadosBrinquedo);
+    
+            // Redireciona para a lista
             header('Location: http://localhost/sistema-pqmarisa/public/brinquedo/brinquedoListar');
             exit;
         }
-
+    
+        // Se não for POST, carrega os dados do brinquedo para exibir no form
         $dados['brinquedo'] = $this->brinquedoListar->getBrinquedoById($id);
         $dados['conteudo'] = 'admin/brinquedo/editar';
         $this->carregarViews('admin/index', $dados);
     }
-
+    
     private function uploadFoto($arquivo, $nome) {
         $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
         $nomeArquivo = md5($nome . time()) . '.' . $ext;
-        $destino = 'assets/img/brinquedos/' . $nomeArquivo;
-
+        $destino = 'assets/img/atraçõesPag/' . $nomeArquivo;
+    
         if (move_uploaded_file($arquivo['tmp_name'], $destino)) {
             return $nomeArquivo;
         }
-
+    
         return '';
     }
-}
+}    
 
 
 
