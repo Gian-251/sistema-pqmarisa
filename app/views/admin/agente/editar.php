@@ -76,7 +76,7 @@
         <!-- Botões -->
         <div class="col-12 text-end">
             <button type="submit" class="btn btn-primary">Salvar Agente</button>
-            <button type="reset" class="btn btn-secondary">Cancelar</button>
+            <a href="http://localhost/sistema-pqmarisa/public/agente/agenteListar" class="btn btn-secondary">Cancelar</a>
         </div>
     </div>
 </form>

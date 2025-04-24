@@ -15,7 +15,7 @@
            
         
             <div class="carrinho">
-                <a href="usuario"><img src="<?php echo BASE_URL?>assets/img/Elementos/Carinho-amarelo-01.svg" alt="carrinho"></a>
+                <a href="usuario"><img src="<?php echo BASE_URL?>assets/img/Elementos/Carinho-amarelo-01.svg" alt="usuario"></a>
                 <a href="login"><img src="<?php echo BASE_URL?>assets/img/Elementos/user-01-01-01.svg" alt="login"></a>
             </div>
             <div class="redeSociais">
