@@ -10,6 +10,13 @@
          url('../font/impact.woff') format('woff'); 
 }
 
+.informacaoBrinquedo {
+    color: orange; /* ou qualquer cor que quiser */
+
+}
+
+
+
 body {
     font-family: 'bauhau';
     min-height: 100vh; /* Garante que o corpo ocupe toda a altura da tela */
@@ -1190,7 +1197,7 @@ nav ul li a {
     justify-content: center;
     display: flex;
     align-items: center;
-    background: url(../img/Camada\ 0.png);
+    background: url(../img/FundoEventos/back-comida.jpg) no-repeat;
     background-size: cover; /*ajusta a medida da imagem */
     background-position: center 50%; /*ajusta a posição da imagem de fundo*/
     font-family: 'bauhau';

@@ -58,29 +58,31 @@
         <div class="col-md-6">
             <label for="genero_brinquedo" class="form-label">Genero</label>
             <select id="genero_brinquedo" name="genero_brinquedo" class="form-select" required>
-                <option value="Familiar">Familiar</option>
-                <option value="Radical">Radical</option>
-                <option value="Desativado">Desativado</option>
-                <option value="Manutenção">Manutenção</option>
-                <option value="Evento">Evento</option>
+                <option value="Familiar" <?php echo ($brinquedo['genero_brinquedo'] == 'Familiar') ? 'selected' : ''; ?>>Familiar</option>
+                <option value="Radical" <?php echo ($brinquedo['genero_brinquedo'] == 'Radical') ? 'selected' : ''; ?>>Radical</option>
+                <option value="Desativado" <?php echo ($brinquedo['genero_brinquedo'] == 'Desativado') ? 'selected' : ''; ?>>Desativado</option>
+                <option value="Manutenção" <?php echo ($brinquedo['genero_brinquedo'] == 'Manutenção') ? 'selected' : ''; ?>>Manutenção</option>
+                <option value="Evento" <?php echo ($brinquedo['genero_brinquedo'] == 'Evento') ? 'selected' : ''; ?>>Evento</option>
             </select>
+
         </div>
         <!-- descrição -->
         <div class="mb-6">
             <label for="informacao_brinquedo" class="form-label">Descrição / Texto</label>
-            <textarea class="form-control" id="informacao_brinquedo" name="informacao_brinquedo" rows="5" required></textarea>
+            <textarea class="form-control" id="informacao_brinquedo" name="informacao_brinquedo" rows="5" required><?php echo $brinquedo['informacao_brinquedo']; ?></textarea>
         </div>
 
         <!-- Status -->
         <div class="col-md-6">
             <label for="status_brinquedo" class="form-label">Status</label>
             <select id="status_brinquedo" name="status_brinquedo" class="form-select" required>
-                <option value="Ativo">Ativo</option>
-                <option value="Inativo">Inativo</option>
-                <option value="Manutenção">Manutenção</option>
-                <option value="Desativado">Desativado</option>
-                <option value="Destaque">Desativado</option>
+                <option value="Ativo" <?php echo ($brinquedo['status_brinquedo'] == 'Ativo') ? 'selected' : ''; ?>>Ativo</option>
+                <option value="Inativo" <?php echo ($brinquedo['status_brinquedo'] == 'Inativo') ? 'selected' : ''; ?>>Inativo</option>
+                <option value="Manutenção" <?php echo ($brinquedo['status_brinquedo'] == 'Manutenção') ? 'selected' : ''; ?>>Manutenção</option>
+                <option value="Desativado" <?php echo ($brinquedo['status_brinquedo'] == 'Desativado') ? 'selected' : ''; ?>>Desativado</option>
+                <option value="Destaque" <?php echo ($brinquedo['status_brinquedo'] == 'Destaque') ? 'selected' : ''; ?>>Destaque</option>
             </select>
+
         </div>
 
         <!-- Botões -->

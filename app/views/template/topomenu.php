@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marisa parque de diversão</title>
     <link rel="stylesheet" href="<?php echo BASE_URL ?>assets/css/reset.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     <!--Animação fotos-->
     <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL ?>assets/css/slick.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL ?>assets/css/slick-theme.css" />

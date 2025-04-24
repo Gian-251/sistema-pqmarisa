@@ -31,7 +31,10 @@
                                     <?php if (strtolower($linha['status_brinquedo']) == 'desativado'): ?>
                                         <p class="text-danger"><strong>Brinquedo Desativado</strong></p>
                                     <?php elseif (strtolower($linha['status_brinquedo']) == 'manutenção'): ?>
-                                        <p class="text-warning"><strong>Em Manutenção</strong></p>
+                                        <p class="border border-warning rounded p-2 d-inline-block text-warning-emphasis bg-warning-subtle">
+                                        <i class="bi bi-tools me-1" style="color: #f39c12;"></i>
+                                            <strong class="informacaoBrinquedo">Em Manutenção</strong>
+                                        </p>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -49,7 +52,10 @@
                                     <p><?php echo $linha['informacao_brinquedo']; ?></p>
 
                                     <?php if (strtolower($linha['status_brinquedo']) == 'manutenção'): ?>
-                                        <p class="text-warning"><strong>Em Manutenção</strong></p>
+                                        <p class="border border-warning rounded p-2 d-inline-block text-warning-emphasis bg-warning-subtle">
+                                        <i class="bi bi-tools me-1" style="color: #f39c12;"></i>
+                                            <strong class="informacaoBrinquedo">Em Manutenção</strong>
+                                        </p>
                                     <?php endif; ?>
                                 </div>
                             </div>
