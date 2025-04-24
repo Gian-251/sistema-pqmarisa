@@ -77,7 +77,7 @@ class LetreiroController extends Controller {
     }
     public function editarLetreiro($id = null) {
         $dados = array();
-        
+    
         // Verifica se o ID foi fornecido
         if (!$id) {
             $_SESSION['mensagem'] = 'ID do letreiro não especificado';
@@ -85,35 +85,34 @@ class LetreiroController extends Controller {
             header('Location: http://localhost/sistema-pqmarisa/public/letreiro');
             exit;
         }
-        
+    
         // Busca o letreiro pelo ID
         $letreiro = $this->letreiroListar->getLetreiroPorId($id);
-        
+    
         if (!$letreiro) {
             $_SESSION['mensagem'] = 'Letreiro não encontrado';
             $_SESSION['tipo-msg'] = 'erro';
             header('Location: http://localhost/sistema-pqmarisa/public/letreiro');
             exit;
         }
-        
-        // Verifica se a requisição é do tipo POST (formulário enviado)
+    
+        // Verifica se o formulário foi enviado
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Filtra e sanitiza os dados dos campos de input
+            // Filtra e sanitiza os dados
             $texto_letreiro = filter_input(INPUT_POST, 'texto_letreiro', FILTER_SANITIZE_SPECIAL_CHARS);
             $status_letreiro = filter_input(INPUT_POST, 'status_letreiro', FILTER_SANITIZE_SPECIAL_CHARS);
-            
+    
             // Verifica se os campos obrigatórios foram preenchidos
             if ($texto_letreiro && $status_letreiro) {
-                // Organiza os dados para enviar para o modelo
+                // Prepara os dados para atualização
                 $dadosLetreiro = array(
                     'texto_letreiro' => $texto_letreiro,
                     'status_letreiro' => $status_letreiro
                 );
-                
-                // Chama o método do modelo para editar o letreiro
+    
+                // Chama o model para atualizar
                 $resultado = $this->letreiroListar->editarLetreiro($id, $dadosLetreiro);
-                
-                // Verifica se o letreiro foi editado com sucesso
+    
                 if ($resultado) {
                     $_SESSION['mensagem'] = 'Letreiro atualizado com sucesso';
                     $_SESSION['tipo-msg'] = 'sucesso';
@@ -124,17 +123,17 @@ class LetreiroController extends Controller {
                     $dados['tipo-msg'] = 'erro';
                 }
             } else {
-                // Se algum campo obrigatório não for preenchido
-                $dados['erro'] = 'Preencha todos os campos corretamente';
+                $dados['erro'] = 'Preencha todos os campos obrigatórios';
                 $dados['tipo-msg'] = 'erro';
             }
         }
-        
-        // Passa os dados do letreiro para a view
-        $dados['dadosLetreiro'] = $letreiro; // Aqui estamos definindo a variável para a view
+    
+        // Passa os dados para a view
+        $dados['letreiro'] = $letreiro;
         $dados['conteudo'] = 'admin/letreiro/editarLetreiro';
         $this->carregarViews('admin/index', $dados);
     }
+    
     
 
     

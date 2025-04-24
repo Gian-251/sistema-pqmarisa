@@ -55,7 +55,7 @@
                 <!-- Botões -->
                 <div class="col-12 text-end mt-3">
                     <button type="submit" class="btn btn-success">Salvar Evento</button>
-                    <a href="http://localhost/sistema-pqmarisa/public/eventos/listar" class="btn btn-secondary">Cancelar</a>
+                    <a href="http://localhost/sistema-pqmarisa/public/eventos/eventosListar" class="btn btn-secondary">Cancelar</a>
                 </div>
             </div>
         </div>

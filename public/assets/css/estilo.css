@@ -1197,7 +1197,7 @@ nav ul li a {
     justify-content: center;
     display: flex;
     align-items: center;
-    background: url(../img/FundoEventos/back-comida.jpg) no-repeat;
+    background: url(../img/FundoEventos/Camada\ 0.png) no-repeat;
     background-size: cover; /*ajusta a medida da imagem */
     background-position: center 50%; /*ajusta a posição da imagem de fundo*/
     font-family: 'bauhau';
