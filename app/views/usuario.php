@@ -7,10 +7,12 @@
 
     <main>
         <section class="site">
-            <h2 class="mb-4">Dados do Cliente</h2>
-            <a href="<?= BASE_URL ?> usuario/sair" class="btn btn-danger float-end" onclick="return confirm('Sair do sistema?')">
-                Sair
-            </a>
+        <h2 class="mb-4">Dados do Cliente</h2>
+        <form action="<?= BASE_URL ?>login/sair" method="POST" class="d-inline float-end">
+    <button type="submit" class="btn btn-danger" onclick="return confirm('Deseja realmente sair do sistema?')">
+        Sair
+    </button>
+    </form>
 
             <div class="usuarioInfo">
 
