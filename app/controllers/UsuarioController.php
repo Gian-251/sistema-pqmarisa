@@ -14,10 +14,18 @@ class UsuarioController extends Controller
             exit();
         }
 
+
+
         $dados = array();
+
+        $ingresso = new Ingresso();
+        $ingresso = $ingresso->getIngressoByClienteId($_SESSION['usuario']['id_cliente']);
+        $dados['ingresso'] = $ingresso;
+
         $dados['titulo'] = 'usuario - Marisa Parque Itaquera';
         $dados['cliente'] = $_SESSION['usuario'];
 
+       
+
         $this->carregarViews('usuario', $dados);
-    }
-}
+    }}
