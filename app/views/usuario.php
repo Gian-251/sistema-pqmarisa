@@ -8,7 +8,7 @@
     <main>
         <section class="site">
             <h2 class="mb-4">Dados do Cliente</h2>
-            <a href="<?= BASE_URL ?>logout" class="btn btn-danger float-end" onclick="return confirm('Sair do sistema?')">
+            <a href="<?= BASE_URL ?> usuario/sair" class="btn btn-danger float-end" onclick="return confirm('Sair do sistema?')">
                 Sair
             </a>
 

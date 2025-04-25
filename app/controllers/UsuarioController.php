@@ -28,4 +28,11 @@ class UsuarioController extends Controller
        
 
         $this->carregarViews('usuario', $dados);
-    }}
+    }
+    public function sair() {
+        session_destroy();
+        header("Location: " . BASE_URL . "login"); // Ou qualquer URL que você queira
+        exit();
+    }
+
+}

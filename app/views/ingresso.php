@@ -1,9 +1,8 @@
 <?php
-session_start();
 
 // Verifica se o usuário está logado
-if (!isset($_SESSION['cliente_id'])) {
-    header('Location: login.php'); // Redireciona para a página de login
+if (isset($_SESSION['cliente']) || !isset($_SESSION['tipo']) == 'cliente') {
+    header('Location: login'); // Redireciona para a página de login
     exit();
 }
 ?>
