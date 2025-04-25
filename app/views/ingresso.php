@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Verifica se o usuário está logado
+if (!isset($_SESSION['cliente_id'])) {
+    header('Location: login.php'); // Redireciona para a página de login
+    exit();
+}
+?>
+
 <?php require_once('template/topomenu.php'); ?>
 
 <body id="ingresso">

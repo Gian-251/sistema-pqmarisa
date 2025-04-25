@@ -71,7 +71,7 @@ class LoginController extends Controller {
         if($cliente){
             $_SESSION['usuario'] = $cliente;
             $_SESSION['tipo'] = 'cliente';
-            header('Location: '. BASE_URL .'perfil');
+            header('Location: '. BASE_URL .'usuario');
             exit;
         }
 

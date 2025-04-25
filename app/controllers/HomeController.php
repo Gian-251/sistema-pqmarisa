@@ -34,7 +34,20 @@ class HomeController extends Controller{
         $this->letreirosModel = new Letreiros(); // Instancia o modelo de letreiros
     }
 
-    
+    public function usuario()
+    {
+        $dados = array();
+        $dados['titulo'] = 'usuario - Marisa Parque Itaquera';
+        $dados['conteudo'] = 'usuario'; // sua view específica
+
+
+
+        $this->carregarViews('index/usuario', $dados);
+
+
+
+        //var_dump("chegeui a Sobrecontroller");
+    }
     
 
 
