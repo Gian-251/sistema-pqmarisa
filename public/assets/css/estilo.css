@@ -1457,10 +1457,57 @@ nav ul li a {
 
 
 /* Estilos específicos para a página de usuário */
+#usuario main {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+    padding: 20px;
+}
+
+
 #usuario {
-    background-color: #f8f8f8;
+    background-color: #b5acac;
     color: #333;
 }
+
+#usuario .ingressoTabela {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+#usuario table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#usuario thead {
+    background-color: #246e8f;
+    color: white;
+}
+
+#usuario th, #usuario td {
+    padding: 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#usuario tbody tr {
+    background-color: #343a40;
+    color: #fff;
+}
+
+#usuario .badge {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
 
 .usuario-dashboard {
     max-width: 1200px;
@@ -1472,6 +1519,13 @@ nav ul li a {
     font-size: 2rem;
     color: #0066cc;
     margin-bottom: 20px;
+}
+
+#usuario .ingressoInfo {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 .informacoes-usuario,
@@ -1658,9 +1712,13 @@ nav ul li a {
 }
 /*************************************************Usuario*****************************/
 #usuario header {
-    background-color: #0f7944;
+    background-color: #246e8f;
     font-family: "bauhau";
 
+}
+
+#usuario footer{
+    background: #246e8f;
 }
 
 #usuario .site{

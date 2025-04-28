@@ -1,3 +1,5 @@
+
+
 <?php require_once('template/topomenu.php'); ?>
 
 <body id="usuario">
@@ -7,12 +9,12 @@
 
     <main>
         <section class="site">
-        <h2 class="mb-4">Dados do Cliente</h2>
-        <form action="<?= BASE_URL ?>login/sair" method="POST" class="d-inline float-end">
-    <button type="submit" class="btn btn-danger" onclick="return confirm('Deseja realmente sair do sistema?')">
-        Sair
-    </button>
-    </form>
+            <h2 class="mb-4">Dados do Cliente</h2>
+            <form action="<?= BASE_URL ?>login/sair" method="POST" class="d-inline float-end">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Deseja realmente sair do sistema?')">
+                    Sair
+                </button>
+            </form>
 
             <div class="usuarioInfo">
 
@@ -27,22 +29,65 @@
 
         <section class="site">
             <h2 class="mb-4">Informações do Ingresso</h2>
-            <div class="card-body">
-                <?php if ($ingresso): // Verifica se o ingresso existe ?>
-                    <p><strong>ID do Ingresso:</strong> <?php echo $ingresso['id_ingresso']; ?></p>
-                    <p><strong>Quantidade Comprada:</strong> <?php echo $ingresso['qtde_compra_ingresso']; ?></p>
-                    <p><strong>Quantidade Pendente:</strong> <?php echo $ingresso['qtde_pendente_ingresso']; ?></p>
-                    <p><strong>Valor Unitário:</strong> R$ <?php echo number_format($ingresso['valor_unit_ingresso'], 2, ',', '.'); ?></p>
-                    <p><strong>Valor Total:</strong> R$ <?php echo number_format($ingresso['valor_total_ingresso'], 2, ',', '.'); ?></p>
-                    <p><strong>Data da Compra:</strong> <?php echo date('d/m/Y H:i', strtotime($ingresso['data_compra_ingresso'])); ?></p>
-                    <p><strong>Status:</strong> <?php echo $ingresso['status_ingresso']; ?></p>
-                    <p><strong>Código QR:</strong> <?php echo $ingresso['cod_qr_ingresso']; ?></p>
-                <?php else: // Caso não exista ingresso ?>
-                    <p><strong>Não há ingresso registrado para você.</strong></p>
-                    <a href="compra_ingresso.php" class="btn btn-primary">Comprar Ingresso</a>
-                <?php endif; ?>
-            </div>
+            <section class="site">
+                <div class="ingressoTabela">
+                    <?php if ($ingresso): ?>
+                        <table class="table table-dark table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ID Ingresso</th>
+                                    <th>Quantidade Comprada</th>
+                                    <th>Quantidade Pendente</th>
+                                    <th>Valor Unitário</th>
+                                    <th>Valor Total</th>
+                                    <th>Data da Compra</th>
+                                    <th>Status</th>
+                                    <th>QR Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><?php echo $ingresso['id_ingresso']; ?></td>
+                                    <td><?php echo $ingresso['qtde_compra_ingresso']; ?></td>
+                                    <td><?php echo $ingresso['qtde_pendente_ingresso']; ?></td>
+                                    <td>R$ <?php echo number_format($ingresso['valor_unit_ingresso'], 2, ',', '.'); ?></td>
+                                    <td>R$ <?php echo number_format($ingresso['valor_total_ingresso'], 2, ',', '.'); ?></td>
+                                    <td><?php echo date('d/m/Y H:i', strtotime($ingresso['data_compra_ingresso'])); ?></td>
+                                    <td>
+                                        <?php if ($ingresso['status_ingresso'] == 'Ativo'): ?>
+                                            <span class="badge bg-success">Ativo</span>
+                                        <?php elseif ($ingresso['status_ingresso'] == 'Inativo'): ?>
+                                            <span class="badge bg-secondary">Inativo</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-warning text-dark"><?php echo $ingresso['status_ingresso']; ?></span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        if ($ingresso['status_ingresso'] != 'Pendente') {
+                                            $dadosQRCode = "ID: {$ingresso['id_ingresso']}\n";
+                                            $dadosQRCode .= "Comprados: {$ingresso['qtde_compra_ingresso']}\n";
+                                            $dadosQRCode .= "Usos restantes: {$ingresso['qtde_pendente_ingresso']}";
+
+                                            $qrCodePath = gerarQRCode($dadosQRCode, $ingresso['id_ingresso']);
+                                            echo "<img src='$qrCodePath' alt='QR Code do Ingresso' width='100'>";
+                                        } else {
+                                            echo "QR Code indisponível (pendente)";
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <p><strong>Não há ingresso registrado para você.</strong></p>
+                        <a href="compra_ingresso.php" class="btn btn-primary">Comprar Ingresso</a>
+                    <?php endif; ?>
+                </div>
+            </section>
+
         </section>
+
 
     </main>
 
