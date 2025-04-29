@@ -10,12 +10,14 @@ require_once('template/topomenu.php');
 
     <main>
         <section class="site">
-            <h2 class="mb-4">Dados do Cliente</h2>
-            <form action="<?= BASE_URL ?>login/sair" method="POST" class="d-inline float-end">
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Deseja realmente sair do sistema?')">
-                    Sair
-                </button>
-            </form>
+            <div class="blocoBaseSair">
+                <h2 class="mb-4">Dados do Cliente</h2>
+                <form action="<?= BASE_URL ?>login/sair" method="POST" class="d-inline float-end">
+                    <button type="submit" class="botao-sair" onclick="return confirm('Deseja realmente sair do sistema?')">
+                        Sair
+                    </button>
+                </form>
+            </div>
 
             <div class="usuarioInfo">
                 <div class="usuarioDados">
@@ -28,7 +30,7 @@ require_once('template/topomenu.php');
         </section>
 
         <section class="site">
-            <h2 class="mb-4">Informações do Ingresso</h2>
+            <h2 class="infoDadosCliente">Informações do Ingresso</h2>
             <div class="ingressoTabela">
                 <?php if ($ingresso): ?>
                     <table class="table table-dark table-striped table-bordered">
