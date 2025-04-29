@@ -2,6 +2,15 @@
 
 class IngressoController extends Controller{
     public function index(){
+
+        if (isset($_SESSION['usuario']) || $_SESSION['tipo'] !== 'cliente') {
+            header('Location: login');
+            exit();
+        }
+
+        $ingresso = new Ingresso();
+        $ingresso = $ingresso->getIngressoByClienteId($_SESSION['usuario']['id_cliente']);
+        $dados['ingresso'] = $ingresso;
        
         $dados = array();
         $dados['titulo'] = 'ingresso - Marisa Parque Itaquera';
@@ -51,26 +60,46 @@ class IngressoController extends Controller{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-function salvarIngresso(){
-    // $id_cliente = $_SESSION['cliente']['id'];
-    $qtde_compra = $_POST['quantidade'];
-    $valor_unit = 10.00;
-    $valor_total = $_POST['valor_total'];
-    $status = 'pendente';
-    $data_compra = date('Y-m-d H:i:s');
-    $qtde_pendente=0;
-
-    // $id_cliente = $_SESSION['cliente']['id'];
-    $this->ingressoListar->salvarIngresso(7,
-    $qtde_compra,
-    $qtde_pendente,
-    $valor_unit,
-    $valor_total,
-    $status);
-
-    header('Location: /admin/ingresso/ingressoListar');
-
-}
+    function salvarIngresso() {
+    
+        // Pega o ID do cliente logado
+        if (!isset($_SESSION['cliente']['id'])) {
+            die('Cliente não está logado.');
+        }
+        $id_cliente = $_SESSION['cliente']['id'];
+    
+        // Dados do formulário
+        $qtde_compra = $_POST['quantidade'];
+        $valor_unit = 10.00;
+        $valor_total = $_POST['valor_total'];
+        $status = 'pendente';
+        $qtde_pendente = 0;
+    
+        // Gera código QR
+        include_once 'assets/phpqrcode/qrlib.php';
+        $cod_qr = uniqid('qr_');
+        $alt_qr = 'QR Code do ingresso #' . $cod_qr;
+    
+        // Pasta e imagem do QR
+        $pasta_qr = 'uploads/qrcodes/';
+        if (!file_exists($pasta_qr)) {
+            mkdir($pasta_qr, 0777, true);
+        }
+        $caminho_qr = $pasta_qr . $cod_qr . '.png';
+        QRcode::png($cod_qr, $caminho_qr, QR_ECLEVEL_H, 10);
+    
+        // Salva no banco
+        $this->ingressoListar->salvarIngresso(
+            $id_cliente,
+            $qtde_compra,
+            $valor_unit,
+            $valor_total,
+            $status,
+            $cod_qr
+        );
+    
+        header('Location: /admin/ingresso/ingressoListar');
+    }    
 
     
 }
