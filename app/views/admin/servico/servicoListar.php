@@ -28,7 +28,7 @@
         <td scope="col"><?php echo $linha['alt_servico']; ?></td>
         <td scope="col"><?php echo $linha['status_servico']; ?></td>
         <td>
-          <a href="editar_servico.php?id=<?php echo $linha['id_servico']; ?>" class="btn btn-warning">Editar</a>
+        <a href="<?php echo BASE_URL; ?>servico/editar/<?php echo $linha['id_servico']; ?>" class="btn btn-warning">Editar</a>
         </td>
         <td>
           <a href="desativar_servico.php?id=<?php echo $linha['id_servico']; ?>" class="btn btn-danger">Desativar</a>
