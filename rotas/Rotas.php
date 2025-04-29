@@ -19,7 +19,7 @@ class Rotas{
 
         //var_dump($url);
 
-
+        
         //Definir uma variável para armazenar parametros
         $parametro = array();
 
@@ -36,7 +36,7 @@ class Rotas{
 
 
             $controladorAtual = ucfirst($url[0]) . 'Controller';
-
+            
             array_shift($url); 
 
             if(isset($url[0]) && !empty($url)){
@@ -44,11 +44,12 @@ class Rotas{
                 //var_dump('Nome da ação atual: ' . $acaoAtual);
                 array_shift($url);
             }else{
+                // var_dump($url); exit;
                 $acaoAtual = 'index';
                 
                 // var_dump('Nome da ação atual: ' . $acaoAtual);
             }
-
+            
             // Os parametros
             // count - Conta todos os elementos de um array ou de um objeto
             if(count($url) > 0){
@@ -61,13 +62,13 @@ class Rotas{
             //var_dump($controladorAtual);
             //var_dump($acaoAtual);
         }
-
+        
         //Verificar se o arquivo do CONTROLLER e a AÇÃO (método) existe 
         if(!file_exists('../app/controllers/'.$controladorAtual.'.php')|| 
         !method_exists($controladorAtual, $acaoAtual)){
             
             
-           // var_dump('Não existe!' . $controladorAtual);
+           
            //var_dump('Não existe o método: ', $acaoAtual );
 
             // Se não existir definir o Controller e um Método padrão 
@@ -78,7 +79,8 @@ class Rotas{
         }
         
         $controller = new $controladorAtual();
-        
+        // var_dump($acaoAtual);
+        // exit;
 
         call_user_func_array(array($controller, $acaoAtual), $parametro);
 
