@@ -171,7 +171,7 @@
 
             <li class="nav-header">Serviços e os Brinquedos</li>
             <li class="nav-item">
-              <a href="http://localhost/sistema-pqmarisa/public/servico/servicoListar" class="nav-link">
+              <a href="http://localhost/sistema-pqmarisa/public/servico/listar" class="nav-link">
                 <p>🛠️ Serviços </p>
               </a>
             </li>

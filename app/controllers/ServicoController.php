@@ -13,17 +13,28 @@ class ServicoController extends Controller{
         $this->carregarViews('admin/index', $dados);
         //var_dump("chegeui a Sobrecontroller");
     }
-    public function servicoListar(){
+
+
+
+    public function listar(){
 
         $dados = array();
-        $dados['conteudo'] = 'admin/servico/servicoListar';
-        $dados['servico'] = $this->servicoListar->getTodosServicos();
+        $dados['conteudo'] = 'admin/servico/listar';
+
+
+        $dados['servicos'] = $this->servicoListar->getTodosServicos();
         // var_dump($dados['servicos']);
 
 
         
         $this->carregarViews('admin/index', $dados);
+
+
+
+
     }
+
+
     public function adicionar(){
         $dados = array();
         
@@ -91,10 +102,9 @@ class ServicoController extends Controller{
 
 
 
-    public function editar($id = null) {
+    public function editar($id = null){
         $dados = array();
-    
-        // Buscar dados do serviço antes de qualquer processamento
+        
         $dadosServico = $this->servicoListar->getDadosServicos($id);
     
         if (!$dadosServico) { 
@@ -106,84 +116,76 @@ class ServicoController extends Controller{
     
         $dados['dadosServico'] = $dadosServico;
     
-        // Se carregamento da página está vindo do FORM
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Dados dos campos de input -> name
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $nome_servico = filter_input(INPUT_POST, 'nome_servico', FILTER_SANITIZE_SPECIAL_CHARS);
             $descricao_servico = filter_input(INPUT_POST, 'descricao_servico', FILTER_SANITIZE_SPECIAL_CHARS);
-            $valor_servico = str_replace('.', ',', filter_input(INPUT_POST, 'valor_servico'));
-            $alt_servico = $nome_servico;
+            $valor_servico = filter_input(INPUT_POST, 'valor_servico', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            $alt_servico = filter_input(INPUT_POST, 'alt_servico', FILTER_SANITIZE_SPECIAL_CHARS);
             $id_brinquedo = filter_input(INPUT_POST, 'id_brinquedo', FILTER_SANITIZE_NUMBER_INT);
             $status_servico = filter_input(INPUT_POST, 'status_servico', FILTER_SANITIZE_SPECIAL_CHARS);
     
-            // Validação dos dados do formulário
-            if (!$nome_servico || !$descricao_servico || !is_numeric($valor_servico) || !$id_brinquedo) {
-                $dados['mensagem'] = 'Erro: Todos os campos são obrigatórios e valores devem ser válidos.';
-                $dados['tipo-msg'] = 'erro';
-                $this->carregarViews('admin/index', $dados);
-                return;
-            }
+            $arquivo = $dadosServico['foto_servico']; // Mantém foto antiga
     
-            // Inicializa com a foto atual
-            $arquivo = $dadosServico['foto_servico'];
-    
-            // Só atualiza a foto se uma nova for enviada
-            if (isset($_FILES['foto_servico']) && $_FILES['foto_servico']['error'] == 0) {
-                // Verifica o tipo de arquivo
-                $tipoArquivo = $_FILES['foto_servico']['type'];
-                if (!in_array($tipoArquivo, ['image/jpeg', 'image/png', 'image/gif'])) {
-                    $dados['mensagem'] = 'Erro: Apenas imagens JPEG, PNG e GIF são permitidas.';
-                    $dados['tipo-msg'] = 'erro';
-                    $this->carregarViews('admin/index', $dados);
-                    return;
-                }
-    
-                // Verifica o tamanho do arquivo (max 2MB)
-                if ($_FILES['foto_servico']['size'] > 2 * 1024 * 1024) {
-                    $dados['mensagem'] = 'Erro: O tamanho do arquivo deve ser no máximo 2MB.';
-                    $dados['tipo-msg'] = 'erro';
-                    $this->carregarViews('admin/index', $dados);
-                    return;
-                }
-    
-                // Realizar o upload da imagem
+            if(isset($_FILES['foto_servico']) && $_FILES['foto_servico']['error'] === UPLOAD_ERR_OK){
                 $novaFoto = $this->uploadFoto($_FILES['foto_servico'], $nome_servico);
-                if ($novaFoto) {
+                if($novaFoto) {
                     $arquivo = $novaFoto;
                 }
             }
     
-            // Preparar os dados para atualização
-            $dadosServico = array(
-                'id_servico' => $id,
-                'nome_servico' => $nome_servico,
+            $dadosServicoAtualizado = array(
+                'id_servico'        => $id,
+                'nome_servico'      => $nome_servico,
                 'descricao_servico' => $descricao_servico,
-                'valor_servico' => $valor_servico,
-                'alt_servico' => $alt_servico,
-                'id_brinquedo' => $id_brinquedo,
-                'status_servico' => $status_servico,
-                'foto_servico' => $arquivo
+                'valor_servico'     => $valor_servico,
+                'alt_servico'       => $alt_servico,
+                'id_brinquedo'      => $id_brinquedo,
+                'status_servico'    => $status_servico,
+                'foto_servico'      => $arquivo
             );
     
-            // Editar na base de dados
-            if ($this->servicoListar->editarServico($dadosServico)) {
-                $_SESSION['mensagem'] = 'Serviço editado com sucesso';
+            if ($this->servicoListar->editarServico($dadosServicoAtualizado)) {
+                $_SESSION['mensagem'] = 'Serviço editado com sucesso.';
                 $_SESSION['tipo-msg'] = 'sucesso';
                 header('Location: ' . BASE_URL . 'servico/listar');
                 exit;
             } else {
-                $dados['mensagem'] = 'Erro ao editar o serviço - Ao enviar para a base de dados';
+                $dados['mensagem'] = 'Erro ao editar o serviço.';
                 $dados['tipo-msg'] = 'erro';
             }
         }
-    var_dump($dadosServico);
-        // Buscar as especialidades
+    
         $brinquedoModel = new Brinquedo();
         $dados['brinquedos'] = $brinquedoModel->getTodosBrinquedos();
     
         $dados['conteudo'] = 'admin/servico/editar';
         $this->carregarViews('admin/index', $dados);
     }
+    
+
+    public function desativar($id = null){
+        header('Content-Type: application/json');
+  
+        if($id === null){
+          http_response_code(400);
+          echo json_encode(['sucesso' => false, 'mensagem' => 'ID inválido']);
+          exit;
+        }
+      
+      $desativar = $this->servicoListar->desativarServico($id);
+  
+      if($desativar){
+          $_SESSION['mensagem'] = 'Serviço desativado com sucesso!';
+          $_SESSION['tipo-msg'] = 'sucesso';
+  
+          echo json_encode(['sucesso' => true]);
+      }else{
+          echo json_encode(['sucesso' => false, 'mensagem' => 'Falha ao desativar']);
+      }
+      
+      
+      }
+    
     
     
     
@@ -198,7 +200,7 @@ class ServicoController extends Controller{
 
     public function uploadFoto($file, $nome){
 
-        $dir = '../public/uploads/servicos/';
+        $dir = '../public/uploads/servico/';
 
         if(!file_exists($dir)){
             mkdir($dir, 0755, true);
