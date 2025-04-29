@@ -1468,6 +1468,52 @@ nav ul li a {
 
 }
 
+#usuario .site .blocoBaseSair{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+}
+
+#usuario .mb-4{
+    align-self: center;
+    font-size: 20px;
+
+
+}
+
+
+#usuario .infoDadosCliente{
+    font-size: 15pt;
+    font-family: "bauhau";
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    margin-top: 20px;
+
+}
+
+
+#usuario .botao-sair {
+    background-color: #dc3545; /* Vermelho Bootstrap */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#usuario .botao-sair:hover {
+    background-color: #8f2d37; /* Vermelho Bootstrap */
+    color:  rgb(255, 255, 255);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
 #usuario {
     background-color: #b5acac;
@@ -1733,6 +1779,7 @@ nav ul li a {
     margin-bottom: 30px;
     max-width: 1200px;
     margin: 0 auto;
+    margin-top: 20px;
 }
 
 
