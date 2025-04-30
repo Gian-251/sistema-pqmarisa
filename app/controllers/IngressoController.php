@@ -73,59 +73,56 @@ class IngressoController extends Controller
     function salvarIngresso()
     {
         try {
-            // Verifica se o cliente está logado
-            if (!isset($_SESSION['usuario']) && !isset($_SESSION['tipo']) == 'cliente') {
-                header('Location: login.php'); // Redireciona para a página de login
+            if (!isset($_SESSION['usuario']) || $_SESSION['tipo'] !== 'cliente') {
+                header('Location: login.php');
                 exit();
             }
-
-
-            // Valida dados do formulário
+    
             $qtde_compra = filter_input(INPUT_POST, 'quantidade', FILTER_VALIDATE_INT);
             $valor_total = filter_input(INPUT_POST, 'valor_total', FILTER_VALIDATE_FLOAT);
-
+    
             if ($qtde_compra === false || $qtde_compra <= 0) {
                 throw new Exception("Quantidade de ingressos inválida");
             }
-
+    
             if ($valor_total === false || $valor_total <= 0) {
                 throw new Exception("Valor total inválido");
             }
-
+    
             $id_cliente = $_SESSION['usuario']['id_cliente'];
             $valor_unit = 10.00;
             $status = 'pendente';
-            $qtde_pendente = $qtde_compra; // Quantidade pendente deve ser igual à comprada inicialmente
-
-            // Gera código QR único
+            $qtde_pendente = $qtde_compra;
+    
             $cod_qr = 'qr_' . uniqid() . '_' . bin2hex(random_bytes(4));
             $alt_qr = 'QR Code do ingresso #' . $cod_qr;
-
-            // Define a pasta onde será salvo o QR code (com permissões mais seguras)
+    
             $pasta_qr = 'public/uploads/qrcodes/';
             if (!file_exists($pasta_qr)) {
                 if (!mkdir($pasta_qr, 0755, true)) {
                     throw new Exception("Falha ao criar diretório para QR Codes");
                 }
             }
-
-            // Inclui a biblioteca QR Code
-            include_once('../../public/assets/php-qrcode-5.0.3/src/QRCode.php');
-
-
-
-            // Caminho completo do arquivo PNG
+    
+            // Caminho final do arquivo PNG
             $caminho_qr = $pasta_qr . $cod_qr . '.png';
-
-            // Gera o QR Code
-            QRcode::png($cod_qr, $caminho_qr, QR_ECLEVEL_H, 10);
-
-            // Verifica se o QR code foi gerado
+    
+            // Carrega o autoloader do Composer
+            require_once __DIR__ . '/../../vendor/autoload.php';
+    
+            $options = new QROptions([
+                'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+                'eccLevel'   => QRCode::ECC_H,
+                'version'    => 5,
+            ]);
+    
+            // Gera o QRCode e salva como imagem
+            (new QRCode($options))->render($cod_qr, $caminho_qr);
+    
             if (!file_exists($caminho_qr)) {
                 throw new Exception("Falha ao gerar QR Code");
             }
-
-            // Prepara dados para salvar
+    
             $dadosIngresso = [
                 'id_cliente' => $id_cliente,
                 'qtde_compra_ingresso' => $qtde_compra,
@@ -137,8 +134,7 @@ class IngressoController extends Controller
                 'foto_qr_ingresso' => $caminho_qr,
                 'alt_qr_ingresso' => $alt_qr
             ];
-
-            // Salva no banco - assumindo que $this->ingressoModel existe
+    
             if (!$this->ingressoListar->salvarIngresso(
                 $id_cliente,
                 $qtde_compra,
@@ -147,23 +143,19 @@ class IngressoController extends Controller
                 $valor_total,
                 $status
             )) {
-                // Remove o QR code gerado se falhar no banco
                 if (file_exists($caminho_qr)) {
                     unlink($caminho_qr);
                 }
                 throw new Exception("Falha ao salvar ingresso no banco de dados");
             }
-
+    
             $_SESSION['mensagem_sucesso'] = "Ingresso salvo com sucesso!";
             header('Location: /admin/ingresso/ingressoListar');
             exit();
         } catch (Exception $e) {
-            // Log do erro
             error_log("Erro ao salvar ingresso: " . $e->getMessage());
-
-            // Mensagem de erro para o usuário
             $_SESSION['mensagem_erro'] = "Erro ao salvar ingresso: " . $e->getMessage();
-            header('Location: ingresso'); // Redireciona de volta ao formulário
+            header('Location: ingresso');
             exit();
         }
     }
