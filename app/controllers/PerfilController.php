@@ -22,8 +22,8 @@ class PerfilController extends Controller
             $dados['conteudo'] = 'admin/perfil/agente';
             $this->carregarViews('admin/index', $dados);
         }else{
-            $dados['conteudo'] = 'admin/perfil/cliente';
-            $this->carregarViews('admin/index', $dados);
+            $dados['conteudo'] = 'usuario';
+            $this->carregarViews('usuario', $dados);
         }
 
      

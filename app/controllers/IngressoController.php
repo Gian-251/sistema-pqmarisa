@@ -126,7 +126,7 @@ class IngressoController extends Controller
             }
 
             $_SESSION['mensagem_sucesso'] = "Ingresso salvo com sucesso!";
-            header('Location: usuario'); // Redireciona para a página de usuário
+            header('Location: /admin/ingresso/ingressoListar');
             exit();
         } catch (Exception $e) {
             // Log do erro
