@@ -42,7 +42,7 @@ if (isset($_SESSION['mensagem'])) {
 
             <div class="ingresso">
                 <h2>Selecione a quantidade de ingressos</h2>
-                <form method="POST" action="index.php?url=ingresso/salvarIngresso">
+                <form method="POST" action="ingresso/salvarIngresso">
                     <div class="tipo-ingresso">
                         <span>Ingresso (R$ 10,00)</span>
                         <div class="quantidade">

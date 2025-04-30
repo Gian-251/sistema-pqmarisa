@@ -41,7 +41,8 @@ class Ingresso extends Model
         $qtde_pendente,
         $valor_unit,
         $valor_total,
-        $status
+        $status,
+        $cod_qr // ainda usamos o código para identificação, mas não a imagem
     ) {
         $sql = "INSERT INTO tbl_ingresso (
             id_cliente, 
@@ -51,33 +52,29 @@ class Ingresso extends Model
             valor_total_ingresso, 
             status_ingresso, 
             data_compra_ingresso,
-            cod_qr_ingresso,
-            foto_qr_ingresso,
-            alt_qr_ingresso
+            cod_qr_ingresso
         ) VALUES (
             :id_cliente,
             :qtde_compra, 
             :qtde_pendente, 
             :valor_unit,
             :valor_total,
-            :tatus,
-
+            :status,
+            NOW(),
+            :cod_qr
         )";
-    
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':id_cliente', $id_cliente, PDO::PARAM_INT);
         $stmt->bindValue(':qtde_compra', $qtde_compra, PDO::PARAM_INT);
         $stmt->bindValue(':qtde_pendente', $qtde_pendente, PDO::PARAM_INT);
-        $stmt->bindValue(':valor_unit', $valor_unit);
-        $stmt->bindValue(':valor_total', $valor_total);
-        $stmt->bindValue(':tatus', $status);
-    
-        if ($stmt->execute()) {
-            $lastId = $this->db->lastInsertId();
-            echo json_encode(['success' => true, 'id_ingresso' => $lastId]);
-        } else {
-            echo json_encode(['success' => false, 'error' => $stmt->errorInfo()[2]]);
-        }
-        exit();
+        $stmt->bindValue(':valor_unit', $valor_unit, PDO::PARAM_STR);
+        $stmt->bindValue(':valor_total', $valor_total, PDO::PARAM_STR);
+        $stmt->bindValue(':status', $status, PDO::PARAM_STR);
+        $stmt->bindValue(':cod_qr', $cod_qr, PDO::PARAM_STR);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
     }
-}    
+}
