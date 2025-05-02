@@ -35,46 +35,48 @@ class Ingresso extends Model
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    public function salvarIngresso(
-        $id_cliente,
-        $qtde_compra,
-        $qtde_pendente,
-        $valor_unit,
-        $valor_total,
-        $status,
-        $cod_qr // ainda usamos o código para identificação, mas não a imagem
-    ) {
-        $sql = "INSERT INTO tbl_ingresso (
-            id_cliente, 
-            qtde_compra_ingresso, 
-            qtde_pendente_ingresso, 
-            valor_unit_ingresso, 
-            valor_total_ingresso, 
-            status_ingresso, 
-            data_compra_ingresso,
-            cod_qr_ingresso
-        ) VALUES (
-            :id_cliente,
-            :qtde_compra, 
-            :qtde_pendente, 
-            :valor_unit,
-            :valor_total,
-            :status,
-            NOW(),
-            :cod_qr
-        )";
+    public function salvarIngresso(array $dados): bool {
+        try {
+            $sql = "INSERT INTO tbl_ingresso (
+                        id_cliente,
+                        qtde_compra_ingresso,
+                        qtde_pendente_ingresso,
+                        cod_qr_ingresso,
+                        foto_qr_ingresso,
+                        alt_qr_ingresso,
+                        data_compra_ingresso,
+                        valor_unit_ingresso,
+                        valor_total_ingresso,
+                        status_ingresso
+                    ) VALUES (
+                        :id_cliente,
+                        :qtde_compra_ingresso,
+                        :qtde_pendente_ingresso,
+                        :cod_qr_ingresso,
+                        :foto_qr_ingresso,
+                        :alt_qr_ingresso,
+                        NOW(),
+                        :valor_unit_ingresso,
+                        :valor_total_ingresso,
+                        :status_ingresso
+                    )";
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id_cliente', $id_cliente, PDO::PARAM_INT);
-        $stmt->bindValue(':qtde_compra', $qtde_compra, PDO::PARAM_INT);
-        $stmt->bindValue(':qtde_pendente', $qtde_pendente, PDO::PARAM_INT);
-        $stmt->bindValue(':valor_unit', $valor_unit, PDO::PARAM_STR);
-        $stmt->bindValue(':valor_total', $valor_total, PDO::PARAM_STR);
-        $stmt->bindValue(':status', $status, PDO::PARAM_STR);
-        $stmt->bindValue(':cod_qr', $cod_qr, PDO::PARAM_STR);
+            $stmt = $this->db->prepare($sql);
+            return $stmt->execute([
+                ':id_cliente'              => $dados['id_cliente'],
+                ':qtde_compra_ingresso'    => $dados['qtde_compra_ingresso'],
+                ':qtde_pendente_ingresso'  => $dados['qtde_pendente_ingresso'],
+                ':cod_qr_ingresso'         => $dados['cod_qr_ingresso'],
+                ':foto_qr_ingresso'        => $dados['foto_qr_ingresso'],
+                ':alt_qr_ingresso'         => $dados['alt_qr_ingresso'],
+                ':valor_unit_ingresso'     => $dados['valor_unit_ingresso'],
+                ':valor_total_ingresso'    => $dados['valor_total_ingresso'],
+                ':status_ingresso'         => $dados['status_ingresso']
+            ]);
 
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+        } catch (PDOException $e) {
+            error_log("Erro ao inserir ingresso: " . $e->getMessage());
+            return false;
+        }
     }
 }

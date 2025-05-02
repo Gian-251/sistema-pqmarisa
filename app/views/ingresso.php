@@ -516,13 +516,7 @@ if (isset($_SESSION['mensagem'])) {
             // ... (restante do código permanece o mesmo)
 
             // Remova o evento de clique do btnAdicionar e deixe o formulário fazer o submit
-            document.getElementById('btn-adicionar').addEventListener('click', function(e) {
-                const qtd = parseInt(document.querySelector('.qtd-ingresso').value);
-                if (qtd <= 0) {
-                    e.preventDefault(); // Impede o envio do formulário
-                    alert('Selecione pelo menos um ingresso.');
-                }
-            });
+            
         });
     </script>
 </body>
