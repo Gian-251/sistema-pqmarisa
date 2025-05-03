@@ -1,7 +1,6 @@
 <?php
 
-use chillerlan\QRCode\QRCode;
-use chillerlan\QRCode\QROptions;
+
 
 
 class IngressoController extends Controller
@@ -58,7 +57,7 @@ class IngressoController extends Controller
     public function getItensAtivos()
     {
         $sql = "
-            SELECT 'servico' AS tipo, id_servico AS id, nome_servico AS nome, descricao_servico AS descricao, 
+                SELECT 'servico' AS tipo, id_servico AS id, nome_servico AS nome, descricao_servico AS descricao, 
                    valor_servico AS valor, foto_servico AS foto, alt_servico AS alt
             FROM tbl_servico 
             WHERE status_servico = 'ATIVO'
@@ -75,93 +74,77 @@ class IngressoController extends Controller
 
     public function salvarIngresso()
     {
-        try {
-
-            // Verifica se está logado como cliente
-            if (!isset($_SESSION['usuario']) || $_SESSION['tipo'] !== 'cliente') {
-                header('Location: /login');
-                exit();
-            }
-
-            // Validação dos dados
-            $qtde_compra = filter_input(INPUT_POST, 'quantidade', FILTER_VALIDATE_INT);
-            $valor_total = filter_input(INPUT_POST, 'valor_total', FILTER_VALIDATE_FLOAT);
-
-            if ($qtde_compra === false || $qtde_compra <= 0) {
-                throw new \Exception("Quantidade de ingressos inválida");
-            }
-
-            if ($valor_total === false || $valor_total <= 0) {
-                throw new \Exception("Valor total inválido");
-            }
-
-            $id_cliente = $_SESSION['usuario']['id_cliente'];
-            $valor_unit = 10.00;
-            $status = 'pendente';
-            $qtde_pendente = $qtde_compra;
-
-            // Geração do código e nome do QR Code
-            $cod_qr = 'qr_' . uniqid() . '_' . bin2hex(random_bytes(4));
-            $alt_qr = 'QR Code do ingresso #' . $cod_qr;
-            $pasta_qr = 'public/uploads/qrcodes/';
-
-            // Cria a pasta se não existir
-            if (!file_exists($pasta_qr)) {
-                if (!mkdir($pasta_qr, 0755, true)) {
-                    throw new \Exception("Erro ao criar diretório de QR Codes.");
-                }
-            }
-
-            // Caminho onde o QR será salvo
-            $caminho_qr = $pasta_qr . $cod_qr . '.png';
-
-            // Autoload do Composer (ajuste o caminho se necessário)
-            require_once __DIR__ . '/../../vendor/autoload.php';
-
-            // Configurações do QR Code
-            $options = new QROptions([
-                'outputType' => QRCode::OUTPUT_IMAGE_PNG,
-                'eccLevel'   => QRCode::ECC_H,
-                'scale'      => 10,
-            ]);
-
-            // Gera e salva o QR Code
-            (new QRCode($options))->render($cod_qr, $caminho_qr);
-
-            if (!file_exists($caminho_qr)) {
-                throw new \Exception("Falha ao gerar o QR Code.");
-            }
-
-            // Dados para inserir no banco
-            $dadosIngresso = [
-                'id_cliente'              => $id_cliente,
-                'qtde_compra_ingresso'    => $qtde_compra,
-                'qtde_pendente_ingresso'  => $qtde_pendente,
-                'valor_unit_ingresso'     => $valor_unit,
-                'valor_total_ingresso'    => $valor_total,
-                'status_ingresso'         => $status,
-                'cod_qr_ingresso'         => $cod_qr,
-                'foto_qr_ingresso'        => $caminho_qr,
-                'alt_qr_ingresso'         => $alt_qr
-            ];
-
-            // Salva no banco
-            if (!$this->ingressoListar->salvarIngresso($dadosIngresso)) {
-                // Remove o QR gerado caso ocorra erro
-                if (file_exists($caminho_qr)) {
-                    unlink($caminho_qr);
-                }
-                throw new \Exception("Erro ao salvar ingresso no banco de dados.");
-            }
-
-            $_SESSION['mensagem_sucesso'] = "Ingresso salvo com sucesso!";
-            header('Location: /admin/ingresso/ingressoListar');
-            exit();
-        } catch (\Exception $e) {
-            error_log("Erro ao salvar ingresso: " . $e->getMessage());
-            $_SESSION['mensagem_erro'] = "Erro ao salvar ingresso: " . $e->getMessage();
-            header('Location: /ingresso');
+        if (!isset($_SESSION['usuario']) || $_SESSION['tipo'] !== 'cliente') {
+            header('Location: login.php');
             exit();
         }
+    
+        $qtde_compra = filter_input(INPUT_POST, 'quantidade', FILTER_VALIDATE_INT);
+        $valor_total = filter_input(INPUT_POST, 'valor_total', FILTER_VALIDATE_FLOAT);
+    
+        if ($qtde_compra === false || $qtde_compra <= 0) {
+            throw new Exception("Quantidade de ingressos inválida");
+        }
+    
+        if ($valor_total === false || $valor_total <= 0) {
+            throw new Exception("Valor total inválido");
+        }
+    
+        $id_cliente = $_SESSION['usuario']['id_cliente'];
+        $valor_unit = 10.00;
+        $status = 'pendente';
+        $qtde_pendente = $qtde_compra;
+
+      
+        
+    
+        $cod_qr = 'qr_' . uniqid() . '_' . bin2hex(random_bytes(4));
+        $alt_qr = 'QR Code do ingresso #' . $cod_qr;
+
+        
+    
+        // Inclui o gerador de QR Code
+        include_once $_SERVER['DOCUMENT_ROOT'] . '/sistema-pqmarisa/app/models/qrcode.php';
+    
+        // Texto do QR code será o código gerado
+        $text = $cod_qr;
+        $name = md5(time()) . ".png";
+        $file = "public\uploads\qrcode{$name}";
+
+       
+    
+        $options = ['w' => 500, 'h' => 500];
+        $generator = new QRCode($text, $options);
+        $image = $generator->render_image();
+        imagepng($image, $file);
+
+        var_dump($image);
+    
+        $dadosIngresso = array (          
+       'id_cliente' => $id_cliente,
+        'qtde_compra_ingresso' => $qtde_compra,
+        'qtde_pendente_ingresso' => $qtde_pendente,
+        'valor_unit_ingresso' => $valor_unit,
+        'valor_total_ingresso' => $valor_total,
+        'status_ingresso' => $status,
+        'cod_qr_ingresso' => $cod_qr,
+        'foto_qr_ingresso' => $file,
+        'alt_qr_ingresso' => $alt_qr,
+        'data_compra_ingresso' => date('Y-m-d H:i:s'));
+
+        $ingresso = new Ingresso();
+        $ingresso->salvarIngresso($dadosIngresso);
+
+        
+
+    
+        if (!$this->ingressoListar->salvarIngresso($dadosIngresso)) {
+            throw new Exception("Falha ao salvar ingresso no banco de dados");
+        }
+    
+        $_SESSION['mensagem_sucesso'] = "Ingresso salvo com sucesso!";
+        header('Location: usuario');
+        exit();
     }
+    
 }
