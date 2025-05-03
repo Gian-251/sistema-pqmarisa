@@ -32,7 +32,7 @@ if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
 	exit(0);
 }
 
-class QRCode {
+class QRCode extends Model{
 	private $data;
 	private $options;
 
