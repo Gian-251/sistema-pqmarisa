@@ -109,7 +109,7 @@ class IngressoController extends Controller
         // Texto do QR code será o código gerado
         $text = $cod_qr;
         $name = md5(time()) . ".png";
-        $file = "public\uploads\qrcode{$name}";
+        $file = "uploads\qrcode{$name}";
 
        
     
