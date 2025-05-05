@@ -118,7 +118,6 @@ class IngressoController extends Controller
         $image = $generator->render_image();
         imagepng($image, $file);
 
-        var_dump($image);
     
         $dadosIngresso = array (          
        'id_cliente' => $id_cliente,
@@ -135,12 +134,6 @@ class IngressoController extends Controller
         $ingresso = new Ingresso();
         $ingresso->salvarIngresso($dadosIngresso);
 
-        
-
-    
-        if (!$this->ingressoListar->salvarIngresso($dadosIngresso)) {
-            throw new Exception("Falha ao salvar ingresso no banco de dados");
-        }
     
         $_SESSION['mensagem_sucesso'] = "Ingresso salvo com sucesso!";
         header('Location: usuario');
