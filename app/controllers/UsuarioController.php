@@ -10,7 +10,7 @@ class UsuarioController extends Controller
 
         // Verifica se o usuário está logado
         if (!isset($_SESSION['usuario']) && !isset($_SESSION['tipo']) == 'cliente') {
-            header('Location: login.php'); // Redireciona para a página de login
+            header('Location: login'); // Redireciona para a página de login
             exit();
         }
 
@@ -20,6 +20,7 @@ class UsuarioController extends Controller
 
         $ingresso = new Ingresso();
         $ingresso = $ingresso->getIngressoByClienteId($_SESSION['usuario']['id_cliente']);
+           
         $dados['ingresso'] = $ingresso;
 
         $dados['titulo'] = 'usuario - Marisa Parque Itaquera';

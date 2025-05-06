@@ -14,7 +14,7 @@ class IngressoController extends Controller
 
 
         if (!isset($_SESSION['usuario']) && !isset($_SESSION['tipo']) == 'cliente') {
-            header('Location: login.php'); // Redireciona para a página de login
+            header('Location: login'); // Redireciona para a página de login
             exit();
         }
 
@@ -120,7 +120,7 @@ class IngressoController extends Controller
 
     
         $dadosIngresso = array (          
-       'id_cliente' => $id_cliente,
+        'id_cliente' => $id_cliente,
         'qtde_compra_ingresso' => $qtde_compra,
         'qtde_pendente_ingresso' => $qtde_pendente,
         'valor_unit_ingresso' => $valor_unit,
