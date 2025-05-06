@@ -32,7 +32,7 @@ require_once('template/topomenu.php');
         <section class="site">
             <h2 class="infoDadosCliente">Informações do Ingresso</h2>
             <div class="ingressoTabela">
-                <?php if ($ingresso): ?>
+                <?php if (!empty($ingresso)): ?>
                     <table class="table table-dark table-striped table-bordered">
                         <thead>
                             <tr>
@@ -48,58 +48,62 @@ require_once('template/topomenu.php');
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><?php echo $ingresso['id_ingresso']; ?></td>
-                                <td><?php echo $ingresso['qtde_compra_ingresso']; ?></td>
-                                <td id="qtde-pendente"><?php echo $ingresso['qtde_pendente_ingresso']; ?></td>
-                                <td>R$ <?php echo number_format($ingresso['valor_unit_ingresso'], 2, ',', '.'); ?></td>
-                                <td>R$ <?php echo number_format($ingresso['valor_total_ingresso'], 2, ',', '.'); ?></td>
-                                <td><?php echo date('d/m/Y H:i', strtotime($ingresso['data_compra_ingresso'])); ?></td>
-                                <td>
-                                    <?php if ($ingresso['status_ingresso'] == 'Ativo'): ?>
-                                        <span class="badge bg-success">Ativo</span>
-                                    <?php elseif ($ingresso['status_ingresso'] == 'Inativo'): ?>
-                                        <span class="badge bg-secondary">Inativo</span>
-                                    <?php else: ?>
-                                        <span class="badge bg-warning text-dark"><?php echo $ingresso['status_ingresso']; ?></span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <?php if ($ingresso['status_ingresso'] != 'Pendente' && isset($ingresso['qr_code_path'])): ?>
-                                        <img src="<?php echo $ingresso['qr_code_path']; ?>" alt="QR Code do Ingresso" width="100" id="qrcode-img">
-                                        <button class="btn btn-sm btn-info mt-2" onclick="atualizarQRCode()">Atualizar QR</button>
-                                    <?php else: ?>
-                                        QR Code indisponível (pendente)
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <?php if ($ingresso['status_ingresso'] == 'Ativo'): ?>
-                                        <button class="btn btn-sm btn-primary" onclick="usarQRCode(<?php echo $ingresso['id_ingresso']; ?>)">Usar Ingresso</button>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
+                            <?php foreach ($ingresso as $item):  ?>
+                
+                                <tr>
+                                    <td><?php echo $item['id_ingresso']; ?></td>
+                                    <td><?php echo $item['qtde_compra_ingresso']; ?></td>
+                                    <td class="qtde-pendente"><?php echo $item['qtde_pendente_ingresso']; ?></td>
+                                    <td>R$ <?php echo number_format($item['valor_unit_ingresso'], 2, ',', '.'); ?></td>
+                                    <td>R$ <?php echo number_format($item['valor_total_ingresso'], 2, ',', '.'); ?></td>
+                                    <td><?php echo date('d/m/Y H:i', strtotime($item['data_compra_ingresso'])); ?></td>
+                                    <td>
+                                        <?php if ($item['status_ingresso'] == 'Ativo'): ?>
+                                            <span class="badge bg-success">Ativo</span>
+                                        <?php elseif ($item['status_ingresso'] == 'Inativo'): ?>
+                                            <span class="badge bg-secondary">Inativo</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-warning text-dark"><?php echo $item['status_ingresso']; ?></span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php if ($item['status_ingresso'] != 'Pendente' && isset($item['qr_code_path'])): ?>
+                                            <img src="<?php echo $item['qr_code_path']; ?>" alt="QR Code do Ingresso" width="100" data-bs-toggle="modal" data-bs-target="#qrcodeModal<?php echo $item['id_ingresso']; ?>" style="cursor:pointer;">
+                                            <button class="btn btn-sm btn-info mt-2" onclick="atualizarQRCode()">Atualizar QR</button>
+                                        <?php else: ?>
+                                            QR Code indisponível (pendente)
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php if ($item['status_ingresso'] == 'Ativo'): ?>
+                                            <button class="btn btn-sm btn-primary" onclick="usarQRCode(<?php echo $item['id_ingresso']; ?>)">Usar Ingresso</button>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+
+                                <!-- Modal para cada QR Code -->
+                                <div class="modal fade" id="qrcodeModal<?php echo $item['id_ingresso']; ?>" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <?php if (isset($item['qr_code_path'])): ?>
+                                                    <img src="<?php echo $item['qr_code_path']; ?>" alt="QR Code Ampliado" class="img-fluid">
+                                                    <p class="mt-3">Usos restantes: <span id="modal-qtde-pendente"><?php echo $item['qtde_pendente_ingresso']; ?></span></p>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
-
-                    <!-- Modal para visualização do QR Code -->
-                    <div class="modal fade" id="qrcodeModal" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body text-center">
-                                    <?php if (isset($ingresso['qr_code_path'])): ?>
-                                        <img src="<?php echo $ingresso['qr_code_path']; ?>" alt="QR Code Ampliado" class="img-fluid">
-                                        <p class="mt-3">Usos restantes: <span id="modal-qtde-pendente"><?php echo $ingresso['qtde_pendente_ingresso']; ?></span></p>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 <?php else: ?>
                     <p><strong>Não há ingresso registrado para você.</strong></p>
                     <a href="compra_ingresso.php" class="btn btn-primary">Comprar Ingresso</a>
                 <?php endif; ?>
             </div>
         </section>
+
     </main>
 
     <footer>
