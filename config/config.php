@@ -9,6 +9,12 @@ define('DB_USER', 'u283879542_marisa');
 define('DB_PASS', '@MarisaPxLab12');
 define('DB_NAME', 'u283879542_marisa');
 
+// define('DB_HOST', 'localhost');
+// define('DB_USER', 'root');
+// define('DB_PASS', '');
+// define('DB_NAME', 'u283879542_marisa');
+
+
 //configuração do emails 
 define('EMAIL_HOST', 'smtp.hostinger.com');
 define('EMAIL_USER', 'ti26@smpsistema.com.br');
