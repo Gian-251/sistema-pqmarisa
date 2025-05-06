@@ -136,7 +136,7 @@ class IngressoController extends Controller
 
     
         $_SESSION['mensagem_sucesso'] = "Ingresso salvo com sucesso!";
-        header('Location: usuario');
+        header('Location: /usuario');
         exit();
     }
     

@@ -31,12 +31,11 @@ class LoginController extends Controller {
                     'senha_cliente' => $_POST['senha_cliente']
                 ];
 
-                // Cadastra o cliente
+                // Cadastra o cliente   
                 $idCliente = $this->clienteModel->cadastrar($dadosCliente);
 
                 // Redireciona para uma página de sucesso
                 echo '<script>alert("Cadastro realizado com sucesso!");</script>';
-                header('Location: login');
                 exit;
             } catch (Exception $e) {
                 // Exibe mensagem de erro
@@ -44,6 +43,8 @@ class LoginController extends Controller {
                 $this->carregarViews('login', $dados); // Volta para a página de login com a mensagem de erro
                 
             }
+            
+
             
         }
 
