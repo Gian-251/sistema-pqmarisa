@@ -29,11 +29,11 @@ class Ingresso extends Model
     }
     public function getIngressoByClienteId($id_cliente)
     {
-        $sql = "SELECT * FROM tbl_ingresso WHERE id_cliente = :id_cliente LIMIT 1";
+        $sql = "SELECT * FROM tbl_ingresso WHERE id_cliente = :id_cliente";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':id_cliente', $id_cliente);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function salvarIngresso(array $dados): bool {
         try {
