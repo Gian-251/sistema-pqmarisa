@@ -36,6 +36,7 @@ class LoginController extends Controller {
 
                 // Redireciona para uma página de sucesso
                 echo '<script>alert("Cadastro realizado com sucesso!");</script>';
+                header('Location: /');
                 exit;
             } catch (Exception $e) {
                 // Exibe mensagem de erro
